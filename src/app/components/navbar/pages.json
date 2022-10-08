@@ -1,0 +1,7 @@
+[
+  {
+    "link": "register",
+    "name": "Register now"
+  },
+  { "link": "login", "name": "Log in" }
+]
