@@ -1,0 +1,16 @@
+{
+  "navbar": {
+    "register": "Sign up",
+    "login": "Log in"
+  },
+  "registration": {
+    "title": "Register",
+    "name": "Name",
+    "surname": "Surname",
+    "email": "E-mail",
+    "password": "Password",
+    "passwordConfirm": "Password confirmation",
+    "passwordConfirmHint": "Passwords don't match",
+    "register": "Register"
+  }
+}

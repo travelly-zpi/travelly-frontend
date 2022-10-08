@@ -4,10 +4,12 @@ import { Container } from "@mui/material";
 
 const AppContainer = () => {
   return (
-    <Container maxWidth="lg">
+    <>
       <NavBar />
-      <Outlet />
-    </Container>
+      <Container maxWidth="lg" sx={{ my: 2 }}>
+        <Outlet />
+      </Container>
+    </>
   );
 };
 

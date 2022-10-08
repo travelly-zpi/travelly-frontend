@@ -1,0 +1,16 @@
+{
+  "navbar": {
+    "register": "Zarejestruj się",
+    "login": "Zaloguj się"
+  },
+  "registration": {
+    "title": "Rejestracja",
+    "name": "Imie",
+    "surname": "Nazwisko",
+    "email": "E-mail",
+    "password": "Hasło",
+    "passwordConfirm": "Potwierdzenie hasła",
+    "passwordConfirmHint": "Hasła są różne",
+    "register": "Zarejestruj się"
+  }
+}

@@ -1,0 +1,10 @@
+{
+  "unauthorized": [
+    {
+      "link": "/register",
+      "translationKey": "navbar.register"
+    },
+    { "link": "/login", "translationKey": "navbar.login" }
+  ],
+  "authorized": []
+}
