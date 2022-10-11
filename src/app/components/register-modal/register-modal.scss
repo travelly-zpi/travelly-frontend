@@ -1,0 +1,32 @@
+.register-container {
+  display: flex;
+  height: 100%;
+  .image-block {
+    width: 50%;
+    background-color: #fafafa;
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+    align-items: center;
+
+    svg {
+      width: 406px;
+      height: 412px;
+      margin-top: 45px;
+      margin-bottom: 75px;
+    }
+
+    .logo {
+      height: 34px;
+      width: 145px !important;
+    }
+  }
+
+  .form-block {
+    width: 50%;
+    padding: 75px 105px 75px 112px;
+    display: flex;
+    flex-direction: column;
+    gap: 50px;
+  }
+}
