@@ -1,17 +1,24 @@
+import "antd/dist/antd.variable.min.css";
+import "@fontsource/poppins/300.css";
+import "@fontsource/poppins/400.css";
+import "@fontsource/poppins/500.css";
+import "@fontsource/poppins/700.css";
+import "./index.scss";
+
 import React from "react";
 import ReactDOM from "react-dom/client";
 import reportWebVitals from "./reportWebVitals";
 import { BrowserRouter } from "react-router-dom";
-import { CssBaseline } from "@mui/material";
-
-import "./index.css";
-import "./i18n";
+import { ConfigProvider } from "antd";
 import App from "./app/app";
 
-import "@fontsource/roboto/300.css";
-import "@fontsource/roboto/400.css";
-import "@fontsource/roboto/500.css";
-import "@fontsource/roboto/700.css";
+import "./i18n";
+
+ConfigProvider.config({
+  theme: {
+    primaryColor: "#FF812C",
+  },
+});
 
 const root = ReactDOM.createRoot(
   document.getElementById("root") as HTMLElement
@@ -19,7 +26,6 @@ const root = ReactDOM.createRoot(
 
 root.render(
   <React.StrictMode>
-    <CssBaseline />
     <BrowserRouter>
       <App />
     </BrowserRouter>

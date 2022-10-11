@@ -1,0 +1,19 @@
+.home-card {
+  width: 240px;
+  height: 260px;
+
+  background-color: #fff;
+
+  img {
+    width: 240px;
+    height: auto;
+  }
+
+  .home-card-text {
+    padding: 10px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: flex-start;
+  }
+}

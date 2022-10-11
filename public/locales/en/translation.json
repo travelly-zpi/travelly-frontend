@@ -3,6 +3,36 @@
     "register": "Sign up",
     "login": "Log in"
   },
+  "footer": {},
+  "homePage": {
+    "first": {
+      "title": "A space to share a\nworld to gain",
+      "subTitle": "If you wish to travel without breaking the bank and stay with the\nlocals, find the perfect ride or just share your trip with other people\nTravelly is the right social network for you! Creating a profile on the\nsite will give you the opportunity to find offers in 100,000 cities\nworldwide. And it’s not just all about just finding free places to stay:\nTravelly aims to create real intercultural exchanges. All you need to\ndo is sign up and join a group you are interested in.",
+      "buttonText": "See more"
+    },
+    "second": {
+      "title": "What you can find with <bold>Travelly</bold>",
+      "accommodation": "Accommodation",
+      "accommodationSubTitle": "Find hosts who offer up their spare room to travelers",
+      "carpooling": "Carpooling",
+      "carpoolingSubTitle": "Find the perfect ride from wide range of destinations",
+      "travelBuddies": "Travel buddies",
+      "travelBuddiesSubTitle": "Finding new friends while \ntravelling is simple",
+      "tours": "Tours by locals",
+      "toursSubTitle": "Find locals who are ready to \nshow their favourite spots"
+    },
+    "third": {
+      "title": "Bring people together with <bold>Travelly</bold>",
+      "subTitle": "It’s easy to quickly make new friends, meet people and share an activity: concerts, hiking,\n museums, or just have some fun.",
+      "firstTitle": "Travel the world",
+      "firstSubTitle": "Travelly provides you with amazing diversity and breadth of\nchoice - all in one place.",
+      "secondTitle": "Become a host",
+      "secondSubTitle": "Give back and open your home to travelers. Learn about a new\nculture first-hand or practice a language.",
+      "thirdTitle": "Find people or join a group",
+      "thirdSubTitle": "With Travelly, you can find people or stay with locals in every\ncountry on earth. Travel like a local, stay in someone's home"
+    }
+  },
+
   "registration": {
     "title": "Register",
     "name": "Name",

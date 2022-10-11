@@ -1,15 +1,25 @@
-import NavBar from "../navbar/navbar";
 import { Outlet } from "react-router-dom";
-import { Container } from "@mui/material";
+import { Breadcrumb, Layout, Menu } from "antd";
+import Header from "app/components/header/header";
+import Footer from "app/components/footer/footer";
+import "./app-container.scss";
+
+const { Content } = Layout;
 
 const AppContainer = () => {
   return (
-    <>
-      <NavBar />
-      <Container maxWidth="lg" sx={{ my: 2 }}>
+    <Layout className="layout">
+      <Header />
+      <Content className="content">
+        {/*<Breadcrumb style={{ margin: "16px 0" }}>*/}
+        {/*  <Breadcrumb.Item>Home</Breadcrumb.Item>*/}
+        {/*  <Breadcrumb.Item>List</Breadcrumb.Item>*/}
+        {/*  <Breadcrumb.Item>App</Breadcrumb.Item>*/}
+        {/*</Breadcrumb>*/}
         <Outlet />
-      </Container>
-    </>
+      </Content>
+      <Footer />
+    </Layout>
   );
 };
 
