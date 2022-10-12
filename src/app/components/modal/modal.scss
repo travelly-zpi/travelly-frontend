@@ -11,7 +11,7 @@
   z-index: 5;
 
   .modal-container {
-    width: 970px;
+    width: 485px;
     height: 640px;
     background: #fff;
     position: relative;
@@ -38,6 +38,14 @@
           transform: scale(1.1);
         }
       }
+    }
+  }
+}
+
+@media (min-width: 800px) {
+  .modal {
+    .modal-container {
+      width: 970px;
     }
   }
 }

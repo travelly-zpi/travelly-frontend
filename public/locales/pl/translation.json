@@ -3,14 +3,54 @@
     "register": "Zarejestruj się",
     "login": "Zaloguj się"
   },
-  "registration": {
+  "footer": {
+    "copyright": "Wszelkie prawa zastrzeżone."
+  },
+  "homePage": {
+    "first": {
+      "title": "Przestrzeń do dzielenia\nsię światem do zdobycia",
+      "subTitle": "Jeśli chcesz podróżować bez rozbijania banku i zostać z mieszkańcami,\nznajdź idealny pojazd lub po prostu podziel się swoją podróżą z innymi ludźmi Travelly to odpowiedni portal społecznościowy dla Ciebie!\nStworzenie profilu w serwisie da Ci możliwość znalezienia ofert\nw 100 000 miastach na całym świecie. I nie chodzi tylko o\nznalezienie wolnych miejsc noclegowych:\nTravelly ma na celu stworzenie prawdziwej wymiany międzykulturowej.\nWystarczy się zarejestrować i dołączyć do grupy, która Cię interesuje.",
+      "buttonText": "Zobacz więcej"
+    },
+    "second": {
+      "title": "Co znajdziesz z <bold>Travelly</bold>",
+      "accommodation": "Zakwaterowanie",
+      "accommodationSubTitle": "Znajdź gospodarzy, którzy oferują podróżnym swój wolny pokój",
+      "carpooling": "Wspólne przejazdy",
+      "carpoolingSubTitle": "Znajdź idealną jazdę z wielu miejsc",
+      "travelBuddies": "Kumple z podróży",
+      "travelBuddiesSubTitle": "Znalezienie nowych przyjaciół podczas podróży jest proste",
+      "tours": "Wycieczki przez miejscowych",
+      "toursSubTitle": "Znajdź mieszkańców, którzy są gotowi pokazać swoje ulubione miejsca"
+    },
+    "third": {
+      "title": "Połącz ludzi z <bold>Travelly</bold>",
+      "subTitle": "Łatwo jest szybko nawiązać nowe znajomości, poznać ludzi i dzielić się aktywnością:\nkoncertami, wędrówkami, muzeami lub po prostu dobrą zabawą.",
+      "firstTitle": "Podróżować przez świat",
+      "firstSubTitle": "Travelly zapewnia niesamowitą różnorodność i szeroki wybór - wszystko w jednym miejscu.",
+      "secondTitle": "Zostań gospodarzem",
+      "secondSubTitle": "Oddaj i otwórz swój dom podróżnym. Dowiedz się o nowej kulturze z pierwszej ręki lub poćwicz język.",
+      "thirdTitle": "Znajdź osoby lub dołącz do grupy",
+      "thirdSubTitle": "Dzięki Travelly możesz znaleźć ludzi lub zamieszkać z mieszkańcami w każdym kraju na świecie. Podróżuj jak miejscowy, zostań w czyimś domu"
+    }
+  },
+  "login": {
+    "title": "Logowanie",
+    "subTitle1": "Nie masz konta? ",
+    "subTitle2": "Zarejestruj się",
+    "email": "Email",
+    "password": "Hasło",
+    "buttonText": "Zaloguj się"
+  },
+  "register": {
     "title": "Rejestracja",
+    "subTitle1": "Posiadasz już konto? ",
+    "subTitle2": "Zaloguj się",
     "name": "Imie",
     "surname": "Nazwisko",
     "email": "E-mail",
     "password": "Hasło",
-    "passwordConfirm": "Potwierdzenie hasła",
-    "passwordConfirmHint": "Hasła są różne",
-    "register": "Zarejestruj się"
+    "passwordConfirm": "Potwierdź hasło",
+    "buttonText": "Utwórz konto"
   }
 }

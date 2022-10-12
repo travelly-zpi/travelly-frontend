@@ -10,7 +10,7 @@ import {
   Typography,
 } from "antd";
 
-import logo from "app/assets/img/logo.jpeg";
+import logo from "app/assets/img/logo.png";
 
 import "./header.scss";
 import { GlobalOutlined } from "@ant-design/icons";
@@ -23,8 +23,7 @@ const { Text, Link } = Typography;
 
 const Header = () => {
   const { i18n, t } = useTranslation();
-  const [showRegisterModal, setShowRegisterModal] = useState(false);
-  const [showLoginModal, setShowLoginModal] = useState(false);
+  const [modal, setModal] = useState<null | "register" | "login">(null);
   const isAuthorized = false;
 
   const onLanguageChange: MenuProps["onClick"] = ({ key }) => {
@@ -49,11 +48,17 @@ const Header = () => {
 
   return (
     <>
-      {showRegisterModal && (
-        <RegisterModal onClose={() => setShowRegisterModal(false)} />
+      {modal === "register" && (
+        <RegisterModal
+          onClose={() => setModal(null)}
+          onModalSwitch={() => setModal("login")}
+        />
       )}
-      {showLoginModal && (
-        <LoginModal onClose={() => setShowLoginModal(false)} />
+      {modal === "login" && (
+        <LoginModal
+          onClose={() => setModal(null)}
+          onModalSwitch={() => setModal("register")}
+        />
       )}
       <AntHeader className="header">
         <Link href="/">
@@ -64,10 +69,10 @@ const Header = () => {
           <></>
         ) : (
           <div className="button-group">
-            <Button onClick={() => setShowLoginModal(true)}>
+            <Button onClick={() => setModal("login")}>
               {t("navbar.login")}
             </Button>
-            <Button type="primary" onClick={() => setShowRegisterModal(true)}>
+            <Button type="primary" onClick={() => setModal("register")}>
               {t("navbar.register")}
             </Button>
 

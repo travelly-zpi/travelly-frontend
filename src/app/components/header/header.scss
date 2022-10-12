@@ -14,3 +14,13 @@
     gap: 20px;
   }
 }
+
+.ant-layout-header {
+  padding: 0 5px;
+}
+
+@media (min-width: 800px) {
+  .ant-layout-header {
+    padding: 0 50px;
+  }
+}
