@@ -1,8 +1,10 @@
 .header {
+  height: 128px;
   background-color: #fff;
   display: flex;
   align-items: center;
-  justify-content: space-between;
+  justify-content: space-around;
+  flex-direction: column;
   filter: drop-shadow(0px 0px 10px rgba(0, 0, 0, 0.15));
 
   .logo {
@@ -20,6 +22,11 @@
 }
 
 @media (min-width: 800px) {
+  .header {
+    height: 64px;
+    flex-direction: row;
+    justify-content: space-between;
+  }
   .ant-layout-header {
     padding: 0 50px;
   }

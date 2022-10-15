@@ -6,6 +6,8 @@ import logo from "../../assets/img/logo.png";
 import { Button, Input, Typography } from "antd";
 import { EyeInvisibleOutlined, EyeTwoTone } from "@ant-design/icons";
 import { useTranslation } from "react-i18next";
+import axios from "axios";
+import { useEffect } from "react";
 
 const { Title, Text, Link } = Typography;
 
@@ -16,6 +18,12 @@ interface RegisterModalProps {
 
 const RegisterModal = ({ onClose, onModalSwitch }: RegisterModalProps) => {
   const { t } = useTranslation();
+
+  useEffect(() => {
+    axios
+      .post<any>("/user/authenticate", { userName: "root", password: "root" })
+      .then((data) => console.log(data));
+  }, []);
 
   return (
     <Modal onClose={onClose}>

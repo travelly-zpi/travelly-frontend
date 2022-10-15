@@ -13,6 +13,7 @@ import { ConfigProvider } from "antd";
 import App from "./app/app";
 
 import "./i18n";
+import "./setupAxios";
 
 ConfigProvider.config({
   theme: {
