@@ -1,5 +1,5 @@
 import "./modal.scss";
-import { useEffect, useState, ReactNode } from "react";
+import { useEffect, ReactNode } from "react";
 import { CloseOutlined } from "@ant-design/icons";
 
 interface ModalProps {
