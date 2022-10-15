@@ -1,22 +1,15 @@
 import * as React from "react";
 import { useTranslation } from "react-i18next";
-import {
-  Button,
-  Dropdown,
-  Layout,
-  Menu,
-  MenuProps,
-  Tooltip,
-  Typography,
-} from "antd";
+import { Button, Dropdown, Layout, Menu, Tooltip, Typography } from "antd";
 
 import logo from "app/assets/img/logo.png";
 
 import "./header.scss";
 import { GlobalOutlined } from "@ant-design/icons";
-import { useState } from "react";
+import { useContext, useEffect, useState } from "react";
 import RegisterModal from "../register-modal/register-modal";
 import LoginModal from "../login-modal/login-modal";
+import UserContext from "../../contexts/user-context";
 
 const { Header: AntHeader } = Layout;
 const { Text, Link } = Typography;
@@ -24,23 +17,27 @@ const { Text, Link } = Typography;
 const Header = () => {
   const { i18n, t } = useTranslation();
   const [modal, setModal] = useState<null | "register" | "login">(null);
-  const isAuthorized = false;
+  const [lang, setLang] = useState<string>(
+    localStorage.getItem("lang") || "en"
+  );
+  const { user, onLogout } = useContext(UserContext);
 
-  const onLanguageChange: MenuProps["onClick"] = ({ key }) => {
-    i18n.changeLanguage(key);
-  };
+  useEffect(() => {
+    i18n.changeLanguage(lang);
+    localStorage.setItem("lang", lang);
+  }, [lang, i18n]);
 
   const languageMenu = (
     <Menu
-      onClick={onLanguageChange}
+      onClick={({ key }) => setLang(key)}
       items={[
         {
           key: "en",
-          label: <Text strong={i18n.language === "en"}>English</Text>,
+          label: <Text strong={lang === "en"}>English</Text>,
         },
         {
           key: "pl",
-          label: <Text strong={i18n.language === "pl"}>Polski</Text>,
+          label: <Text strong={lang === "pl"}>Polski</Text>,
         },
       ]}
     />
@@ -65,8 +62,16 @@ const Header = () => {
           <img src={logo} alt="Travelly logo" className="logo" />
         </Link>
 
-        {isAuthorized ? (
-          <></>
+        {user ? (
+          <div className="button-group">
+            <Button onClick={onLogout}>Logout</Button>
+
+            <Dropdown overlay={languageMenu} placement="bottomRight">
+              <Tooltip title={t("")}>
+                <Button icon={<GlobalOutlined />}></Button>
+              </Tooltip>
+            </Dropdown>
+          </div>
         ) : (
           <div className="button-group">
             <Button onClick={() => setModal("login")}>
