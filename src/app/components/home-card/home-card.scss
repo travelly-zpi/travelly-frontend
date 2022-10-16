@@ -16,4 +16,8 @@
     justify-content: center;
     align-items: flex-start;
   }
+
+  &:hover {
+    transform: scale(1.1);
+  }
 }
