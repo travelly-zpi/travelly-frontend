@@ -35,7 +35,7 @@ const UserProfilePage = () => {
       .finally(() => {
         setIsLoading(false);
       });
-  }, []);
+  }, [navigate]);
 
   if (!loggedInUser) {
     return <Navigate to="/" />;
