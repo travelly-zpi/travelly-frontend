@@ -4,6 +4,9 @@
     "login": "Log in"
   },
   "footer": {},
+  "notFoundPage": {
+    "title": "Oops! This page could not be found"
+  },
   "homePage": {
     "first": {
       "title": "A space to share a\nworld to gain",
