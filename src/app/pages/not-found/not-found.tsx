@@ -12,7 +12,7 @@ const NotFound = () => {
   return (
     <section className="not-found-page">
       <Title className="title">{t("not-found-page.title")}</Title>
-      <img src={notFoundImage} />
+      <img src={notFoundImage} alt="Not found page" />
     </section>
   ); 
 };
