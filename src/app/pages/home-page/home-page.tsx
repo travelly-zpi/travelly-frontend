@@ -1,5 +1,5 @@
 import "./home-page.scss";
-import HomePageClipart from "app/assets/img/home-page-clipart";
+import ClipartHomePage from "app/assets/img/home-page-clipart";
 import Accommodation from "app/assets/img/accommodation.jpeg";
 import Carpooling from "app/assets/img/carpooling.jpeg";
 import TravelBuddies from "app/assets/img/travelBuddies.jpeg";
@@ -25,7 +25,7 @@ const HomePage = () => {
             {t("homePage.first.buttonText")}
           </Button>
         </div>
-        <HomePageClipart />
+        <ClipartHomePage />
       </div>
       <div className="home-second" id="home-target">
         <Title level={2} className="title">

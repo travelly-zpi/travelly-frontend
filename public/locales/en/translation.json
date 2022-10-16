@@ -3,7 +3,9 @@
     "register": "Sign up",
     "login": "Log in"
   },
-  "footer": {},
+  "footer": {
+    "copyright": "All rights reserved."
+  },
   "notFoundPage": {
     "title": "Oops! This page could not be found"
   },
@@ -35,15 +37,23 @@
       "thirdSubTitle": "With Travelly, you can find people or stay with locals in every\ncountry on earth. Travel like a local, stay in someone's home"
     }
   },
-
-  "registration": {
-    "title": "Register",
-    "name": "Name",
-    "surname": "Surname",
-    "email": "E-mail",
+  "login": {
+    "title": "Log In",
+    "subTitle1": "Don't have an account? ",
+    "subTitle2": "Sign up",
+    "email": "Email",
     "password": "Password",
-    "passwordConfirm": "Password confirmation",
-    "passwordConfirmHint": "Passwords don't match",
-    "register": "Register"
+    "buttonText": "Log in"
+  },
+  "register": {
+    "title": "Sign up",
+    "subTitle1": "Already have an account? ",
+    "subTitle2": "Log in",
+    "name": "First name",
+    "surname": "Last name",
+    "email": "Email",
+    "password": "Password",
+    "passwordConfirm": "Confirm password",
+    "buttonText": "Create account"
   }
 }

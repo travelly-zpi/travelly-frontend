@@ -1,5 +1,16 @@
 .footer {
   display: flex;
   justify-content: space-between;
+  align-items: center;
   background-color: #fafafa;
+}
+
+.ant-layout-footer {
+  padding: 24px 5px;
+}
+
+@media (min-width: 800px) {
+  .ant-layout-footer {
+    padding: 24px 50px;
+  }
 }

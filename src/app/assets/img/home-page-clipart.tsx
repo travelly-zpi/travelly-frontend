@@ -1,6 +1,6 @@
 import React from "react";
 
-function HomePageClipart() {
+function ClipartHomePage() {
   return (
     <svg
       xmlns="http://www.w3.org/2000/svg"
@@ -746,4 +746,4 @@ function HomePageClipart() {
   );
 }
 
-export default HomePageClipart;
+export default ClipartHomePage;

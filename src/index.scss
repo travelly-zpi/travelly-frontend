@@ -4,6 +4,14 @@ $primary-color: "#FF812C";
   font-family: Poppins, sans-serif;
 }
 
+html {
+  scroll-behavior: smooth;
+}
+
+body {
+  position: relative;
+}
+
 #root {
   white-space: pre-line;
 }
