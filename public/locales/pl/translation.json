@@ -42,6 +42,9 @@
     "password": "Hasło",
     "buttonText": "Zaloguj się"
   },
+  "notFoundPage": {
+    "title": "Oops! Ta strona nie została odnaleziona"
+  },
   "register": {
     "title": "Rejestracja",
     "subTitle1": "Posiadasz już konto? ",
