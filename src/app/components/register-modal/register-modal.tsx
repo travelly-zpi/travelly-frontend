@@ -32,7 +32,7 @@ const RegisterModal = ({ onClose, onModalSwitch }: RegisterModalProps) => {
           <ClipartRegister />
           <img src={logo} alt="Travelly logo" className="logo" />
         </div>
-        <div className="form-block">
+        <form className="form-block" noValidate>
           <div>
             <Title level={3}>{t("register.title")}</Title>
             <Text type="secondary">{t("register.subTitle1")}</Text>
@@ -60,10 +60,10 @@ const RegisterModal = ({ onClose, onModalSwitch }: RegisterModalProps) => {
               }
             />
           </div>
-          <Button type="primary" className="form-button">
+          <Button type="primary" htmlType="submit" className="form-button">
             {t("register.buttonText")}
           </Button>
-        </div>
+        </form>
       </div>
     </Modal>
   );

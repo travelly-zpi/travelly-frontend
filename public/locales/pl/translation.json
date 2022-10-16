@@ -55,5 +55,11 @@
     "password": "Hasło",
     "passwordConfirm": "Potwierdź hasło",
     "buttonText": "Utwórz konto"
+  },
+  "userProfilePage": {
+    "languages": "<bold>Języki, które znam: </bold>",
+    "aboutMe": "<bold>O mnie: </bold>",
+    "editPostButtonText": "Edytuj profil",
+    "createPostButtonText": "+ Utwórz nowy post"
   }
 }

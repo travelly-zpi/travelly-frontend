@@ -17,7 +17,7 @@ const App = () => {
     (user: UserInterface) => {
       setUser(user);
       localStorage.setItem("user", JSON.stringify(user));
-      navigate("/kek");
+      navigate("/");
     },
     [navigate]
   );
@@ -33,7 +33,7 @@ const App = () => {
       <Routes>
         <Route path="/" element={<AppContainer />}>
           <Route index element={<HomePage />}></Route>
-          <Route path="user-profile" element={<UserProfilePage />}></Route>
+          <Route path="users/:id" element={<UserProfilePage />}></Route>
           <Route path="*" element={<NotFound />}></Route>
         </Route>
       </Routes>

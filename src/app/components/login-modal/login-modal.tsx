@@ -6,7 +6,7 @@ import logo from "../../assets/img/logo.png";
 import { Button, Input, Typography } from "antd";
 import { EyeInvisibleOutlined, EyeTwoTone } from "@ant-design/icons";
 import { useTranslation } from "react-i18next";
-import { useContext, useState } from "react";
+import React, { useContext, useState } from "react";
 import { LoginUserInterface } from "../../interfaces/login-user.interface";
 import axios from "axios";
 import UserContext from "../../contexts/user-context";
@@ -27,7 +27,9 @@ const LoginModal = ({ onClose, onModalSwitch }: LoginModalProps) => {
   const { t } = useTranslation();
   const { onLogin } = useContext(UserContext);
 
-  const onSubmit = () => {
+  const onSubmit = (e: React.FormEvent) => {
+    e.preventDefault();
+  
     if (!model.userName || !model.password) {
       return;
     }
@@ -51,7 +53,7 @@ const LoginModal = ({ onClose, onModalSwitch }: LoginModalProps) => {
           <ClipartLogin />
           <img src={logo} alt="Travelly logo" className="logo" />
         </div>
-        <div className="form-block">
+        <form className="form-block" noValidate onSubmit={onSubmit}>
           <div>
             <Title level={3}>{t("login.title")}</Title>
             <Text type="secondary">{t("login.subTitle1")}</Text>
@@ -78,10 +80,10 @@ const LoginModal = ({ onClose, onModalSwitch }: LoginModalProps) => {
             <Text type="danger">{error} </Text>
           </div>
 
-          <Button type="primary" className="form-button" onClick={onSubmit}>
+          <Button type="primary" htmlType="submit" className="form-button">
             {t("login.buttonText")}
           </Button>
-        </div>
+        </form>
       </div>
     </Modal>
   );

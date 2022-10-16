@@ -8,6 +8,7 @@ export interface UserInterface {
   dateOfBirth: any;
   languages: any;
   hobbies: any;
+  description: string;
   role: string;
   localisation: UserLocation;
   token: string;

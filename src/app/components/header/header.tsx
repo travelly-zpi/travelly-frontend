@@ -1,4 +1,3 @@
-import * as React from "react";
 import { useTranslation } from "react-i18next";
 import { Button, Dropdown, Layout, Menu, Tooltip, Typography } from "antd";
 
@@ -7,6 +6,7 @@ import logo from "app/assets/img/logo.png";
 import "./header.scss";
 import { GlobalOutlined } from "@ant-design/icons";
 import { useContext, useEffect, useState } from "react";
+import { useLocation } from "react-router-dom";
 import RegisterModal from "../register-modal/register-modal";
 import LoginModal from "../login-modal/login-modal";
 import UserContext from "../../contexts/user-context";
@@ -16,6 +16,7 @@ const { Text, Link } = Typography;
 
 const Header = () => {
   const { i18n, t } = useTranslation();
+  const { pathname } = useLocation();
   const [modal, setModal] = useState<null | "register" | "login">(null);
   const [lang, setLang] = useState<string>(
     localStorage.getItem("lang") || "en"
@@ -43,6 +44,26 @@ const Header = () => {
     />
   );
 
+  const navigationMenu = [
+    {
+      label: "My profile",
+      url: `/users/${user?.uuid}`,
+    },
+    {
+      label: "Messages",
+      url: "/messages",
+    },
+    {
+      label: "Board",
+      url: "/board",
+    },
+  ].map((item) => ({ 
+    key: item.url, 
+    label:  (
+      <Link href={item.url}>{item.label}</Link>
+    ),
+  }));
+
   return (
     <>
       {modal === "register" && (
@@ -61,7 +82,9 @@ const Header = () => {
         <Link href="/">
           <img src={logo} alt="Travelly logo" className="logo" />
         </Link>
-
+        {user && (
+          <Menu mode="horizontal" items={navigationMenu} className="navigation" selectedKeys={[pathname]} />
+        )}
         {user ? (
           <div className="button-group">
             <Button onClick={onLogout}>Logout</Button>
