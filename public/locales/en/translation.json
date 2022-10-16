@@ -45,5 +45,9 @@
     "passwordConfirm": "Password confirmation",
     "passwordConfirmHint": "Passwords don't match",
     "register": "Register"
+  },
+  "userProfilePage": {
+    "languages": "<bold>Languages I speak: </bold>",
+    "aboutMe": "<bold>About me: </bold>"
   }
 }
