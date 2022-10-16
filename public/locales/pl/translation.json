@@ -3,6 +3,9 @@
     "register": "Zarejestruj się",
     "login": "Zaloguj się"
   },
+  "notFoundPage": {
+    "title": "Oops! Ta strona nie została odnaleziona"
+  },
   "registration": {
     "title": "Rejestracja",
     "name": "Imie",
