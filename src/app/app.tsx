@@ -6,6 +6,7 @@ import AppContainer from "./components/app-container/app-container";
 import UserContext from "./contexts/user-context";
 import { useCallback, useState } from "react";
 import { UserInterface } from "./interfaces/user.interface";
+import AuthGuard from "./components/auth-guard/auth-guard";
 
 const App = () => {
   const [user, setUser] = useState<UserInterface | null>(
@@ -35,7 +36,14 @@ const App = () => {
       <Routes>
         <Route path="/" element={<AppContainer />}>
           <Route index element={<HomePage />}></Route>
-          <Route path="users/:id" element={<UserProfilePage />}></Route>
+          <Route
+            path="users/:id"
+            element={
+              <AuthGuard>
+                <UserProfilePage />
+              </AuthGuard>
+            }
+          ></Route>
           <Route path="*" element={<NotFound />}></Route>
         </Route>
       </Routes>
