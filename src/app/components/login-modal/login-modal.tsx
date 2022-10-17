@@ -27,9 +27,7 @@ const LoginModal = ({ onClose, onModalSwitch }: LoginModalProps) => {
   const { t } = useTranslation();
   const { onLogin } = useContext(UserContext);
 
-  const onSubmit = (e: React.FormEvent) => {
-    e.preventDefault();
-  
+  const onSubmit = () => {
     if (!model.userName || !model.password) {
       return;
     }
@@ -53,7 +51,7 @@ const LoginModal = ({ onClose, onModalSwitch }: LoginModalProps) => {
           <ClipartLogin />
           <img src={logo} alt="Travelly logo" className="logo" />
         </div>
-        <form className="form-block" noValidate onSubmit={onSubmit}>
+        <div className="form-block">
           <div>
             <Title level={3}>{t("login.title")}</Title>
             <Text type="secondary">{t("login.subTitle1")}</Text>
@@ -80,10 +78,10 @@ const LoginModal = ({ onClose, onModalSwitch }: LoginModalProps) => {
             <Text type="danger">{error} </Text>
           </div>
 
-          <Button type="primary" htmlType="submit" className="form-button">
+          <Button type="primary" className="form-button" onClick={onSubmit}>
             {t("login.buttonText")}
           </Button>
-        </form>
+        </div>
       </div>
     </Modal>
   );
