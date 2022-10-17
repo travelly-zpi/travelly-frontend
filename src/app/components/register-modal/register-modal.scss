@@ -23,20 +23,19 @@
 
   .form-block {
     width: 100%;
-    padding: 25px 50px 25px 50px;
+    padding: 25px 50px 10px 50px;
 
-    .form-controls {
-      margin-bottom: 36px;
-      margin-top: 48px;
-    }
+    .register-form {
+      margin-top: 15px;
 
-    .form-controls > .ant-input,
-    .form-controls > .ant-input-password {
-      margin-bottom: 10px;
-    }
+      .ant-form-item {
+        margin-bottom: 10px;
+      }
 
-    .form-button {
-      width: 100%;
+      .form-button {
+        margin-top: 20px;
+        width: 100%;
+      }
     }
   }
 }
@@ -49,7 +48,7 @@
 
     .form-block {
       width: 50%;
-      padding: 75px 105px 75px 112px;
+      padding: 75px 105px 10px 112px;
     }
   }
 }

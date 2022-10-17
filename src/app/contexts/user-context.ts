@@ -3,7 +3,7 @@ import { UserInterface } from "../interfaces/user.interface";
 
 interface UserContextInterface {
   user: UserInterface | null;
-  onLogin: (user: UserInterface) => void;
+  onLogin: (user: UserInterface, remember: boolean) => void;
   onLogout: () => void;
 }
 

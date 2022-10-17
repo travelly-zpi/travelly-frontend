@@ -13,9 +13,11 @@ const App = () => {
   const navigate = useNavigate();
 
   const onLogin = useCallback(
-    (user: UserInterface) => {
+    (user: UserInterface, remember: boolean) => {
       setUser(user);
-      localStorage.setItem("user", JSON.stringify(user));
+      if (remember) {
+        localStorage.setItem("user", JSON.stringify(user));
+      }
       navigate("/kek");
     },
     [navigate]

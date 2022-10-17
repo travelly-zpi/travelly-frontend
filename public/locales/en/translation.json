@@ -43,17 +43,38 @@
     "subTitle2": "Sign up",
     "email": "Email",
     "password": "Password",
-    "buttonText": "Log in"
+    "rememberMe": "Remember me",
+    "buttonText": "Log in",
+    "successText": "Logged in, redirecting to your profile.",
+    "errors": {
+      "noEmail": "Please input your email!",
+      "noPassword": "Please input your password!",
+      "invalidEmail": "The email is invalid!",
+      "wrongEmail": "There is no user with this email!",
+      "wrongPassword": "Password is incorrect!"
+    }
   },
   "register": {
     "title": "Sign up",
     "subTitle1": "Already have an account? ",
     "subTitle2": "Log in",
-    "name": "First name",
-    "surname": "Last name",
+    "firstName": "First name",
+    "lastName": "Last name",
     "email": "Email",
     "password": "Password",
     "passwordConfirm": "Confirm password",
-    "buttonText": "Create account"
+    "buttonText": "Create account",
+    "successText": "Registered successfully! You can log in now.",
+    "errors": {
+      "noFirstName": "Please input your first name!",
+      "noLastName": "Please input your last name!",
+      "noEmail": "Please input your email",
+      "noPassword": "Please input a password!",
+      "noPasswordConfirm": "Please input a password again!",
+      "invalidEmail": "The email is invalid!",
+      "invalidPassword": "Password should be at least 8 characters long, include a digit and a special symbol.",
+      "invalidPasswordConfirm": "Passwords don't match!",
+      "emailTaken": "This email is already taken! Log in instead."
+    }
   }
 }
