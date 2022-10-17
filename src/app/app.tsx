@@ -1,5 +1,6 @@
 import { Route, Routes, useNavigate } from "react-router-dom";
 import HomePage from "./pages/home-page/home-page";
+import UserProfilePage from "./pages/user-profile-page/user-profile-page";
 import NotFound from "./pages/not-found/not-found";
 import AppContainer from "./components/app-container/app-container";
 import UserContext from "./contexts/user-context";
@@ -16,7 +17,7 @@ const App = () => {
     (user: UserInterface) => {
       setUser(user);
       localStorage.setItem("user", JSON.stringify(user));
-      navigate("/kek");
+      navigate("/");
     },
     [navigate]
   );
@@ -32,6 +33,7 @@ const App = () => {
       <Routes>
         <Route path="/" element={<AppContainer />}>
           <Route index element={<HomePage />}></Route>
+          <Route path="users/:id" element={<UserProfilePage />}></Route>
           <Route path="*" element={<NotFound />}></Route>
         </Route>
       </Routes>
