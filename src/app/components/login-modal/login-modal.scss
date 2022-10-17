@@ -25,18 +25,17 @@
     width: 100%;
     padding: 25px 50px 25px 50px;
 
-    .form-controls {
-      margin-bottom: 39px;
+    .login-form {
       margin-top: 83px;
-    }
 
-    .form-controls > .ant-input,
-    .form-controls > .ant-input-password {
-      margin-bottom: 10px;
-    }
+      .ant-form-item {
+        margin-bottom: 10px;
+      }
 
-    .form-button {
-      width: 100%;
+      .form-button {
+        margin-top: 20px;
+        width: 100%;
+      }
     }
   }
 }

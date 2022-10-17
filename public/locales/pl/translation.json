@@ -40,7 +40,16 @@
     "subTitle2": "Zarejestruj się",
     "email": "Email",
     "password": "Hasło",
-    "buttonText": "Zaloguj się"
+    "rememberMe": "Zapamiętaj mnie",
+    "buttonText": "Zaloguj się",
+    "successText": "Zalogowany, przekierowanie do Twojego profilu.",
+    "errors": {
+      "noEmail": "Proszę podać swój adres e-mail!",
+      "noPassword": "Proszę wprowadzić swoje hasło!",
+      "invalidEmail": "E-mail jest nieprawidłowy!",
+      "wrongEmail": "Nie ma użytkownika z tym e-mailem!",
+      "wrongPassword": "Hasło jest nieprawidłowe!"
+    }
   },
   "notFoundPage": {
     "title": "Oops! Ta strona nie została odnaleziona"
@@ -49,12 +58,24 @@
     "title": "Rejestracja",
     "subTitle1": "Posiadasz już konto? ",
     "subTitle2": "Zaloguj się",
-    "name": "Imie",
-    "surname": "Nazwisko",
+    "firstName": "Imie",
+    "lastName": "Nazwisko",
     "email": "E-mail",
     "password": "Hasło",
     "passwordConfirm": "Potwierdź hasło",
-    "buttonText": "Utwórz konto"
+    "buttonText": "Utwórz konto",
+    "successText": "Pomyślna rejestracja! Teraz możesz zalogować się.",
+    "errors": {
+      "noFirstName": "Proszę podać swoje imię!",
+      "noLastName": "Proszę podać swoje nazwisko!",
+      "noEmail": "Proszę podać swój adres e-mail",
+      "noPassword": "Proszę wprowadzić hasło!",
+      "noPasswordConfirm": "Proszę ponownie wprowadzić hasło!",
+      "invalidEmail": "E-mail jest nieprawidłowy!",
+      "invalidPassword": "Hasło powinno mieć co najmniej 8 znaków, zawierać cyfrę i specjalny symbol.",
+      "invalidPasswordConfirm": "Hasła nie są takie same!",
+      "emailTaken": "Ten e-mail jest już zajęty! Zamiast tego zaloguj się."
+    }
   },
   "userProfilePage": {
     "languages": "<bold>Języki, które znam: </bold>",

@@ -1,6 +1,6 @@
 export interface RegisterUserInterface {
-  name: string;
-  surname: string;
+  firstName: string;
+  lastName: string;
   email: string;
   password: string;
   passwordConfirm: string;
