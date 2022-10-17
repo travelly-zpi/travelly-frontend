@@ -76,5 +76,11 @@
       "invalidPasswordConfirm": "Hasła nie są takie same!",
       "emailTaken": "Ten e-mail jest już zajęty! Zamiast tego zaloguj się."
     }
+  },
+  "userProfilePage": {
+    "languages": "<bold>Języki, które znam: </bold>",
+    "aboutMe": "<bold>O mnie: </bold>",
+    "editPostButtonText": "Edytuj profil",
+    "createPostButtonText": "+ Utwórz nowy post"
   }
 }

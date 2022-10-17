@@ -15,6 +15,12 @@
     display: flex;
     gap: 20px;
   }
+
+  .navigation {
+    flex: 1;
+    padding-right: 45px;
+    justify-content: flex-end;
+  }
 }
 
 .ant-layout-header {
