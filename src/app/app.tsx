@@ -10,7 +10,8 @@ import AuthGuard from "./components/auth-guard/auth-guard";
 
 const App = () => {
   const [user, setUser] = useState<UserInterface | null>(
-    JSON.parse(localStorage.getItem("user") || "null")
+    JSON.parse(sessionStorage.getItem("user") || "null") ||
+      JSON.parse(localStorage.getItem("user") || "null")
   );
   const navigate = useNavigate();
 
@@ -19,8 +20,10 @@ const App = () => {
       setUser(user);
       if (remember) {
         localStorage.setItem("user", JSON.stringify(user));
+      } else {
+        sessionStorage.setItem("user", JSON.stringify(user));
       }
-      navigate("/");
+      navigate("/users/" + user.uuid);
     },
     [navigate]
   );
@@ -28,6 +31,7 @@ const App = () => {
   const onLogout = useCallback(() => {
     setUser(null);
     localStorage.removeItem("user");
+    sessionStorage.removeItem("user");
     navigate("/");
   }, [navigate]);
 

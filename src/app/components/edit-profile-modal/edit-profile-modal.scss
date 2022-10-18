@@ -1,0 +1,55 @@
+.edit-profile-container {
+  padding: 27px 40px 118px 48px;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+
+  .profile-info-block {
+    display: flex;
+    gap: 27px;
+
+    .avatar-block {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 10px;
+
+      .ant-btn {
+        width: 100%;
+      }
+    }
+
+    .ant-form {
+      .form-horizontal {
+        display: flex;
+        flex-wrap: wrap;
+        column-gap: 18px;
+
+        .ant-form-item {
+          width: 333px;
+        }
+      }
+
+      .ant-btn {
+        margin-top: 25px;
+        float: right;
+      }
+    }
+  }
+
+  .form-password {
+    margin-left: 340px;
+    margin-right: 340px;
+
+    .ant-btn {
+      float: right;
+    }
+  }
+
+  .logo {
+    height: 34px;
+    position: absolute;
+    bottom: 36px;
+    left: 50%;
+  }
+}

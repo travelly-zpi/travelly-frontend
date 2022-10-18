@@ -87,6 +87,7 @@ const LoginModal = ({ onClose, onModalSwitch }: LoginModalProps) => {
             layout="vertical"
             onFinish={onSubmit}
             requiredMark={false}
+            initialValues={{ remember: true }}
           >
             <Form.Item
               label={t("login.email")}
