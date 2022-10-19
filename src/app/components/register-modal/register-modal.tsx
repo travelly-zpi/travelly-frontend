@@ -46,7 +46,7 @@ const RegisterModal = ({ onClose, onModalSwitch }: RegisterModalProps) => {
   };
 
   const validateApiError = () => {
-    if (apiError === "Email is already taken") {
+    if (apiError === "EMAIL_EXISTS") {
       return Promise.reject(t("register.errors.emailTaken"));
     }
     return Promise.resolve();
