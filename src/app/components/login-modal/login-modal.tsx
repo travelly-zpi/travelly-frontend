@@ -50,19 +50,30 @@ const LoginModal = ({ onClose, onModalSwitch }: LoginModalProps) => {
   };
 
   const validate = (rule: any) => {
-    if (rule.field === "userName" && apiError === "User not found") {
+    if (rule.field === "email" && apiError === "User not found") {
       return Promise.reject(t("login.errors.wrongEmail"));
     }
-    if (rule.field === "password" && apiError === "False password") {
+    if (rule.field === "password" && apiError === "FALSE_PASSWORD") {
       return Promise.reject(t("login.errors.wrongPassword"));
+    }
+    return Promise.resolve();
+  };
+
+  const validatePassword = (rule: any, value: string) => {
+    if (
+      !value.match(
+        /^(?=.*[A-Za-z])(?=.*\d)(?=.*[@$!%*#?&])[A-Za-z\d@$!%*#?&]{8,}$/
+      )
+    ) {
+      return Promise.reject(t("login.errors.invalidPassword"));
     }
     return Promise.resolve();
   };
 
   const clearValidation = (fieldName: string) => {
     if (
-      (fieldName === "userName" && apiError === "User not found") ||
-      (fieldName === "password" && apiError === "False password")
+      (fieldName === "email" && apiError === "User not found") ||
+      (fieldName === "password" && apiError === "FALSE_PASSWORD")
     ) {
       setApiError("cleared");
     }
@@ -91,17 +102,17 @@ const LoginModal = ({ onClose, onModalSwitch }: LoginModalProps) => {
           >
             <Form.Item
               label={t("login.email")}
-              name="userName"
+              name="email"
               rules={[
                 { required: true, message: t("login.errors.noEmail") },
-                // { type: "email", message: t("login.errors.invalidEmail") }, TODO: enable once backend accepts email
+                { type: "email", message: t("login.errors.invalidEmail") },
                 {
                   validator: validate,
                 },
               ]}
               hasFeedback
             >
-              <Input onBlur={() => clearValidation("userName")} />
+              <Input onBlur={() => clearValidation("email")} />
             </Form.Item>
             <Form.Item
               label={t("login.password")}
@@ -109,6 +120,9 @@ const LoginModal = ({ onClose, onModalSwitch }: LoginModalProps) => {
               rules={[
                 { required: true, message: t("login.errors.noPassword") },
                 { validator: validate },
+                {
+                  validator: validatePassword,
+                },
               ]}
             >
               <Input.Password

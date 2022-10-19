@@ -48,7 +48,8 @@
       "noPassword": "Proszę wprowadzić swoje hasło!",
       "invalidEmail": "E-mail jest nieprawidłowy!",
       "wrongEmail": "Nie ma użytkownika z tym e-mailem!",
-      "wrongPassword": "Hasło jest nieprawidłowe!"
+      "wrongPassword": "Hasło jest nieprawidłowe!",
+      "invalidPassword": "Hasło jest za krótkie!"
     }
   },
   "notFoundPage": {

@@ -51,7 +51,8 @@
       "noPassword": "Please input your password!",
       "invalidEmail": "The email is invalid!",
       "wrongEmail": "There is no user with this email!",
-      "wrongPassword": "Password is incorrect!"
+      "wrongPassword": "Password is incorrect!",
+      "invalidPassword": "Password is too short!"
     }
   },
   "register": {
