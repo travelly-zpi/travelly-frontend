@@ -97,7 +97,7 @@ const Header = () => {
           </div>
         ) : (
           <div className="button-group">
-            <Button onClick={() => setModal("login")}>
+            <Button onClick={() => setModal("login")} data-testid="login-button">
               {t("navbar.login")}
             </Button>
             <Button type="primary" onClick={() => setModal("register")}>

@@ -16,7 +16,7 @@ await addCucumberPreprocessorPlugin(on, config);
 return config;
 },
 specPattern: "cypress/e2e/features/*.feature",
-baseUrl: "https://www.saucedemo.com",
+baseUrl: "http://localhost:3000",
 chromeWebSecurity: false
 },
 });

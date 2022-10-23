@@ -1,6 +1,8 @@
+/// <reference types="Cypress" />
+
 class HomePage {
   elements = {
-    loginBtn: () => cy.get("#login-button"),
+    loginBtn: () => cy.get('[data-testid="login-button"]'),
   };
 
   clickLogin() {

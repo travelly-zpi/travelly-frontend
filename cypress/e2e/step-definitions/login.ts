@@ -26,7 +26,7 @@ When("Submit login form", () => {
 });
 
 Then("I am logged in", () => {
-  
+  cy.get('.ant-message-success').should('contain', "Logged in, redirecting to your profile")
 });
 
 

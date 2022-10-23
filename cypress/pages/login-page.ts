@@ -1,8 +1,10 @@
+/// <reference types="Cypress" />
+
 class LoginPage {
   elements = {
-    emailInput: () => cy.get("#user-name"),
-    passwordInput: () => cy.get("#password"),
-    loginBtn: () => cy.get("#login-button"),
+    emailInput: () => cy.get('[data-testid="email"]'),
+    passwordInput: () => cy.get('[data-testid="password"]'),
+    loginBtn: () => cy.get('[data-testid="submit-login"]'),
   };
 
   typeEmail(email:string) {
