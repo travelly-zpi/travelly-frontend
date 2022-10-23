@@ -100,7 +100,7 @@ const LoginModal = ({ onClose, onModalSwitch }: LoginModalProps) => {
               ]}
               hasFeedback
             >
-              <Input onBlur={() => clearValidation("email")} />
+              <Input onBlur={() => clearValidation("email")} data-testid="email" />
             </Form.Item>
             <Form.Item
               label={t("login.password")}
@@ -115,6 +115,7 @@ const LoginModal = ({ onClose, onModalSwitch }: LoginModalProps) => {
                 iconRender={(visible) =>
                   visible ? <EyeTwoTone /> : <EyeInvisibleOutlined />
                 }
+                data-testid="password"
               />
             </Form.Item>
 
@@ -129,6 +130,7 @@ const LoginModal = ({ onClose, onModalSwitch }: LoginModalProps) => {
                 htmlType="submit"
                 loading={loading}
                 disabled={loading}
+                data-testid="submit-login"
               >
                 {t("login.buttonText")}
               </Button>
