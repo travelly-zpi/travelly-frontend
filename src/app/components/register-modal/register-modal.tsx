@@ -34,7 +34,7 @@ const RegisterModal = ({ onClose, onModalSwitch }: RegisterModalProps) => {
     axios
       .post("/user/register", model)
       .then(() => {
-        message.success(t("register.successText"));
+        message.success(t("register.successText"), 4);
         onModalSwitch();
       })
       .catch((err) => {
