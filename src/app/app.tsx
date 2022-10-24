@@ -7,6 +7,7 @@ import UserContext from "./contexts/user-context";
 import { useCallback, useState } from "react";
 import { UserInterface } from "./interfaces/user.interface";
 import AuthGuard from "./components/auth-guard/auth-guard";
+import VerificationPage from "./pages/user-verification-page/user-verification-page";
 
 const App = () => {
   const [user, setUser] = useState<UserInterface | null>(
@@ -44,6 +45,7 @@ const App = () => {
               </AuthGuard>
             }
           ></Route>
+          <Route path="/register/verify" element={<VerificationPage />}></Route>
           <Route path="*" element={<NotFound />}></Route>
         </Route>
       </Routes>
