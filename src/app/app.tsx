@@ -45,7 +45,7 @@ const App = () => {
               </AuthGuard>
             }
           ></Route>
-          <Route path="/register/verify" element={<VerificationPage />}></Route>
+          <Route path="register/verify" element={<VerificationPage />}></Route>
           <Route path="*" element={<NotFound />}></Route>
         </Route>
       </Routes>

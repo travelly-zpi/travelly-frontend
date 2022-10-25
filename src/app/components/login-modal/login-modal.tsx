@@ -53,6 +53,9 @@ const LoginModal = ({ onClose, onModalSwitch }: LoginModalProps) => {
     if (rule.field === "email" && apiError === "User not found") {
       return Promise.reject(t("login.errors.wrongEmail"));
     }
+    if (rule.field === "email" && apiError === "NOT_ACTIVATED") {
+      return Promise.reject(t("login.errors.notActivated"));
+    }
     if (rule.field === "password" && apiError === "FALSE_PASSWORD") {
       return Promise.reject(t("login.errors.wrongPassword"));
     }
