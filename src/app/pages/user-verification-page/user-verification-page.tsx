@@ -25,16 +25,22 @@ const VerificationPage = () => {
         console.log(res.data.statusCode);
       })
       .catch((err) => {
-        setStatus(err.response.data);
+        const msg = err.response?.data?.message;
+        setStatus(msg);
+        console.error(msg);
       });
-  }, []);
+      localStorage.removeItem("jwt");
+  }, [token]);
+
+  
 
   if (status === "") return <section></section>;
 
   return (
-    <>
-      <VerificationModal open={modal} onClose={() => setModal(false)} />
+    
+      
       <section className="verification-page">
+        <VerificationModal open={modal} onClose={() => setModal(false)} />
         <div className="info">
           {status === "OK" ? (
             <>
@@ -79,7 +85,7 @@ const VerificationPage = () => {
           </div>
         )}
       </section>
-    </>
+    
   );
 };
 

@@ -3,6 +3,8 @@ import { Button, Form, Input, message, Modal } from "antd";
 import axios from "axios";
 import { useEffect, useState } from "react";
 import { useTranslation } from "react-i18next";
+import { LoginUserInterface } from "app/interfaces/login-user.interface";
+import { EyeInvisibleOutlined, EyeTwoTone } from "@ant-design/icons";
 
 interface VerificationModalProps {
     open: boolean;
@@ -21,12 +23,11 @@ const VerificationModal = ({ open, onClose }: VerificationModalProps) => {
         }
       }, [form, apiError]);
     
-      const onSubmit = (model: string) => {
+      const onSubmit = (model: LoginUserInterface) => {
         setLoading(true);
         axios
           .post("/user/register/verify", model)
-          .then((res) => {
-            const data = res.data;
+          .then(() => {
             message.success(t("register.successText"));
             onClose();
           })
@@ -42,11 +43,17 @@ const VerificationModal = ({ open, onClose }: VerificationModalProps) => {
         if (rule.field === "email" && apiError === "User not found") {
           return Promise.reject(t("login.errors.wrongEmail"));
         }
+        if (rule.field === "password" && apiError === "FALSE_PASSWORD") {
+          return Promise.reject(t("login.errors.wrongPassword"));
+        }
         return Promise.resolve();
       };
     
       const clearValidation = (fieldName: string) => {
-        if (fieldName === "email" && apiError === "User not found") {
+        if (
+          (fieldName === "email" && apiError === "User not found") ||
+          (fieldName === "password" && apiError === "FALSE_PASSWORD")
+        ) {
           setApiError("cleared");
         }
       };
@@ -83,6 +90,22 @@ const VerificationModal = ({ open, onClose }: VerificationModalProps) => {
               data-testid="email"
             />
           </Form.Item>
+          <Form.Item
+              label={t("login.password")}
+              name="password"
+              rules={[
+                { required: true, message: t("login.errors.noPassword") },
+                { validator: validate },
+              ]}
+            >
+              <Input.Password
+                onBlur={() => clearValidation("password")}
+                iconRender={(visible) =>
+                  visible ? <EyeTwoTone /> : <EyeInvisibleOutlined />
+                }
+                data-testid="password"
+              />
+            </Form.Item>
           <Form.Item>
             <Button
               type="primary"
