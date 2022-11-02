@@ -33,6 +33,7 @@ const LoginModal = ({ onClose, onModalSwitch }: LoginModalProps) => {
 
   const onSubmit = (model: LoginUserInterface) => {
     setLoading(true);
+
     axios
       .post("/user/authenticate", model)
       .then((res) => {

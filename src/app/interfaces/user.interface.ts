@@ -8,12 +8,8 @@ export interface UserInterface {
   languages: any;
   hobbies: any;
   description: string;
-  role: string;
-  localisation: UserLocation;
-  token: string;
-}
-
-interface UserLocation {
   country: string;
   city: string;
+  token: string;
+  localisation: string;
 }

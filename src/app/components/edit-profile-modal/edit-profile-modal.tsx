@@ -12,6 +12,7 @@ import {
   Input,
   message,
   Select,
+  Spin,
   Tabs,
   Typography,
 } from "antd";
@@ -19,7 +20,6 @@ import {
 import { useTranslation } from "react-i18next";
 import { useContext, useEffect, useState } from "react";
 
-import UserContext from "../../contexts/user-context";
 import { UserOutlined } from "@ant-design/icons";
 import logo from "../../assets/img/logo.png";
 import * as React from "react";
@@ -32,7 +32,7 @@ const { Option } = Select;
 
 interface EditProfileModal {
   onClose: Function;
-  user: UserInterface | null;
+  user: UserInterface;
 }
 
 const EditProfileModal = ({ onClose, user }: EditProfileModal) => {
@@ -49,23 +49,34 @@ const EditProfileModal = ({ onClose, user }: EditProfileModal) => {
   //     }
   // }, [form, apiError]);
   //
-  // const onSubmit = (model: LoginUserInterface) => {
-  //     setLoading(true);
-  //     axios
-  //         .post("/user/authenticate", model)
-  //         .then((res) => {
-  //             const data = res.data;
-  //             onLogin({ token: data._token, ...data.user }, model.remember);
-  //             message.success(t("login.successText"));
-  //             onClose();
-  //         })
-  //         .catch((err) => {
-  //             setLoading(false);
-  //             const msg = err.response?.data?.message;
-  //             console.error(msg);
-  //             setApiError(msg);
-  //         });
-  // };
+  const onSubmit = (values: UserInterface) => {
+    console.log(values);
+    const fd = new FormData();
+    fd.append("uuid", user.uuid);
+    fd.append("firstName", values.firstName);
+    fd.append("lastName", values.lastName);
+    console.log(values.dateOfBirth);
+    fd.append("dateOfBirth", values.dateOfBirth.format("YYYY-MM-DD"));
+    fd.append("description", values.description);
+    fd.append("email", user.email);
+    fd.append("languages", JSON.stringify(values.languages));
+    fd.append("localisation", values.localisation);
+
+    setLoading(true);
+    axios
+      .put("/user/", fd)
+      .then((res) => {
+        const data = res.data;
+        console.log(data);
+        onClose();
+      })
+      .catch((err) => {
+        setLoading(false);
+        const msg = err.response?.data?.message;
+        console.error(msg);
+        setApiError(msg);
+      });
+  };
 
   console.log({ ...user });
 
@@ -96,11 +107,6 @@ const EditProfileModal = ({ onClose, user }: EditProfileModal) => {
         });
     }
   };
-
-  const onFinish = (data: any) => {
-    console.log(data);
-  };
-
   const forms = [
     {
       label: "Profile Info",
@@ -119,7 +125,7 @@ const EditProfileModal = ({ onClose, user }: EditProfileModal) => {
             form={formEditProfile}
             initialValues={{ ...user }}
             layout="vertical"
-            onFinish={onFinish}
+            onFinish={onSubmit}
           >
             <div className="form-horizontal">
               <Form.Item label="Name" name="firstName">
@@ -131,15 +137,15 @@ const EditProfileModal = ({ onClose, user }: EditProfileModal) => {
               <Form.Item label="Email" name="email">
                 <Input />
               </Form.Item>
-              <Form.Item name="localization" label="Location">
+              <Form.Item name="localisation" label="Location">
                 <AutoComplete options={locations} onChange={onLocationChange}>
                   <Input />
                 </AutoComplete>
               </Form.Item>
               <Form.Item label="Date of birth" name="dateOfBirth">
-                <DatePicker style={{ width: "100%" }} />
+                <DatePicker style={{ width: "100%" }} format={"YYYY-MM-DD"} />
               </Form.Item>
-              <Form.Item label="Languages">
+              <Form.Item label="Languages" name="languages">
                 <Select mode="multiple" allowClear placeholder="Please select">
                   <Option key="en">English</Option>
                   <Option key="pl">Polski</Option>
@@ -179,6 +185,7 @@ const EditProfileModal = ({ onClose, user }: EditProfileModal) => {
 
   return (
     <Modal onClose={onClose}>
+      {loading ? <Spin className="spinner" size="large" /> : null}
       <div className="edit-profile-container">
         <Title level={3}>Edit Profile</Title>
         <Tabs items={forms} />

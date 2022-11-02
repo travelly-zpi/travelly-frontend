@@ -58,7 +58,7 @@ const UserProfilePage = () => {
               {user.firstName} {user.lastName}, 29 years
             </Title>
             <Text className="location">
-              {user.localisation?.city}, {user.localisation?.country}
+              {user.city}, {user.country}
             </Text>
             <Text className="languages">
               <Trans
