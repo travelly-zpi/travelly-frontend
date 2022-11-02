@@ -1,0 +1,37 @@
+.verification-page {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    text-align: center;
+    width: 100%;
+}
+
+.info {
+    margin: 2em 0;
+
+    img {
+        display: block;
+        margin: auto;
+        width: 25vw;
+        height: auto;
+    }
+
+    button {
+        display: block;
+        margin: 5em auto;
+        font-size: 16px;
+        height: auto;
+    }
+}
+
+.title {
+    font-weight: 500;
+  }
+
+.subTitle {
+    font-size: 1.5em;
+}
+
+.home-btn {
+    margin: auto;
+}
