@@ -33,7 +33,6 @@ const LoginModal = ({ onClose, onModalSwitch }: LoginModalProps) => {
 
   const onSubmit = (model: LoginUserInterface) => {
     setLoading(true);
-
     axios
       .post("/user/authenticate", model)
       .then((res) => {
@@ -53,6 +52,9 @@ const LoginModal = ({ onClose, onModalSwitch }: LoginModalProps) => {
   const validate = (rule: any) => {
     if (rule.field === "email" && apiError === "User not found") {
       return Promise.reject(t("login.errors.wrongEmail"));
+    }
+    if (rule.field === "email" && apiError === "NOT_ACTIVATED") {
+      return Promise.reject(t("login.errors.notActivated"));
     }
     if (rule.field === "password" && apiError === "FALSE_PASSWORD") {
       return Promise.reject(t("login.errors.wrongPassword"));
@@ -74,7 +76,8 @@ const LoginModal = ({ onClose, onModalSwitch }: LoginModalProps) => {
   const clearValidation = (fieldName: string) => {
     if (
       (fieldName === "email" && apiError === "User not found") ||
-      (fieldName === "password" && apiError === "FALSE_PASSWORD")
+      (fieldName === "password" && apiError === "FALSE_PASSWORD") ||
+      (fieldName === "email" && apiError === "NOT_ACTIVATED")
     ) {
       setApiError("cleared");
     }
@@ -113,7 +116,10 @@ const LoginModal = ({ onClose, onModalSwitch }: LoginModalProps) => {
               ]}
               hasFeedback
             >
-              <Input onBlur={() => clearValidation("email")} />
+              <Input
+                onBlur={() => clearValidation("email")}
+                data-testid="email"
+              />
             </Form.Item>
             <Form.Item
               label={t("login.password")}
@@ -131,6 +137,7 @@ const LoginModal = ({ onClose, onModalSwitch }: LoginModalProps) => {
                 iconRender={(visible) =>
                   visible ? <EyeTwoTone /> : <EyeInvisibleOutlined />
                 }
+                data-testid="password"
               />
             </Form.Item>
 
@@ -145,6 +152,7 @@ const LoginModal = ({ onClose, onModalSwitch }: LoginModalProps) => {
                 htmlType="submit"
                 loading={loading}
                 disabled={loading}
+                data-testid="submit-login"
               >
                 {t("login.buttonText")}
               </Button>

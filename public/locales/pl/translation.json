@@ -49,11 +49,22 @@
       "invalidEmail": "E-mail jest nieprawidłowy!",
       "wrongEmail": "Nie ma użytkownika z tym e-mailem!",
       "wrongPassword": "Hasło jest nieprawidłowe!",
-      "invalidPassword": "Hasło jest za krótkie!"
+      "invalidPassword": "Hasło jest za krótkie!",
+      "notActivated": "Proszę, sprawdź swoją skrzynkę odbiorczą i zweryfikuj konto."
     }
   },
   "notFoundPage": {
     "title": "Oops! Ta strona nie została odnaleziona"
+  },
+  "verificationPage": {
+    "btn": "Wróć do strony głównej",
+    "successTitle": "Weryfikacja zakończona",
+    "successSubTitle": "Dziękujemy! Twój adres e-mail został pozytywnie zweryfikowany.",
+    "expiredTitle": "Uwaga",
+    "expiredSubTitle": "Twój token weryfikacyjny stracił ważność lub nie jest już aktywny.",
+    "invalidText": "Weryfikacja zakończyła się niepowodzeniem.",
+    "resend": "Wyślij ponownie",
+    "send": "Wyślij"
   },
   "register": {
     "title": "Rejestracja",
@@ -65,7 +76,7 @@
     "password": "Hasło",
     "passwordConfirm": "Potwierdź hasło",
     "buttonText": "Utwórz konto",
-    "successText": "Pomyślna rejestracja! Teraz możesz zalogować się.",
+    "successText": "Zweryfikuj swój adres e-mailowy.\nWysłaliśmy Ci wiadomość e-mail z instrukcjami dotyczącymi konfiguracji konta. Proszę, sprawdź swoją skrzynkę odbiorczą.",
     "errors": {
       "noFirstName": "Proszę podać swoje imię!",
       "noLastName": "Proszę podać swoje nazwisko!",
