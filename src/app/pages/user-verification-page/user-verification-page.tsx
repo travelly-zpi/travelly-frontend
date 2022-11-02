@@ -1,5 +1,5 @@
 import "./user-verification-page.scss";
-import complitedImg from "app/assets/img/verification-complited.png";
+import completedImg from "app/assets/img/verification-completed.png";
 import { Button, Typography } from "antd";
 import axios from "axios";
 import { useEffect, useState } from "react";
@@ -29,63 +29,57 @@ const VerificationPage = () => {
         setStatus(msg);
         console.error(msg);
       });
-      localStorage.removeItem("jwt");
   }, [token]);
-
-  
 
   if (status === "") return <section></section>;
 
   return (
-    
-      
-      <section className="verification-page">
-        <VerificationModal open={modal} onClose={() => setModal(false)} />
-        <div className="info">
-          {status === "OK" ? (
-            <>
-              <Title className="title">
-                {t("verificationPage.successTitle")}
-              </Title>
-              <Text className="subTitle">
-                {t("verificationPage.successSubTitle")}
-              </Text>
-              <img src={complitedImg} alt="Not found page" />
-            </>
-          ) : status === "EXPIRED_TOKEN" ? (
-            <>
-              <Title className="title">
-                {t("verificationPage.expiredTitle")}
-              </Title>
-              <Text className="subTitle">
-                {t("verificationPage.expiredSubTitle")}
-              </Text>
-              <Button type="primary" onClick={() => setModal(true)}>
-                {t("verificationPage.resend")}
-              </Button>
-            </>
-          ) : (
-            <>
-              <Title className="title">Oops!</Title>
-              <Text className="subTitle">
-                {t("verificationPage.invalidText")}
-              </Text>
-            </>
-          )}
-        </div>
-        {status !== "EXPIRED_TOKEN" && (
-          <div className="home-btn">
-            <Button
-              className="home-btn"
-              type="primary"
-              onClick={() => navigate("/")}
-            >
-              {t("verificationPage.btn")}
+    <section className="verification-page">
+      <VerificationModal open={modal} onClose={() => setModal(false)} />
+      <div className="info">
+        {status === "OK" ? (
+          <>
+            <Title className="title">
+              {t("verificationPage.successTitle")}
+            </Title>
+            <Text className="subTitle">
+              {t("verificationPage.successSubTitle")}
+            </Text>
+            <img src={completedImg} alt="Not found page" />
+          </>
+        ) : status === "EXPIRED_TOKEN" ? (
+          <>
+            <Title className="title">
+              {t("verificationPage.expiredTitle")}
+            </Title>
+            <Text className="subTitle">
+              {t("verificationPage.expiredSubTitle")}
+            </Text>
+            <Button type="primary" onClick={() => setModal(true)}>
+              {t("verificationPage.resend")}
             </Button>
-          </div>
+          </>
+        ) : (
+          <>
+            <Title className="title">Oops!</Title>
+            <Text className="subTitle">
+              {t("verificationPage.invalidText")}
+            </Text>
+          </>
         )}
-      </section>
-    
+      </div>
+      {status !== "EXPIRED_TOKEN" && (
+        <div className="home-btn">
+          <Button
+            className="home-btn"
+            type="primary"
+            onClick={() => navigate("/")}
+          >
+            {t("verificationPage.btn")}
+          </Button>
+        </div>
+      )}
+    </section>
   );
 };
 

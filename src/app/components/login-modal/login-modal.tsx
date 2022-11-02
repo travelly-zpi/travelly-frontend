@@ -65,7 +65,8 @@ const LoginModal = ({ onClose, onModalSwitch }: LoginModalProps) => {
   const clearValidation = (fieldName: string) => {
     if (
       (fieldName === "email" && apiError === "User not found") ||
-      (fieldName === "password" && apiError === "FALSE_PASSWORD")
+      (fieldName === "password" && apiError === "FALSE_PASSWORD") ||
+      (fieldName === "email" && apiError === "NOT_ACTIVATED")
     ) {
       setApiError("cleared");
     }
@@ -103,7 +104,10 @@ const LoginModal = ({ onClose, onModalSwitch }: LoginModalProps) => {
               ]}
               hasFeedback
             >
-              <Input onBlur={() => clearValidation("email")} data-testid="email" />
+              <Input
+                onBlur={() => clearValidation("email")}
+                data-testid="email"
+              />
             </Form.Item>
             <Form.Item
               label={t("login.password")}
