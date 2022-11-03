@@ -45,8 +45,10 @@ const App = () => {
   const decodeUser = (user: UserDtoInterface): UserInterface => {
     return {
       ...user,
-      dateOfBirth: moment(user.dateOfBirth),
-      languages: JSON.parse(user.languages),
+      dateOfBirth: user.dateOfBirth
+        ? moment(user.dateOfBirth)
+        : moment().subtract(18, "years"),
+      languages: user.languages ? JSON.parse(user.languages) : [],
     };
   };
 

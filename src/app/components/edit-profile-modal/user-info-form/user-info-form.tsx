@@ -15,11 +15,12 @@ import * as React from "react";
 import { RcFile } from "antd/es/upload";
 import { UserDtoInterface } from "../../../interfaces/user-dto.interface";
 import axios from "axios";
-import { useContext, useEffect, useState } from "react";
+import { useCallback, useContext, useEffect, useState } from "react";
 import UserContext from "../../../contexts/user-context";
 import { UserInterface } from "../../../interfaces/user.interface";
 import { useTranslation } from "react-i18next";
 import { getLangNameFromCode, getLangCodeList } from "language-name-map";
+import _debounce from "lodash/debounce";
 
 import "./user-info-form.scss";
 import LoadingContext from "../../../contexts/loading-context";
@@ -95,7 +96,9 @@ const UserInfoForm = ({ user, onClose }: UserInfoFormProps) => {
 
       axiosNoAuth
         .get(
-          `mapbox.places/${val}.json?limit=10&proximity=ip&types=place&language=${i18n.language},en&access_token=pk.eyJ1IjoibmF6YXJwZWNoa2EiLCJhIjoiY2w5enN2ZzA2MGowMTNzcGJ4ZXpzNWwxYyJ9.oLwYVz9bpUTbT7hC20B5_w`,
+          `mapbox.places/${val}.json?limit=10&proximity=ip&types=place&language=${
+            i18n.language + (i18n.language !== "en" ? ",en" : "")
+          }&access_token=pk.eyJ1IjoibmF6YXJwZWNoa2EiLCJhIjoiY2w5enN2ZzA2MGowMTNzcGJ4ZXpzNWwxYyJ9.oLwYVz9bpUTbT7hC20B5_w`,
           {}
         )
         .then(({ data }) => {
@@ -110,6 +113,12 @@ const UserInfoForm = ({ user, onClose }: UserInfoFormProps) => {
         });
     }
   };
+
+  // eslint-disable-next-line react-hooks/exhaustive-deps
+  const debounceOnLocationSearch = useCallback(
+    _debounce(onLocationSearch, 400),
+    []
+  );
 
   const beforeUpload = (file: RcFile) => {
     const isJpgOrPng = file.type === "image/jpeg" || file.type === "image/png";
@@ -205,7 +214,7 @@ const UserInfoForm = ({ user, onClose }: UserInfoFormProps) => {
           <Select
             showSearch
             options={locations}
-            onSearch={onLocationSearch}
+            onSearch={debounceOnLocationSearch}
           ></Select>
         </Form.Item>
         <Form.Item

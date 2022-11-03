@@ -39,11 +39,11 @@ const RegisterModal = ({ onClose, onModalSwitch }: RegisterModalProps) => {
         onModalSwitch();
       })
       .catch((err) => {
-        setLoading(false);
         const msg = err.response?.data?.message;
         console.error(msg);
         setApiError(msg);
-      });
+      })
+      .finally(() => setLoading(false));
   };
 
   const validateApiError = () => {

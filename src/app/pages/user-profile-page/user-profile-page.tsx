@@ -2,7 +2,7 @@ import "./user-profile-page.scss";
 import testAvatarImage from "app/assets/img/testAvatar.jpeg";
 
 import { Button, message, Tag, Typography } from "antd";
-import { useCallback, useContext, useEffect, useState } from "react";
+import { useContext, useEffect, useState } from "react";
 import { useTranslation } from "react-i18next";
 import UserContext from "../../contexts/user-context";
 import { useNavigate, useParams } from "react-router-dom";
@@ -24,6 +24,7 @@ const UserProfilePage = () => {
 
   const [user, setUser] = useState<UserInterface | null>(null);
   const [showEditModal, setShowEditModal] = useState(false);
+  const [warningShown, setWarningShown] = useState(false);
 
   const isMyProfile = loggedInUser?.uuid === id;
 
@@ -40,17 +41,22 @@ const UserProfilePage = () => {
       .finally(() => setLoading(false));
   };
 
-  useEffect(() => loadUser(), []);
+  useEffect(() => {
+    loadUser();
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
   useEffect(() => {
     if (
+      !warningShown &&
       isMyProfile &&
       user &&
       (!user?.languages || !user?.localisation || !user?.description)
     ) {
       message.warn("Please fill your profile!");
       setShowEditModal(true);
+      setWarningShown(true);
     }
-  }, [isMyProfile, user]);
+  }, [isMyProfile, user, warningShown]);
 
   if (!user) {
     return null;
@@ -88,11 +94,11 @@ const UserProfilePage = () => {
 
             <Text className="location">
               <HomeFilled style={{ marginRight: "10px" }} />
-              {user.localisation.toUpperCase()}
+              {user.localisation?.toUpperCase()}
             </Text>
             <Text type="secondary">{t("userProfile.languages")}</Text>
             <Text className="languages">
-              {user.languages.map((lang: string) => (
+              {user.languages?.map((lang: string) => (
                 <Tag key={lang}>{lang}</Tag>
               ))}
             </Text>
