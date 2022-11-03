@@ -7,8 +7,9 @@ import { Button, Form, Input, message, Typography } from "antd";
 import { EyeInvisibleOutlined, EyeTwoTone } from "@ant-design/icons";
 import { useTranslation } from "react-i18next";
 import axios from "axios";
-import { useEffect, useState } from "react";
+import { useContext, useEffect, useState } from "react";
 import { RegisterUserInterface } from "../../interfaces/register-user.interface";
+import LoadingContext from "../../contexts/loading-context";
 
 const { Title, Text, Link } = Typography;
 
@@ -21,7 +22,7 @@ const RegisterModal = ({ onClose, onModalSwitch }: RegisterModalProps) => {
   const [form] = Form.useForm();
   const { t } = useTranslation();
   const [apiError, setApiError] = useState<string | null>(null);
-  const [loading, setLoading] = useState(false);
+  const { loading, setLoading } = useContext(LoadingContext);
 
   useEffect(() => {
     if (apiError) {

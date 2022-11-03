@@ -1,41 +1,59 @@
 import "./user-profile-page.scss";
 import testAvatarImage from "app/assets/img/testAvatar.jpeg";
 
-import { Button, Spin, Typography } from "antd";
-import { useContext, useEffect, useState } from "react";
-import { Trans, useTranslation } from "react-i18next";
+import { Button, message, Tag, Typography } from "antd";
+import { useCallback, useContext, useEffect, useState } from "react";
+import { useTranslation } from "react-i18next";
 import UserContext from "../../contexts/user-context";
 import { useNavigate, useParams } from "react-router-dom";
 import axios from "axios";
 import { UserInterface } from "app/interfaces/user.interface";
 import EditProfileModal from "../../components/edit-profile-modal/edit-profile-modal";
+import LoadingContext from "../../contexts/loading-context";
+import moment from "moment";
+import { HomeFilled } from "@ant-design/icons";
 
 const { Text, Title } = Typography;
 
 const UserProfilePage = () => {
   const { t } = useTranslation();
   const navigate = useNavigate();
-  const { user: loggedInUser } = useContext(UserContext);
+  const { user: loggedInUser, decodeUser } = useContext(UserContext);
   const { id } = useParams();
+  const { setLoading } = useContext(LoadingContext);
 
   const [user, setUser] = useState<UserInterface | null>(null);
   const [showEditModal, setShowEditModal] = useState(false);
 
   const isMyProfile = loggedInUser?.uuid === id;
 
-  useEffect(() => {
+  const loadUser = useCallback(() => {
+    setLoading(true);
     axios
       .get(`/user/${id}`)
       .then(({ data }) => {
-        setUser(data);
+        setUser(decodeUser(data));
       })
       .catch(() => {
         navigate("/not-found-page");
-      });
-  }, [navigate]);
+      })
+      .finally(() => setLoading(false));
+  }, [id, decodeUser, navigate, setLoading]);
+
+  useEffect(() => loadUser(), [navigate, loadUser]);
+  useEffect(() => {
+    if (
+      isMyProfile &&
+      user &&
+      (!user?.languages || !user?.localisation || !user?.description)
+    ) {
+      message.warn("Please fill your profile!");
+      setShowEditModal(true);
+    }
+  }, [isMyProfile, user]);
 
   if (!user) {
-    return <Spin className="spinner" size="large" />;
+    return null;
   }
 
   return (
@@ -45,6 +63,7 @@ const UserProfilePage = () => {
           user={user}
           onClose={() => {
             setShowEditModal(false);
+            loadUser();
           }}
         />
       ) : null}
@@ -54,40 +73,46 @@ const UserProfilePage = () => {
             <img src={testAvatarImage} alt="avatar" />
           </div>
           <div className="user-info">
-            <Title className="title" level={4}>
-              {user.firstName} {user.lastName}, 29 years
-            </Title>
+            <div>
+              <Title className="title" level={2} style={{ display: "inline" }}>
+                {user.firstName} {user.lastName}
+              </Title>
+              <Text
+                type="secondary"
+                style={{ display: "inline", fontSize: "18px" }}
+              >
+                {" "}
+                {moment().diff(user.dateOfBirth, "years")} years
+              </Text>
+            </div>
+
             <Text className="location">
-              {user.city}, {user.country}
+              <HomeFilled style={{ marginRight: "10px" }} />
+              {user.localisation.toUpperCase()}
             </Text>
+            <Text type="secondary">{t("userProfile.languages")}</Text>
             <Text className="languages">
-              <Trans
-                i18nKey="userProfilePage.languages"
-                components={{ bold: <strong /> }}
-              />
-              {user.languages?.join(", ")}
+              {user.languages.map((lang: string) => (
+                <Tag key={lang}>{lang}</Tag>
+              ))}
             </Text>
-            <Text className="about-me">
-              <Trans
-                i18nKey="userProfilePage.aboutMe"
-                components={{ bold: <strong /> }}
-              />
-              {user.description}
-            </Text>
+
+            <Text type="secondary">{t("userProfile.aboutMe")}</Text>
+            <Text className="about-me">{user.description}</Text>
             {isMyProfile && (
               <Button
                 className="edit-button"
                 onClick={() => setShowEditModal(true)}
               >
-                {t("userProfilePage.editPostButtonText")}
+                {t("userProfile.editPostButtonText")}
               </Button>
             )}
           </div>
         </div>
         <div className="posts-section">
           {isMyProfile && (
-            <Button type="primary" className="create-post-button">
-              {t("userProfilePage.createPostButtonText")}
+            <Button type="primary">
+              {t("userProfile.createPostButtonText")}
             </Button>
           )}
         </div>

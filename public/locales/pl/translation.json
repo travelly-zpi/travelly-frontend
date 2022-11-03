@@ -90,9 +90,28 @@
     }
   },
   "userProfilePage": {
-    "languages": "<bold>Języki, które znam: </bold>",
-    "aboutMe": "<bold>O mnie: </bold>",
+    "languages": "JĘZYKI, KTÓRE ZNAM",
+    "aboutMe": "O MNIE",
     "editPostButtonText": "Edytuj profil",
     "createPostButtonText": "+ Utwórz nowy post"
+  },
+  "editProfile": {
+    "editProfile": "Edycja profilu",
+    "profileInfo": "Informacja o profilu",
+    "changePassword": "Zmiana hasła",
+    "newAvatar": "Załaduj nowy awatar",
+    "deleteAvatar": "Usuń awatar",
+    "firstName": "Imie",
+    "lastName": "Nazwisko",
+    "email": "E-mail",
+    "location": "Lokalizacja",
+    "dateOfBirth": "Data urodzenia",
+    "languages": "Języki",
+    "aboutYou": "O ciebie",
+    "aboutYouPlaceholder": "Napisz więcej informacji o siebie...",
+    "oldPassword": "Stare hasło",
+    "newPassword": "Nowe hasło",
+    "confirmNewPassword": "Potwierdż nowe hasło",
+    "save": "Zapisz"
   }
 }

@@ -10,6 +10,7 @@ import { useContext, useEffect, useState } from "react";
 import { LoginUserInterface } from "../../interfaces/login-user.interface";
 import axios from "axios";
 import UserContext from "../../contexts/user-context";
+import LoadingContext from "../../contexts/loading-context";
 
 const { Title, Text, Link } = Typography;
 
@@ -23,7 +24,7 @@ const LoginModal = ({ onClose, onModalSwitch }: LoginModalProps) => {
   const { t } = useTranslation();
   const { onLogin } = useContext(UserContext);
   const [apiError, setApiError] = useState<string | null>(null);
-  const [loading, setLoading] = useState(false);
+  const { loading, setLoading } = useContext(LoadingContext);
 
   useEffect(() => {
     if (apiError) {
@@ -150,8 +151,8 @@ const LoginModal = ({ onClose, onModalSwitch }: LoginModalProps) => {
                 type="primary"
                 className="form-button"
                 htmlType="submit"
-                loading={loading}
                 disabled={loading}
+                loading={loading}
                 data-testid="submit-login"
               >
                 {t("login.buttonText")}

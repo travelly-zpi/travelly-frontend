@@ -22,6 +22,7 @@
     "i18next": "^21.10.0",
     "i18next-browser-languagedetector": "^6.1.8",
     "i18next-http-backend": "^1.4.4",
+    "language-name-map": "^0.3.0",
     "lint-staged": "^13.0.3",
     "prettier": "^2.7.1",
     "react": "^18.2.0",
@@ -68,6 +69,7 @@
     ]
   },
   "devDependencies": {
+    "@types/language-name-map": "^0.3.0",
     "cypress": "^10.10.0",
     "sass": "^1.55.0"
   }

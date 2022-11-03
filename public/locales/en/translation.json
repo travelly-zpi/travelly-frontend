@@ -89,10 +89,29 @@
       "emailTaken": "This email is already taken! Log in instead."
     }
   },
-  "userProfilePage": {
-    "languages": "<bold>Languages I speak: </bold>",
-    "aboutMe": "<bold>About me: </bold>",
+  "userProfile": {
+    "languages": "LANGUAGES I SPEAK",
+    "aboutMe": "ABOUT ME",
     "editPostButtonText": "Edit my profile",
     "createPostButtonText": "+ Create new post"
+  },
+  "editProfile": {
+    "editProfile": "Edit Profile",
+    "profileInfo": "Profile Info",
+    "changePassword": "Change password",
+    "newAvatar": "Upload new avatar",
+    "deleteAvatar": "Delete avatar",
+    "firstName": "Name",
+    "lastName": "Surname",
+    "email": "Email",
+    "location": "Location",
+    "dateOfBirth": "Date of birth",
+    "languages": "Languages",
+    "aboutYou": "About you",
+    "aboutYouPlaceholder": "Write some information about you...",
+    "oldPassword": "Old password",
+    "newPassword": "New password",
+    "confirmNewPassword": "Confirm new password",
+    "save": "Save"
   }
 }

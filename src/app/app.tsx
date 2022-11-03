@@ -4,16 +4,22 @@ import UserProfilePage from "./pages/user-profile-page/user-profile-page";
 import NotFound from "./pages/not-found/not-found";
 import AppContainer from "./components/app-container/app-container";
 import UserContext from "./contexts/user-context";
+import LoadingContext from "./contexts/loading-context";
 import { useCallback, useState } from "react";
 import { UserInterface } from "./interfaces/user.interface";
 import AuthGuard from "./components/auth-guard/auth-guard";
 import VerificationPage from "./pages/user-verification-page/user-verification-page";
+import { UserDtoInterface } from "./interfaces/user-dto.interface";
+import moment from "moment/moment";
+import { Spin } from "antd";
+import * as React from "react";
 
 const App = () => {
   const [user, setUser] = useState<UserInterface | null>(
     JSON.parse(sessionStorage.getItem("user") || "null") ||
       JSON.parse(localStorage.getItem("user") || "null")
   );
+  const [loading, setLoading] = useState(false);
   const navigate = useNavigate();
 
   const onLogin = useCallback(
@@ -36,23 +42,47 @@ const App = () => {
     navigate("/");
   }, [navigate]);
 
+  const decodeUser = (user: UserDtoInterface): UserInterface => {
+    return {
+      ...user,
+      dateOfBirth: moment(user.dateOfBirth),
+      languages: JSON.parse(user.languages),
+    };
+  };
+
+  const encodeUser = (user: UserInterface): UserDtoInterface => {
+    return {
+      ...user,
+      dateOfBirth: user.dateOfBirth.format("YYYY-MM-DD"),
+      languages: JSON.stringify(user.languages),
+    };
+  };
+
   return (
-    <UserContext.Provider value={{ user, onLogin, onLogout }}>
-      <Routes>
-        <Route path="/" element={<AppContainer />}>
-          <Route index element={<HomePage />}></Route>
-          <Route
-            path="users/:id"
-            element={
-              <AuthGuard>
-                <UserProfilePage />
-              </AuthGuard>
-            }
-          ></Route>
-          <Route path="register/verify" element={<VerificationPage />}></Route>
-          <Route path="*" element={<NotFound />}></Route>
-        </Route>
-      </Routes>
+    <UserContext.Provider
+      value={{ user, onLogin, onLogout, decodeUser, encodeUser }}
+    >
+      <LoadingContext.Provider value={{ loading, setLoading }}>
+        <Routes>
+          <Route path="/" element={<AppContainer />}>
+            <Route index element={<HomePage />}></Route>
+            <Route
+              path="users/:id"
+              element={
+                <AuthGuard>
+                  <UserProfilePage />
+                </AuthGuard>
+              }
+            ></Route>
+            <Route
+              path="register/verify"
+              element={<VerificationPage />}
+            ></Route>
+            <Route path="*" element={<NotFound />}></Route>
+          </Route>
+        </Routes>
+        {loading ? <Spin className="spinner" size="large" /> : null}
+      </LoadingContext.Provider>
     </UserContext.Provider>
   );
 };
