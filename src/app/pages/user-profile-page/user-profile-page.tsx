@@ -27,7 +27,7 @@ const UserProfilePage = () => {
 
   const isMyProfile = loggedInUser?.uuid === id;
 
-  const loadUser = useCallback(() => {
+  const loadUser = () => {
     setLoading(true);
     axios
       .get(`/user/${id}`)
@@ -38,9 +38,9 @@ const UserProfilePage = () => {
         navigate("/not-found-page");
       })
       .finally(() => setLoading(false));
-  }, [id, decodeUser, navigate, setLoading]);
+  };
 
-  useEffect(() => loadUser(), [navigate, loadUser]);
+  useEffect(() => loadUser(), []);
   useEffect(() => {
     if (
       isMyProfile &&
