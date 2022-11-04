@@ -31,7 +31,7 @@ interface CreatePostModalProps {
 
 const CreatePostModal = ({ onClose }: CreatePostModalProps) => {
   const [createPost] = Form.useForm();
-  const [locations, setLocations] = useState();
+  const [locations] = useState();
   const [avatarPreview, setAvatarPreview] = useState<string>();
 
   const uploadButton = (
