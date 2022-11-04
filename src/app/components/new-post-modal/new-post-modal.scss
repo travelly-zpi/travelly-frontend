@@ -1,0 +1,50 @@
+.create-post-container {
+  padding: 27px 40px 118px 48px;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+
+  .title {
+    margin-left: auto;
+    margin-right: auto;
+  }
+
+  .ant-form-item {
+    margin-bottom: 10px;
+  }
+
+  .ant-picker {
+    width: 100%;
+  }
+
+  .submitButton{
+    margin-left: auto;
+    margin-right: auto;
+    position:absolute;
+    top: 700px;
+    right: 450px;
+  }
+}
+
+.create-post-form {
+  display: flex;
+  width: 100%;
+  gap: 40px;
+}
+
+.create-post-avatar {
+  flex: 1;
+  display: flex;
+  padding-top: 90px;
+  gap: 40px;
+  flex-direction: column;
+  align-items: center;
+
+  img {
+    object-fit: contain;
+  }
+}
+
+.fff{
+  position: relative;
+}
