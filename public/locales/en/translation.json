@@ -1,7 +1,11 @@
 {
-  "navbar": {
+  "header": {
     "register": "Sign up",
-    "login": "Log in"
+    "login": "Log in",
+    "myProfile": "My profile",
+    "messages": "Messages",
+    "board": "Board",
+    "logout": "Logout"
   },
   "footer": {
     "copyright": "All rights reserved."
@@ -109,9 +113,28 @@
     "languages": "Languages",
     "aboutYou": "About you",
     "aboutYouPlaceholder": "Write some information about you...",
+    "languagesPlaceholder": "Select languages you speak",
+    "dateOfBirthPlaceholder": "Select your birth date",
     "oldPassword": "Old password",
     "newPassword": "New password",
     "confirmNewPassword": "Confirm new password",
-    "save": "Save"
+    "save": "Save",
+    "errors": {
+      "avatarOnlyJpgPng": "You can only upload JPG/PNG file!",
+      "avatarSmaller2MB": "Image must smaller than 2MB!",
+      "noFirstName": "Please input your first name!",
+      "noLastName": "Please input your last name!",
+      "noLocation": "Please select your location!",
+      "noDateOfBirth": "Please select your date of birth!",
+      "noLanguages": "Please select languages you speak!"
+    },
+    "messages": {
+      "avatarUpdated": "Avatar successfully updated!",
+      "avatarRemoved": "Avatar successfully removed!",
+      "avatarConfirm": "Are you sure to remove your avatar?",
+      "avatarConfirmYes": "Yes",
+      "avatarConfirmNo": "No",
+      "profileUpdated": "Your profile information was successfully saved!"
+    }
   }
 }

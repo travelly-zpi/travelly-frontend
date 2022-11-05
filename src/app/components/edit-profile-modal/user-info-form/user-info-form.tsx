@@ -74,7 +74,7 @@ const UserInfoForm = ({ user, onClose }: UserInfoFormProps) => {
       .then((res) => {
         const data = res.data;
         console.log(data);
-        message.success("Your profile information was successfully saved!");
+        message.success(t("editProfile.messages.profileUpdated"));
         onClose();
       })
       .catch((err) => {
@@ -94,7 +94,7 @@ const UserInfoForm = ({ user, onClose }: UserInfoFormProps) => {
         .get(
           `mapbox.places/${val}.json?limit=10&proximity=ip&types=place&language=${
             i18n.language + (i18n.language !== "en" ? ",en" : "")
-          }&access_token=pk.eyJ1IjoibmF6YXJwZWNoa2EiLCJhIjoiY2w5enN2ZzA2MGowMTNzcGJ4ZXpzNWwxYyJ9.oLwYVz9bpUTbT7hC20B5_w`,
+          }&access_token=${process.env.REACT_APP_MAPBOX_API_KEY}`,
           {}
         )
         .then(({ data }) => {
@@ -105,7 +105,6 @@ const UserInfoForm = ({ user, onClose }: UserInfoFormProps) => {
           }));
 
           setLocations(locations);
-          console.log({ data, locations });
         });
     }
   };
@@ -119,11 +118,11 @@ const UserInfoForm = ({ user, onClose }: UserInfoFormProps) => {
   const beforeUpload = (file: RcFile) => {
     const isJpgOrPng = file.type === "image/jpeg" || file.type === "image/png";
     if (!isJpgOrPng) {
-      message.error("You can only upload JPG/PNG file!");
+      message.error(t("editProfile.errors.avatarOnlyJpgPng"));
     }
     const isLt2M = file.size / 1024 / 1024 < 2;
     if (!isLt2M) {
-      message.error("Image must smaller than 2MB!");
+      message.error(t("editProfile.errors.avatarSmaller2MB"));
     }
     return isJpgOrPng && isLt2M;
   };
@@ -136,7 +135,7 @@ const UserInfoForm = ({ user, onClose }: UserInfoFormProps) => {
     axios
       .put(`/user/${user.uuid}/uploadProfileImage`, fd)
       .then(() => {
-        message.success("Avatar successfully updated!");
+        message.success(t("editProfile.messages.avatarUpdated"));
         onSuccess();
         onClose();
       })
@@ -154,7 +153,7 @@ const UserInfoForm = ({ user, onClose }: UserInfoFormProps) => {
     axios
       .put(`/user/${user.uuid}/removeProfileImage`)
       .then(() => {
-        message.success("Avatar successfully removed!");
+        message.success(t("editProfile.messages.avatarRemoved"));
         onClose();
       })
       .catch((err) => {
@@ -191,10 +190,10 @@ const UserInfoForm = ({ user, onClose }: UserInfoFormProps) => {
 
         {user.imageUrl && (
           <Popconfirm
-            title="Are you sure to remove your avatar?"
+            title={t("editProfile.messages.avatarConfirm")}
             onConfirm={removeImage}
-            okText="Yes"
-            cancelText="No"
+            okText={t("editProfile.messages.avatarConfirmYes")}
+            cancelText={t("editProfile.messages.avatarConfirmNo")}
           >
             <Button>
               <Text type="danger">{t("editProfile.removeAvatar")}</Text>
@@ -215,14 +214,18 @@ const UserInfoForm = ({ user, onClose }: UserInfoFormProps) => {
         <Form.Item
           label={t("editProfile.firstName")}
           name="firstName"
-          rules={[{ required: true }]}
+          rules={[
+            { required: true, message: t("editProfile.errors.noFirstName") },
+          ]}
         >
           <Input />
         </Form.Item>
         <Form.Item
           label={t("editProfile.lastName")}
           name="lastName"
-          rules={[{ required: true }]}
+          rules={[
+            { required: true, message: t("editProfile.errors.noLastName") },
+          ]}
         >
           <Input />
         </Form.Item>
@@ -232,7 +235,9 @@ const UserInfoForm = ({ user, onClose }: UserInfoFormProps) => {
         <Form.Item
           label={t("editProfile.location")}
           name="localisation"
-          rules={[{ required: true }]}
+          rules={[
+            { required: true, message: t("editProfile.errors.noLocation") },
+          ]}
         >
           <Select
             showSearch
@@ -243,24 +248,29 @@ const UserInfoForm = ({ user, onClose }: UserInfoFormProps) => {
         <Form.Item
           label={t("editProfile.dateOfBirth")}
           name="dateOfBirth"
-          rules={[{ required: true }]}
+          rules={[
+            { required: true, message: t("editProfile.errors.noDateOfBirth") },
+          ]}
         >
           <DatePicker
             style={{ width: "100%" }}
             format={"YYYY-MM-DD"}
+            placeholder={t("editProfile.dateOfBirthPlaceholder")}
             disabledDate={(date) => date && date > moment().subtract(18, "y")}
           />
         </Form.Item>
         <Form.Item
           label={t("editProfile.languages")}
           name="languages"
-          rules={[{ required: true }]}
+          rules={[
+            { required: true, message: t("editProfile.errors.noLanguages") },
+          ]}
         >
           <Select
             showSearch
             mode="multiple"
             allowClear
-            placeholder="Please select"
+            placeholder={t("editProfile.languagesPlaceholder")}
             options={languages}
             filterOption={(input: string, option: any) =>
               (option?.label ?? "").toLowerCase().includes(input.toLowerCase())
@@ -273,7 +283,6 @@ const UserInfoForm = ({ user, onClose }: UserInfoFormProps) => {
           label={t("editProfile.aboutYou")}
           name="description"
           className="about-you"
-          rules={[{ required: true }]}
         >
           <TextArea
             rows={4}

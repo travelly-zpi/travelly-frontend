@@ -7,6 +7,7 @@ import { useNavigate, useParams } from "react-router-dom";
 import axios from "axios";
 import { UserInterface } from "app/interfaces/user.interface";
 import EditProfileModal from "../../components/edit-profile-modal/edit-profile-modal";
+import CreatePostModal from "../../components/new-post-modal/new-post-modal";
 import LoadingContext from "../../contexts/loading-context";
 import moment from "moment";
 import { HomeFilled, UserOutlined } from "@ant-design/icons";
@@ -21,7 +22,9 @@ const UserProfilePage = () => {
   const { setLoading } = useContext(LoadingContext);
 
   const [user, setUser] = useState<UserInterface | null>(null);
-  const [showEditModal, setShowEditModal] = useState(false);
+  const [modal, setModal] = useState<null | "edit-profile" | "create-post">(
+    null
+  );
   const [warningShown, setWarningShown] = useState(false);
 
   const isMyProfile = loggedInUser?.uuid === id;
@@ -48,10 +51,10 @@ const UserProfilePage = () => {
       !warningShown &&
       isMyProfile &&
       user &&
-      (!user?.languages || !user?.localisation || !user?.description)
+      (!user?.languages || !user?.localisation || !user?.dateOfBirth)
     ) {
       message.warn("Please fill your profile!");
-      setShowEditModal(true);
+      setModal("edit-profile");
       setWarningShown(true);
     }
   }, [isMyProfile, user, warningShown]);
@@ -62,15 +65,18 @@ const UserProfilePage = () => {
 
   return (
     <>
-      {showEditModal ? (
+      {modal === "create-post" && (
+        <CreatePostModal onClose={() => setModal(null)} />
+      )}
+      {modal === "edit-profile" && (
         <EditProfileModal
           user={user}
           onClose={() => {
-            setShowEditModal(false);
+            setModal(null);
             loadUser();
           }}
         />
-      ) : null}
+      )}
       <section className="user-profile-page">
         <div className="user-info-section">
           {user.imageUrl ? (
@@ -112,7 +118,7 @@ const UserProfilePage = () => {
             {isMyProfile && (
               <Button
                 className="edit-button"
-                onClick={() => setShowEditModal(true)}
+                onClick={() => setModal("edit-profile")}
               >
                 {t("userProfile.editPostButtonText")}
               </Button>
@@ -121,7 +127,11 @@ const UserProfilePage = () => {
         </div>
         <div className="posts-section">
           {isMyProfile && (
-            <Button type="primary">
+            <Button
+              type="primary"
+              onClick={() => setModal("create-post")}
+              className="create-post-button"
+            >
               {t("userProfile.createPostButtonText")}
             </Button>
           )}

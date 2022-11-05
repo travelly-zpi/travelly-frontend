@@ -1,7 +1,11 @@
 {
-  "navbar": {
+  "header": {
     "register": "Zarejestruj się",
-    "login": "Zaloguj się"
+    "login": "Zaloguj się",
+    "myProfile": "Mój profil",
+    "messages": "Wiadomości",
+    "board": "Board",
+    "logout": "Wyloguj"
   },
   "footer": {
     "copyright": "Wszelkie prawa zastrzeżone."
@@ -109,9 +113,28 @@
     "languages": "Języki",
     "aboutYou": "O ciebie",
     "aboutYouPlaceholder": "Napisz więcej informacji o siebie...",
+    "languagesPlaceholder": "Wybierz języki, które znasz",
+    "dateOfBirthPlaceholder": "Wybierz swoją datę urodzenia",
     "oldPassword": "Stare hasło",
     "newPassword": "Nowe hasło",
     "confirmNewPassword": "Potwierdż nowe hasło",
-    "save": "Zapisz"
+    "save": "Zapisz",
+    "errors": {
+      "avatarOnlyJpgPng": "Możesz przesłać tylko plik JPG/PNG!",
+      "avatarSmaller2MB": "Obraz musi być mniejszy niż 2 MB!",
+      "noFirstName": "Proszę podać swoje imię!",
+      "noLastName": "Proszę podać swoje nazwisko!",
+      "noLocation": "Proszę wybrać swoją lokalizację!",
+      "noDateOfBirth": "Proszę wybrać swoją datę urodzenia!",
+      "noLanguages": "Proszę wybrać języki, które znasz!"
+    },
+    "messages": {
+      "avatarUpdated": "Pomyślnie zaktualizowano awatar!",
+      "avatarRemoved": "Awatar został pomyślnie usunięty!",
+      "avatarConfirm": "Czy na pewno chcesz usunąć swój awatar??",
+      "avatarConfirmYes": "Tak",
+      "avatarConfirmNo": "Nie",
+      "profileUpdated": "Informacje o Twoim profilu zostały pomyślnie zapisane!"
+    }
   }
 }
