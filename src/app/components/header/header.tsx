@@ -1,5 +1,6 @@
 import { useTranslation } from "react-i18next";
 import { Button, Dropdown, Layout, Menu, Tooltip, Typography } from "antd";
+import { Link } from 'react-router-dom';
 
 import logo from "app/assets/img/logo.png";
 
@@ -12,7 +13,7 @@ import LoginModal from "../login-modal/login-modal";
 import UserContext from "../../contexts/user-context";
 
 const { Header: AntHeader } = Layout;
-const { Text, Link } = Typography;
+const { Text } = Typography;
 
 const Header = () => {
   const { i18n, t } = useTranslation();
@@ -59,8 +60,8 @@ const Header = () => {
     },
   ].map((item) => ({ 
     key: item.url, 
-    label:  (
-      <Link href={item.url}>{item.label}</Link>
+    label: (
+      <Link to={item.url}>{item.label}</Link>
     ),
   }));
 
@@ -79,7 +80,7 @@ const Header = () => {
         />
       )}
       <AntHeader className="header">
-        <Link href="/">
+        <Link to="/">
           <img src={logo} alt="Travelly logo" className="logo" />
         </Link>
         {user && (
