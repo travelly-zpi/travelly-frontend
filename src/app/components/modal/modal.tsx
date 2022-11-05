@@ -5,9 +5,10 @@ import { CloseOutlined } from "@ant-design/icons";
 interface ModalProps {
   children: ReactNode;
   onClose?: Function;
+  size?: "large" | "small";
 }
 
-const Modal = ({ children, onClose }: ModalProps) => {
+const Modal = ({ children, onClose, size = "small" }: ModalProps) => {
   useEffect(() => {
     document.body.style.overflow = "hidden";
   }, []);
@@ -21,7 +22,12 @@ const Modal = ({ children, onClose }: ModalProps) => {
 
   return (
     <div className="modal" onClick={closeModal}>
-      <div className="modal-container" onClick={(e) => e.stopPropagation()}>
+      <div
+        className={
+          "modal-container" + (size === "large" ? " modal-container-large" : "")
+        }
+        onClick={(e) => e.stopPropagation()}
+      >
         <div className="modal-exit">
           <CloseOutlined onClick={closeModal} />
         </div>
