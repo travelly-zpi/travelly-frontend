@@ -8,4 +8,5 @@ export interface UserDtoInterface {
   languages: string;
   description: string;
   localisation: string;
+  imageUrl: string;
 }

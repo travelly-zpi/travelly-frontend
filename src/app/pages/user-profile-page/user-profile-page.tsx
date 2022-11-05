@@ -1,7 +1,5 @@
 import "./user-profile-page.scss";
-import testAvatarImage from "app/assets/img/testAvatar.jpeg";
-
-import { Button, message, Tag, Typography } from "antd";
+import { Avatar, Button, message, Tag, Typography } from "antd";
 import { useContext, useEffect, useState } from "react";
 import { useTranslation } from "react-i18next";
 import UserContext from "../../contexts/user-context";
@@ -11,7 +9,7 @@ import { UserInterface } from "app/interfaces/user.interface";
 import EditProfileModal from "../../components/edit-profile-modal/edit-profile-modal";
 import LoadingContext from "../../contexts/loading-context";
 import moment from "moment";
-import { HomeFilled } from "@ant-design/icons";
+import { HomeFilled, UserOutlined } from "@ant-design/icons";
 
 const { Text, Title } = Typography;
 
@@ -74,10 +72,16 @@ const UserProfilePage = () => {
         />
       ) : null}
       <section className="user-profile-page">
-        <div className="user-info-section ">
-          <div className="user-avatar">
-            <img src={testAvatarImage} alt="avatar" />
-          </div>
+        <div className="user-info-section">
+          {user.imageUrl ? (
+            <Avatar
+              size={150}
+              src={process.env.REACT_APP_AZURE_CONTAINER_URL + user.imageUrl}
+            ></Avatar>
+          ) : (
+            <Avatar size={150} icon={<UserOutlined></UserOutlined>}></Avatar>
+          )}
+
           <div className="user-info">
             <div>
               <Title className="title" level={2} style={{ display: "inline" }}>

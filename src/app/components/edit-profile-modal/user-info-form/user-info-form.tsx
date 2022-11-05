@@ -5,6 +5,7 @@ import {
   Form,
   Input,
   message,
+  Popconfirm,
   Select,
   Typography,
   Upload,
@@ -24,6 +25,7 @@ import _debounce from "lodash/debounce";
 
 import "./user-info-form.scss";
 import LoadingContext from "../../../contexts/loading-context";
+import ImgCrop from "antd-img-crop";
 
 const { Text } = Typography;
 const { TextArea } = Input;
@@ -55,26 +57,20 @@ const UserInfoForm = ({ user, onClose }: UserInfoFormProps) => {
   }, []);
 
   const onSubmit = (values: UserInterface) => {
-    console.log(values);
     const dto: UserDtoInterface = encodeUser(values);
-
-    const fd = new FormData();
-    fd.append("uuid", user.uuid);
-    fd.append("firstName", dto.firstName);
-    fd.append("lastName", dto.lastName);
-    fd.append("dateOfBirth", dto.dateOfBirth);
-    fd.append("description", dto.description);
-    fd.append("email", user.email);
-    fd.append("languages", dto.languages);
-    fd.append("localisation", dto.localisation);
-
-    for (const [key, value] of fd.entries()) {
-      console.log(key + " = " + value);
-    }
 
     setLoading(true);
     axios
-      .put("/user/", fd)
+      .put("/user/", {
+        uuid: user.uuid,
+        firstName: dto.firstName,
+        lastName: dto.lastName,
+        dateOfBirth: dto.dateOfBirth,
+        description: dto.description,
+        email: user.email,
+        languages: dto.languages,
+        localisation: dto.localisation,
+      })
       .then((res) => {
         const data = res.data;
         console.log(data);
@@ -132,28 +128,37 @@ const UserInfoForm = ({ user, onClose }: UserInfoFormProps) => {
     return isJpgOrPng && isLt2M;
   };
 
-  const customUpload = ({ onSuccess, onError, file }: any) => {
+  const uploadImage = ({ onSuccess, onError, file }: any) => {
     const fd = new FormData();
-    const dto = encodeUser(user);
-
-    for (const key in dto) {
-      fd.append(key, dto[key as keyof UserDtoInterface]);
-    }
-
     fd.append("image", file);
-
-    for (const [key, value] of fd.entries()) {
-      console.log(key + " = " + value);
-    }
 
     setLoading(true);
     axios
-      .put("/user/", fd)
+      .put(`/user/${user.uuid}/uploadProfileImage`, fd)
       .then(() => {
+        message.success("Avatar successfully updated!");
         onSuccess();
+        onClose();
       })
       .catch((err) => {
+        message.error(err.message);
         onError(err);
+      })
+      .finally(() => {
+        setLoading(false);
+      });
+  };
+
+  const removeImage = () => {
+    setLoading(true);
+    axios
+      .put(`/user/${user.uuid}/removeProfileImage`)
+      .then(() => {
+        message.success("Avatar successfully removed!");
+        onClose();
+      })
+      .catch((err) => {
+        message.error(err.message);
       })
       .finally(() => {
         setLoading(false);
@@ -163,21 +168,39 @@ const UserInfoForm = ({ user, onClose }: UserInfoFormProps) => {
   return (
     <div className="user-info-form">
       <div className="avatar-block">
-        <Avatar size={128} icon={<UserOutlined />} />
+        {user.imageUrl ? (
+          <Avatar
+            size={128}
+            src={process.env.REACT_APP_AZURE_CONTAINER_URL + user.imageUrl}
+          />
+        ) : (
+          <Avatar size={128} icon={<UserOutlined></UserOutlined>} />
+        )}
 
-        <Upload
-          accept="image/png, image/jpeg"
-          maxCount={1}
-          showUploadList={false}
-          customRequest={customUpload}
-          beforeUpload={beforeUpload}
-        >
-          <Button type="primary">{t("editProfile.newAvatar")}</Button>
-        </Upload>
+        <ImgCrop>
+          <Upload
+            accept="image/png, image/jpeg"
+            maxCount={1}
+            showUploadList={false}
+            customRequest={uploadImage}
+            beforeUpload={beforeUpload}
+          >
+            <Button type="primary">{t("editProfile.newAvatar")}</Button>
+          </Upload>
+        </ImgCrop>
 
-        <Button>
-          <Text type="danger">{t("editProfile.deleteAvatar")}</Text>
-        </Button>
+        {user.imageUrl && (
+          <Popconfirm
+            title="Are you sure to remove your avatar?"
+            onConfirm={removeImage}
+            okText="Yes"
+            cancelText="No"
+          >
+            <Button>
+              <Text type="danger">{t("editProfile.removeAvatar")}</Text>
+            </Button>
+          </Popconfirm>
+        )}
       </div>
 
       <Form

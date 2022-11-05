@@ -100,7 +100,7 @@
     "profileInfo": "Profile Info",
     "changePassword": "Change password",
     "newAvatar": "Upload new avatar",
-    "deleteAvatar": "Delete avatar",
+    "removeAvatar": "Remove avatar",
     "firstName": "Name",
     "lastName": "Surname",
     "email": "Email",

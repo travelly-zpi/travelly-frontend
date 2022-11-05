@@ -10,4 +10,5 @@ export interface UserInterface {
   languages: Array<string>;
   description: string;
   localisation: any;
+  imageUrl: string;
 }
