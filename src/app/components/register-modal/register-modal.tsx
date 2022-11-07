@@ -55,6 +55,7 @@ const RegisterModal = ({ onClose, onModalSwitch }: RegisterModalProps) => {
 
   const validatePassword = (rule: any, value: string) => {
     if (
+      value &&
       !value.match(
         /^(?=.*[A-Za-z])(?=.*\d)(?=.*[@$!%*#?&])[A-Za-z\d@$!%*#?&]{8,}$/
       )

@@ -31,11 +31,11 @@ const { Text } = Typography;
 const { TextArea } = Input;
 
 interface UserInfoFormProps {
-  user: UserInterface;
   onClose: Function;
+  user: UserInterface;
 }
 
-const UserInfoForm = ({ user, onClose }: UserInfoFormProps) => {
+const UserInfoForm = ({ onClose, user }: UserInfoFormProps) => {
   const { i18n, t } = useTranslation();
   const [form] = Form.useForm();
   const { encodeUser } = useContext(UserContext);
@@ -78,10 +78,10 @@ const UserInfoForm = ({ user, onClose }: UserInfoFormProps) => {
         onClose();
       })
       .catch((err) => {
-        setLoading(false);
         const msg = err.response?.data?.message;
         console.error(msg);
-      });
+      })
+      .finally(() => setLoading(false));
   };
 
   const onLocationSearch = (val: string) => {

@@ -126,7 +126,13 @@
       "noLastName": "Proszę podać swoje nazwisko!",
       "noLocation": "Proszę wybrać swoją lokalizację!",
       "noDateOfBirth": "Proszę wybrać swoją datę urodzenia!",
-      "noLanguages": "Proszę wybrać języki, które znasz!"
+      "noLanguages": "Proszę wybrać języki, które znasz!",
+      "wrongPassword": "Hasło jest nieprawidłowe!",
+      "invalidPassword": "Hasło powinno mieć co najmniej 8 znaków, zawierać cyfrę i specjalny symbol.",
+      "noOldPassword": "Proszę podać stare hasło!",
+      "noNewPassword": "Proszę podać nowe hasło!",
+      "noNewPasswordConfirm": "Proszę podać nowe hasło ponownie!",
+      "invalidNewPasswordConfirm": "Hasła nie są takie same!"
     },
     "messages": {
       "avatarUpdated": "Pomyślnie zaktualizowano awatar!",
@@ -134,7 +140,8 @@
       "avatarConfirm": "Czy na pewno chcesz usunąć swój awatar??",
       "avatarConfirmYes": "Tak",
       "avatarConfirmNo": "Nie",
-      "profileUpdated": "Informacje o Twoim profilu zostały pomyślnie zapisane!"
+      "profileUpdated": "Informacje o Twoim profilu zostały pomyślnie zapisane!",
+      "passwordUpdated": "Twoje hasło zostało pomyślnie zmienione!"
     }
   }
 }

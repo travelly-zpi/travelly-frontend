@@ -126,7 +126,13 @@
       "noLastName": "Please input your last name!",
       "noLocation": "Please select your location!",
       "noDateOfBirth": "Please select your date of birth!",
-      "noLanguages": "Please select languages you speak!"
+      "noLanguages": "Please select languages you speak!",
+      "wrongPassword": "Password is incorrect!",
+      "invalidPassword": "Password should be at least 8 characters long, include a digit and a special symbol.",
+      "noOldPassword": "Please enter your old password!",
+      "noNewPassword": "Please enter your new password!",
+      "noNewPasswordConfirm": "Please enter your new password again!",
+      "invalidNewPasswordConfirm": "Passwords don't match!"
     },
     "messages": {
       "avatarUpdated": "Avatar successfully updated!",
@@ -134,7 +140,8 @@
       "avatarConfirm": "Are you sure to remove your avatar?",
       "avatarConfirmYes": "Yes",
       "avatarConfirmNo": "No",
-      "profileUpdated": "Your profile information was successfully saved!"
+      "profileUpdated": "Your profile information was successfully saved!",
+      "passwordUpdated": "Your password was successfully updated!"
     }
   }
 }

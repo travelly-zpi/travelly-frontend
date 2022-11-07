@@ -30,7 +30,9 @@ const EditProfileModal = ({ onClose, user }: EditProfileModalProps) => {
     {
       label: t("editProfile.changePassword"),
       key: "change-password",
-      children: <UserPasswordForm></UserPasswordForm>,
+      children: (
+        <UserPasswordForm user={user} onClose={onClose}></UserPasswordForm>
+      ),
     },
   ];
 
