@@ -1,0 +1,45 @@
+.user-info-form {
+  display: flex;
+  flex-direction: column;
+  gap: 27px;
+
+  .avatar-block {
+    display: flex;
+    align-items: center;
+    flex-direction: column;
+    gap: 10px;
+  }
+
+  .ant-form {
+    width: 100%;
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    grid-template-rows: repeat(4, auto);
+    grid-column-gap: 18px;
+
+    .ant-form-item {
+      margin-bottom: 18px;
+    }
+
+    .ant-btn {
+      justify-self: end;
+      grid-column: 2 / 2;
+    }
+
+    .about-you {
+      grid-column-start: span 2;
+    }
+  }
+}
+
+@media (min-width: 800px) {
+  .user-info-form {
+    flex-direction: row;
+
+    .avatar-block {
+      .ant-btn {
+        width: 100%;
+      }
+    }
+  }
+}

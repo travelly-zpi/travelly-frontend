@@ -1,97 +1,144 @@
 import "./user-profile-page.scss";
-import testAvatarImage from "app/assets/img/testAvatar.jpeg";
-
-import { Button, Typography } from "antd";
+import { Avatar, Button, message, Tag, Typography } from "antd";
 import { useContext, useEffect, useState } from "react";
-import { Trans, useTranslation } from "react-i18next";
+import { useTranslation } from "react-i18next";
 import UserContext from "../../contexts/user-context";
-import { Navigate, useNavigate, useParams } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
 import axios from "axios";
 import { UserInterface } from "app/interfaces/user.interface";
-import CreatePostModal from "../../components/new-post-modal/new-post-modal"
+import EditProfileModal from "../../components/edit-profile-modal/edit-profile-modal";
+import CreatePostModal from "../../components/new-post-modal/new-post-modal";
+import LoadingContext from "../../contexts/loading-context";
+import moment from "moment";
+import { HomeFilled, UserOutlined } from "@ant-design/icons";
 
 const { Text, Title } = Typography;
 
 const UserProfilePage = () => {
   const { t } = useTranslation();
   const navigate = useNavigate();
-  const { user: loggedInUser } = useContext(UserContext);
+  const { user: loggedInUser, decodeUser } = useContext(UserContext);
   const { id } = useParams();
+  const { setLoading } = useContext(LoadingContext);
 
-  const [isLoading, setIsLoading] = useState<boolean>(false);
   const [user, setUser] = useState<UserInterface | null>(null);
-  const [modal, setModal] = useState<null | "create-post">(null);
+  const [modal, setModal] = useState<null | "edit-profile" | "create-post">(
+    null
+  );
+  const [warningShown, setWarningShown] = useState(false);
 
   const isMyProfile = loggedInUser?.uuid === id;
 
-  useEffect(() => {
-    // TODO: uncomment when `GET /users/:id` will be ready to use and remove the mock
-    // axios.get(`/users/${id}`)
-    axios.get('/userMock.json', { baseURL: '/' })
+  const loadUser = () => {
+    setLoading(true);
+    axios
+      .get(`/user/${id}`)
       .then(({ data }) => {
-        setUser(data);
+        setUser(decodeUser(data));
       })
       .catch(() => {
-        navigate('/not-found-page');
+        navigate("/not-found-page");
       })
-      .finally(() => {
-        setIsLoading(false);
-      });
-  }, [navigate]);
+      .finally(() => setLoading(false));
+  };
 
-  if (!loggedInUser) {
-    return <Navigate to="/" />;
-  }
+  useEffect(() => {
+    loadUser();
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
+  useEffect(() => {
+    if (
+      !warningShown &&
+      isMyProfile &&
+      user &&
+      (!user?.languages || !user?.localisation || !user?.dateOfBirth)
+    ) {
+      message.warn("Please fill your profile!");
+      setModal("edit-profile");
+      setWarningShown(true);
+    }
+  }, [isMyProfile, user, warningShown]);
 
-  if (!user || isLoading) {
-    return <p>'Loading ...'</p>;
+  if (!user) {
+    return null;
   }
 
   return (
     <>
-     {modal === "create-post" && (
+      {modal === "create-post" && (
         <CreatePostModal onClose={() => setModal(null)} />
       )}
+      {modal === "edit-profile" && (
+        <EditProfileModal
+          user={user}
+          onClose={() => {
+            setModal(null);
+            loadUser();
+          }}
+        />
+      )}
       <section className="user-profile-page">
-        <div className="user-info-section ">
-          <div className="user-avatar">
-            <img src={testAvatarImage} alt="avatar"/>
-          </div>
+        <div className="user-info-section">
+          {user.imageUrl ? (
+            <Avatar
+              size={150}
+              src={process.env.REACT_APP_AZURE_CONTAINER_URL + user.imageUrl}
+            ></Avatar>
+          ) : (
+            <Avatar size={150} icon={<UserOutlined></UserOutlined>}></Avatar>
+          )}
+
           <div className="user-info">
-            {/* TODO: display age, using date from BE */}
-            <Title className="title" level={4}>{user.firstName} {user.lastName}, 29 years</Title>
-            <Text className="location">{user.localisation.city}, {user.localisation.country}</Text>
+            <div>
+              <Title className="title" level={2} style={{ display: "inline" }}>
+                {user.firstName} {user.lastName}
+              </Title>
+              <Text
+                type="secondary"
+                style={{ display: "inline", fontSize: "18px" }}
+              >
+                {" "}
+                {moment().diff(user.dateOfBirth, "years")} years
+              </Text>
+            </div>
+
+            <Text className="location">
+              <HomeFilled style={{ marginRight: "10px" }} />
+              {user.localisation?.toUpperCase()}
+            </Text>
+            <Text type="secondary">{t("userProfile.languages")}</Text>
             <Text className="languages">
-              <Trans
-                i18nKey="userProfilePage.languages"
-                components={{ bold: <strong /> }}
-              />
-              {(user.languages).join(', ')}
+              {user.languages?.map((lang: string) => (
+                <Tag key={lang}>{lang}</Tag>
+              ))}
             </Text>
-            <Text className="about-me">
-              <Trans
-                i18nKey="userProfilePage.aboutMe"
-                components={{ bold: <strong /> }}
-              />
-              {user.description}
-            </Text>
+
+            <Text type="secondary">{t("userProfile.aboutMe")}</Text>
+            <Text className="about-me">{user.description}</Text>
             {isMyProfile && (
-              <Button className="edit-button">
-                {t("userProfilePage.editPostButtonText")}
+              <Button
+                className="edit-button"
+                onClick={() => setModal("edit-profile")}
+              >
+                {t("userProfile.editPostButtonText")}
               </Button>
             )}
           </div>
         </div>
         <div className="posts-section">
           {isMyProfile && (
-              <Button type="primary" onClick={() => setModal("create-post")} className="create-post-button">
-                {t("userProfilePage.createPostButtonText")}
-              </Button>
+            <Button
+              type="primary"
+              onClick={() => setModal("create-post")}
+              className="create-post-button"
+            >
+              {t("userProfile.createPostButtonText")}
+            </Button>
           )}
         </div>
       </section>
     </>
-  ); 
+  );
 };
 
 export default UserProfilePage;

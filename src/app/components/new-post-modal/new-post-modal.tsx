@@ -14,7 +14,6 @@ import {
   Upload,
 } from "antd";
 
-
 import { useState } from "react";
 import FormItem from "antd/es/form/FormItem";
 import { UploadOutlined, PlusOutlined, UserOutlined } from "@ant-design/icons";
@@ -23,7 +22,6 @@ const { RangePicker } = DatePicker;
 
 const { Title } = Typography;
 const { TextArea } = Input;
-
 
 interface CreatePostModalProps {
   onClose: Function;
@@ -46,10 +44,7 @@ const CreatePostModal = ({ onClose }: CreatePostModalProps) => {
       label: "Accomodation",
       key: "accomodation",
       children: (
-        <Form 
-          form={createPost}
-          layout="vertical"
-        >
+        <Form form={createPost} layout="vertical">
           <Form.Item label="Title" name="title">
             <Input />
           </Form.Item>
@@ -59,10 +54,22 @@ const CreatePostModal = ({ onClose }: CreatePostModalProps) => {
             </AutoComplete>
           </Form.Item>
           <Form.Item>
-            <Form.Item style={{ display: 'inline-block', width: '50%' }} label="Date range" name="dateRange">
+            <Form.Item
+              style={{ display: "inline-block", width: "50%" }}
+              label="Date range"
+              name="dateRange"
+            >
               <RangePicker />
             </Form.Item>
-            <Form.Item style={{ display: 'inline-block', width: '30%', marginLeft: '10px' }} label="Number of people" name="numberOfPeople">
+            <Form.Item
+              style={{
+                display: "inline-block",
+                width: "30%",
+                marginLeft: "10px",
+              }}
+              label="Number of people"
+              name="numberOfPeople"
+            >
               <Input prefix={<UserOutlined />} />
             </Form.Item>
           </Form.Item>
@@ -80,16 +87,13 @@ const CreatePostModal = ({ onClose }: CreatePostModalProps) => {
             </Upload>
           </FormItem>
         </Form>
-      )
+      ),
     },
     {
       label: "Carpooling",
       key: "carpooling",
       children: (
-        <Form
-          form={createPost}
-          layout="vertical"
-        >
+        <Form form={createPost} layout="vertical">
           <Form.Item label="Title" name="title">
             <Input />
           </Form.Item>
@@ -104,10 +108,22 @@ const CreatePostModal = ({ onClose }: CreatePostModalProps) => {
             </AutoComplete>
           </Form.Item>
           <Form.Item>
-            <Form.Item style={{ display: 'inline-block', width: '50%' }} label="Date" name="date">
+            <Form.Item
+              style={{ display: "inline-block", width: "50%" }}
+              label="Date"
+              name="date"
+            >
               <DatePicker />
             </Form.Item>
-            <Form.Item style={{ display: 'inline-block', width: '30%', marginLeft: '10px' }} label="Number of people" name="numberOfPeople">
+            <Form.Item
+              style={{
+                display: "inline-block",
+                width: "30%",
+                marginLeft: "10px",
+              }}
+              label="Number of people"
+              name="numberOfPeople"
+            >
               <Input prefix={<UserOutlined />} />
             </Form.Item>
           </Form.Item>
@@ -131,10 +147,7 @@ const CreatePostModal = ({ onClose }: CreatePostModalProps) => {
       label: "Trip together",
       key: "trip-together",
       children: (
-        <Form
-          form={createPost}
-          layout="vertical"
-        >
+        <Form form={createPost} layout="vertical">
           <Form.Item label="Title" name="title">
             <Input />
           </Form.Item>
@@ -149,7 +162,11 @@ const CreatePostModal = ({ onClose }: CreatePostModalProps) => {
             </AutoComplete>
           </Form.Item>
           <Form.Item>
-            <Form.Item style={{ display: 'inline-block', width: '50%' }} label="Date" name="date">
+            <Form.Item
+              style={{ display: "inline-block", width: "50%" }}
+              label="Date"
+              name="date"
+            >
               <DatePicker />
             </Form.Item>
           </Form.Item>
@@ -167,24 +184,20 @@ const CreatePostModal = ({ onClose }: CreatePostModalProps) => {
             </Upload>
           </FormItem>
         </Form>
-        
-      )
+      ),
     },
     {
       label: "Excursions",
       key: "excursions",
       children: (
-        <Form 
-          form={createPost}
-          layout="vertical"
-        >
-        <Form.Item label="Title" name="title">
-          <Input />
-        </Form.Item>
-        <Form.Item name="localization" label="Location">
-          <AutoComplete options={locations}>
-            <Input placeholder="Please, provide where you are going" />
-          </AutoComplete>
+        <Form form={createPost} layout="vertical">
+          <Form.Item label="Title" name="title">
+            <Input />
+          </Form.Item>
+          <Form.Item name="localization" label="Location">
+            <AutoComplete options={locations}>
+              <Input placeholder="Please, provide where you are going" />
+            </AutoComplete>
           </Form.Item>
           <Form.Item label="Description" name="description">
             <TextArea rows={4} placeholder="Write something more here" />
@@ -200,16 +213,13 @@ const CreatePostModal = ({ onClose }: CreatePostModalProps) => {
             </Upload>
           </FormItem>
         </Form>
-      )
+      ),
     },
     {
       label: "Other",
       key: "other",
       children: (
-        <Form 
-          form={createPost}
-          layout="vertical"
-        >
+        <Form form={createPost} layout="vertical">
           <Form.Item label="Title" name="title">
             <Input />
           </Form.Item>
@@ -242,24 +252,17 @@ const CreatePostModal = ({ onClose }: CreatePostModalProps) => {
 
   return (
     <div className="fff">
-      <Modal onClose={onClose}>
+      <Modal onClose={onClose} size="large">
         <div className="create-post-container">
-          <Title className="title" level={3}>Create new post</Title>
+          <Title className="title" level={3}>
+            Create new post
+          </Title>
           <div className="create-post-form">
             <Tabs items={forms}></Tabs>
             <div className="create-post-avatar">
-              <Image 
-                src={avatarPreview}
-                width={250}
-                height={150}
-                
-                placeholder
-              />
-              <div style={{ maxWidth: '195px' }}>
-                <Upload
-                  maxCount={1}
-                  onChange={handleChange}
-                >
+              <Image src={avatarPreview} width={250} height={150} placeholder />
+              <div style={{ maxWidth: "195px" }}>
+                <Upload maxCount={1} onChange={handleChange}>
                   <Button icon={<UploadOutlined />}>Upload main image</Button>
                 </Upload>
               </div>
