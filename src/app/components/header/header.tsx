@@ -101,7 +101,7 @@ const Header = () => {
             <Button onClick={() => setModal("login")} data-testid="login-button">
               {t("navbar.login")}
             </Button>
-            <Button type="primary" onClick={() => setModal("register")}>
+            <Button type="primary" onClick={() => setModal("register")} data-testid="registration-button">
               {t("navbar.register")}
             </Button>
 
