@@ -1,18 +1,16 @@
 import "./new-post-modal.scss";
-
 import Modal from "../modal/modal";
 
 import {
   Button,
-  Form,
   Image,
-  Input,
+  message,
   Tabs,
   Typography,
   Upload,
 } from "antd";
 
-import { useCallback, useState } from "react";
+import { useCallback, useContext, useState } from "react";
 import { UploadOutlined, PlusOutlined } from "@ant-design/icons";
 import PostAccommodationForm from "./post-accommodation-form/post-accommodation-form";
 import axios from "axios";
@@ -22,18 +20,51 @@ import PostCarpoolingForm from "./post-carpooling-form/post-carpooling-form";
 import PostExcursionsForm from "./post-excursions-form/post-excursions-form";
 import PostTripForm from "./post-trip-form/post-trip-form";
 import PostOtherForm from "./post-other-form/post-other-form";
+import { PostInterface } from "app/interfaces/post.interface";
+import LoadingContext from "app/contexts/loading-context";
 
 const { Title } = Typography;
 
 interface CreatePostModalProps {
   onClose: Function;
+  userId: string;
 }
 
-const CreatePostModal = ({ onClose }: CreatePostModalProps) => {
+const CreatePostModal = ({ onClose, userId }: CreatePostModalProps) => {
   const { i18n, t } = useTranslation();
-  const [createPost] = Form.useForm();
   const [locations, setLocations] = useState();
   const [avatarPreview, setAvatarPreview] = useState<string>();
+  const { loading, setLoading } = useContext(LoadingContext);
+  const [post] = useState<PostInterface>({
+    title: "",
+    description: "",
+    activeFrom: null,
+    activeTo: null,
+    type: "",
+    active: true,
+    participants: null,
+    startPoint: null,
+    endPoint: null,
+    author: userId,
+  });
+
+  const onSubmit = (model: PostInterface) => {
+    console.log(model);
+    setLoading(true);
+    axios
+      .post("/post/", model)
+      .then((res) => {
+        const data = res.data;
+        console.log(data);
+        message.success("okey");
+        onClose();
+      })
+      .catch((err) => {
+        const msg = err.response?.data?.message;
+        console.error(msg);
+      })
+      .finally(() => setLoading(false));
+  };
 
   //location fing function
   const onLocationSearch = (val: string) => {
@@ -82,6 +113,8 @@ const CreatePostModal = ({ onClose }: CreatePostModalProps) => {
         <PostAccommodationForm
           onLocationSearch={debounceOnLocationSearch}
           locations={locations}
+          post={post}
+          onSubmit={onSubmit}
         />
       ),
     },
@@ -92,6 +125,8 @@ const CreatePostModal = ({ onClose }: CreatePostModalProps) => {
         <PostCarpoolingForm
           onLocationSearch={debounceOnLocationSearch}
           locations={locations}
+          post={post}
+          onSubmit={onSubmit}
         />
       ),
     },
@@ -102,6 +137,8 @@ const CreatePostModal = ({ onClose }: CreatePostModalProps) => {
         <PostTripForm
           onLocationSearch={debounceOnLocationSearch}
           locations={locations}
+          post={post}
+          onSubmit={onSubmit}
         />
       ),
     },
@@ -112,6 +149,8 @@ const CreatePostModal = ({ onClose }: CreatePostModalProps) => {
         <PostExcursionsForm
           onLocationSearch={debounceOnLocationSearch}
           locations={locations}
+          post={post}
+          onSubmit={onSubmit}
         />
       ),
     },
@@ -122,10 +161,13 @@ const CreatePostModal = ({ onClose }: CreatePostModalProps) => {
         <PostOtherForm
           onLocationSearch={debounceOnLocationSearch}
           locations={locations}
+          post={post}
+          onSubmit={onSubmit}
         />
       ),
     },
   ];
+  const [activeKey, setActiveKey] = useState(forms[0].key);
 
   const handleChange = ({ file }: any) => {
     setAvatarPreview(URL.createObjectURL(file.originFileObj));
@@ -139,7 +181,11 @@ const CreatePostModal = ({ onClose }: CreatePostModalProps) => {
             Create new post
           </Title>
           <div className="create-post-form">
-            <Tabs items={forms}></Tabs>
+            <Tabs
+              items={forms}
+              activeKey={activeKey}
+              onChange={(key: string) => setActiveKey(key)}
+            ></Tabs>
             <div className="create-post-avatar">
               <Image src={avatarPreview} width={250} height={150} placeholder />
               <div style={{ maxWidth: "195px" }}>
