@@ -3,9 +3,7 @@ import "./new-post-modal.scss";
 import Modal from "../modal/modal";
 
 import {
-  AutoComplete,
   Button,
-  DatePicker,
   Form,
   Image,
   Input,
@@ -14,23 +12,60 @@ import {
   Upload,
 } from "antd";
 
-import { useState } from "react";
-import FormItem from "antd/es/form/FormItem";
-import { UploadOutlined, PlusOutlined, UserOutlined } from "@ant-design/icons";
-
-const { RangePicker } = DatePicker;
+import { useCallback, useState } from "react";
+import { UploadOutlined, PlusOutlined } from "@ant-design/icons";
+import PostAccommodationForm from "./post-accommodation-form/post-accommodation-form";
+import axios from "axios";
+import { useTranslation } from "react-i18next";
+import _debounce from "lodash/debounce";
+import PostCarpoolingForm from "./post-carpooling-form/post-carpooling-form";
+import PostExcursionsForm from "./post-excursions-form/post-excursions-form";
+import PostTripForm from "./post-trip-form/post-trip-form";
+import PostOtherForm from "./post-other-form/post-other-form";
 
 const { Title } = Typography;
-const { TextArea } = Input;
 
 interface CreatePostModalProps {
   onClose: Function;
 }
 
 const CreatePostModal = ({ onClose }: CreatePostModalProps) => {
+  const { i18n, t } = useTranslation();
   const [createPost] = Form.useForm();
-  const [locations] = useState();
+  const [locations, setLocations] = useState();
   const [avatarPreview, setAvatarPreview] = useState<string>();
+
+  //location fing function
+  const onLocationSearch = (val: string) => {
+    if (val) {
+      const axiosNoAuth = axios.create();
+      delete axiosNoAuth.defaults.headers.common["Authorization"];
+      axiosNoAuth.defaults.baseURL = "https://api.mapbox.com/geocoding/v5/";
+
+      axiosNoAuth
+        .get(
+          `mapbox.places/${val}.json?limit=10&proximity=ip&types=place&language=${
+            i18n.language + (i18n.language !== "en" ? ",en" : "")
+          }&access_token=${process.env.REACT_APP_MAPBOX_API_KEY}`,
+          {}
+        )
+        .then(({ data }) => {
+          const locations = data.features.map((feature: any) => ({
+            label: feature.place_name,
+            value: feature.place_name_en,
+            key: feature.place_name_en,
+          }));
+
+          setLocations(locations);
+        });
+    }
+  };
+
+  // eslint-disable-next-line react-hooks/exhaustive-deps
+  const debounceOnLocationSearch = useCallback(
+    _debounce(onLocationSearch, 400),
+    []
+  );
 
   const uploadButton = (
     <div>
@@ -41,207 +76,53 @@ const CreatePostModal = ({ onClose }: CreatePostModalProps) => {
 
   const forms = [
     {
-      label: "Accomodation",
-      key: "accomodation",
+      label: "Accommodation",
+      key: "accommodation",
       children: (
-        <Form form={createPost} layout="vertical">
-          <Form.Item label="Title" name="title">
-            <Input />
-          </Form.Item>
-          <Form.Item name="localization" label="Location">
-            <AutoComplete options={locations}>
-              <Input placeholder="Please, provide where you are" />
-            </AutoComplete>
-          </Form.Item>
-          <Form.Item>
-            <Form.Item
-              style={{ display: "inline-block", width: "50%" }}
-              label="Date range"
-              name="dateRange"
-            >
-              <RangePicker />
-            </Form.Item>
-            <Form.Item
-              style={{
-                display: "inline-block",
-                width: "30%",
-                marginLeft: "10px",
-              }}
-              label="Number of people"
-              name="numberOfPeople"
-            >
-              <Input prefix={<UserOutlined />} />
-            </Form.Item>
-          </Form.Item>
-          <Form.Item label="Description" name="description">
-            <TextArea rows={4} placeholder="Write something more here" />
-          </Form.Item>
-          <FormItem>
-            <Upload
-              name="avatar"
-              listType="picture-card"
-              className="avatar-uploader"
-              action="/"
-            >
-              {uploadButton}
-            </Upload>
-          </FormItem>
-        </Form>
+        <PostAccommodationForm
+          onLocationSearch={debounceOnLocationSearch}
+          locations={locations}
+        />
       ),
     },
     {
       label: "Carpooling",
       key: "carpooling",
       children: (
-        <Form form={createPost} layout="vertical">
-          <Form.Item label="Title" name="title">
-            <Input />
-          </Form.Item>
-          <Form.Item name="localization-from" label="From">
-            <AutoComplete options={locations}>
-              <Input placeholder="Please, provide where your start point" />
-            </AutoComplete>
-          </Form.Item>
-          <Form.Item name="localization-to" label="To">
-            <AutoComplete options={locations}>
-              <Input placeholder="Please, provide yor destination point" />
-            </AutoComplete>
-          </Form.Item>
-          <Form.Item>
-            <Form.Item
-              style={{ display: "inline-block", width: "50%" }}
-              label="Date"
-              name="date"
-            >
-              <DatePicker />
-            </Form.Item>
-            <Form.Item
-              style={{
-                display: "inline-block",
-                width: "30%",
-                marginLeft: "10px",
-              }}
-              label="Number of people"
-              name="numberOfPeople"
-            >
-              <Input prefix={<UserOutlined />} />
-            </Form.Item>
-          </Form.Item>
-          <Form.Item label="Description" name="description">
-            <TextArea rows={4} placeholder="Write something more here" />
-          </Form.Item>
-          <FormItem>
-            <Upload
-              name="avatar"
-              listType="picture-card"
-              className="avatar-uploader"
-              action="/"
-            >
-              {uploadButton}
-            </Upload>
-          </FormItem>
-        </Form>
+        <PostCarpoolingForm
+          onLocationSearch={debounceOnLocationSearch}
+          locations={locations}
+        />
       ),
     },
     {
       label: "Trip together",
       key: "trip-together",
       children: (
-        <Form form={createPost} layout="vertical">
-          <Form.Item label="Title" name="title">
-            <Input />
-          </Form.Item>
-          <Form.Item name="localization-from" label="From">
-            <AutoComplete options={locations}>
-              <Input placeholder="Please, provide where your start point" />
-            </AutoComplete>
-          </Form.Item>
-          <Form.Item name="localization-to" label="To">
-            <AutoComplete options={locations}>
-              <Input placeholder="Please, provide yor destination point" />
-            </AutoComplete>
-          </Form.Item>
-          <Form.Item>
-            <Form.Item
-              style={{ display: "inline-block", width: "50%" }}
-              label="Date"
-              name="date"
-            >
-              <DatePicker />
-            </Form.Item>
-          </Form.Item>
-          <Form.Item label="Description" name="description">
-            <TextArea rows={4} placeholder="Write something more here" />
-          </Form.Item>
-          <FormItem>
-            <Upload
-              name="avatar"
-              listType="picture-card"
-              className="avatar-uploader"
-              action="/"
-            >
-              {uploadButton}
-            </Upload>
-          </FormItem>
-        </Form>
+        <PostTripForm
+          onLocationSearch={debounceOnLocationSearch}
+          locations={locations}
+        />
       ),
     },
     {
       label: "Excursions",
       key: "excursions",
       children: (
-        <Form form={createPost} layout="vertical">
-          <Form.Item label="Title" name="title">
-            <Input />
-          </Form.Item>
-          <Form.Item name="localization" label="Location">
-            <AutoComplete options={locations}>
-              <Input placeholder="Please, provide where you are going" />
-            </AutoComplete>
-          </Form.Item>
-          <Form.Item label="Description" name="description">
-            <TextArea rows={4} placeholder="Write something more here" />
-          </Form.Item>
-          <FormItem>
-            <Upload
-              name="avatar"
-              listType="picture-card"
-              className="avatar-uploader"
-              action="/"
-            >
-              {uploadButton}
-            </Upload>
-          </FormItem>
-        </Form>
+        <PostExcursionsForm
+          onLocationSearch={debounceOnLocationSearch}
+          locations={locations}
+        />
       ),
     },
     {
       label: "Other",
       key: "other",
       children: (
-        <Form form={createPost} layout="vertical">
-          <Form.Item label="Title" name="title">
-            <Input />
-          </Form.Item>
-          <Form.Item name="localization" label="Location">
-            <AutoComplete options={locations}>
-              <Input placeholder="Please, provide your location" />
-            </AutoComplete>
-          </Form.Item>
-          <Form.Item label="Description" name="description">
-            <TextArea rows={4} placeholder="Write something more here" />
-          </Form.Item>
-          <FormItem>
-            <Upload
-              name="avatar"
-              listType="picture-card"
-              className="avatar-uploader"
-              action="/"
-            >
-              {uploadButton}
-            </Upload>
-          </FormItem>
-        </Form>
+        <PostOtherForm
+          onLocationSearch={debounceOnLocationSearch}
+          locations={locations}
+        />
       ),
     },
   ];
@@ -266,6 +147,16 @@ const CreatePostModal = ({ onClose }: CreatePostModalProps) => {
                   <Button icon={<UploadOutlined />}>Upload main image</Button>
                 </Upload>
               </div>
+              {/* <FormItem>
+                <Upload
+                  name="avatar"
+                  listType="picture-card"
+                  className="avatar-uploader"
+                  action="/"
+                >
+                  {uploadButton}
+                </Upload>
+              </FormItem> */}
             </div>
           </div>
           <Button className="submitButton" type="primary" htmlType="submit">
