@@ -1,0 +1,19 @@
+.post {
+  width: 400px;
+  height: 500px;
+  display: flex;
+  flex-direction: column;
+
+  .ant-card-cover {
+    height: 250px;
+  }
+
+  .ant-card-body {
+    flex: 1;
+    max-height: 150px;
+
+    .ant-card-meta {
+      height: 100%;
+    }
+  }
+}

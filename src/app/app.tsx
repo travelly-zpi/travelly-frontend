@@ -13,6 +13,7 @@ import { UserDtoInterface } from "./interfaces/user-dto.interface";
 import moment from "moment/moment";
 import { Spin } from "antd";
 import * as React from "react";
+import PostPage from "./pages/post-page/post-page";
 
 const App = () => {
   const [user, setUser] = useState<UserInterface | null>(
@@ -30,7 +31,7 @@ const App = () => {
       } else {
         sessionStorage.setItem("user", JSON.stringify(user));
       }
-      navigate("/users/" + user.uuid);
+      navigate("/user/" + user.uuid);
     },
     [navigate]
   );
@@ -42,37 +43,25 @@ const App = () => {
     navigate("/");
   }, [navigate]);
 
-  const decodeUser = (user: UserDtoInterface): UserInterface => {
-    return {
-      ...user,
-      dateOfBirth: user.dateOfBirth
-        ? moment(user.dateOfBirth)
-        : moment().subtract(18, "years"),
-      languages: user.languages ? JSON.parse(user.languages) : [],
-    };
-  };
-
-  const encodeUser = (user: UserInterface): UserDtoInterface => {
-    return {
-      ...user,
-      dateOfBirth: user.dateOfBirth.format("YYYY-MM-DD"),
-      languages: JSON.stringify(user.languages),
-    };
-  };
-
   return (
-    <UserContext.Provider
-      value={{ user, onLogin, onLogout, decodeUser, encodeUser }}
-    >
+    <UserContext.Provider value={{ user, onLogin, onLogout }}>
       <LoadingContext.Provider value={{ loading, setLoading }}>
         <Routes>
           <Route path="/" element={<AppContainer />}>
             <Route index element={<HomePage />}></Route>
             <Route
-              path="users/:id"
+              path="user/:id"
               element={
                 <AuthGuard>
                   <UserProfilePage />
+                </AuthGuard>
+              }
+            ></Route>
+            <Route
+              path="post/:id"
+              element={
+                <AuthGuard>
+                  <PostPage />
                 </AuthGuard>
               }
             ></Route>

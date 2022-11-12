@@ -17,7 +17,6 @@ import { RcFile } from "antd/es/upload";
 import { UserDtoInterface } from "../../../interfaces/user-dto.interface";
 import axios from "axios";
 import { useCallback, useContext, useEffect, useState } from "react";
-import UserContext from "../../../contexts/user-context";
 import { UserInterface } from "../../../interfaces/user.interface";
 import { useTranslation } from "react-i18next";
 import { getLangNameFromCode, getLangCodeList } from "language-name-map";
@@ -26,6 +25,7 @@ import _debounce from "lodash/debounce";
 import "./user-info-form.scss";
 import LoadingContext from "../../../contexts/loading-context";
 import ImgCrop from "antd-img-crop";
+import { encodeUser } from "../../../utils/user-utils";
 
 const { Text } = Typography;
 const { TextArea } = Input;
@@ -38,7 +38,6 @@ interface UserInfoFormProps {
 const UserInfoForm = ({ onClose, user }: UserInfoFormProps) => {
   const { i18n, t } = useTranslation();
   const [form] = Form.useForm();
-  const { encodeUser } = useContext(UserContext);
   const { loading, setLoading } = useContext(LoadingContext);
   const [locations, setLocations] = useState();
   const [languages, setLanguages] = useState<any>();

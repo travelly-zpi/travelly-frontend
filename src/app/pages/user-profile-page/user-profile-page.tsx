@@ -11,13 +11,15 @@ import CreatePostModal from "../../components/new-post-modal/new-post-modal";
 import LoadingContext from "../../contexts/loading-context";
 import moment from "moment";
 import { HomeFilled, UserOutlined } from "@ant-design/icons";
+import UserPosts from "../../components/user-posts/user-posts";
+import { decodeUser } from "../../utils/user-utils";
 
 const { Text, Title } = Typography;
 
 const UserProfilePage = () => {
   const { t } = useTranslation();
   const navigate = useNavigate();
-  const { user: loggedInUser, decodeUser } = useContext(UserContext);
+  const { user: loggedInUser } = useContext(UserContext);
   const { id } = useParams();
   const { setLoading } = useContext(LoadingContext);
 
@@ -135,6 +137,7 @@ const UserProfilePage = () => {
               {t("userProfile.createPostButtonText")}
             </Button>
           )}
+          <UserPosts user={user}></UserPosts>
         </div>
       </section>
     </>

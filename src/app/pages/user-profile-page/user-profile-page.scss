@@ -27,6 +27,11 @@
         margin-bottom: 16px;
       }
 
+      .about-me {
+        overflow: hidden;
+        max-height: 100px;
+      }
+
       .edit-button {
         align-self: flex-end;
       }
@@ -35,9 +40,21 @@
 
   .posts-section {
     display: flex;
-    justify-content: center;
-    align-items: center;
+    align-items: flex-start;
     flex-direction: column;
-    margin-top: 35px;
+    padding: 35px 0px 60px 0px;
+
+    .create-post-button {
+      align-self: center;
+      margin-bottom: 50px;
+    }
+  }
+}
+
+@media (min-width: 800px) {
+  .user-profile-page {
+    .posts-section {
+      padding: 35px 75px 60px 75px;
+    }
   }
 }
