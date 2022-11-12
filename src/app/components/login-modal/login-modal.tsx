@@ -10,6 +10,7 @@ import { useContext, useEffect, useState } from "react";
 import { LoginUserInterface } from "../../interfaces/login-user.interface";
 import axios from "axios";
 import UserContext from "../../contexts/user-context";
+import LoadingContext from "../../contexts/loading-context";
 
 const { Title, Text, Link } = Typography;
 
@@ -23,7 +24,7 @@ const LoginModal = ({ onClose, onModalSwitch }: LoginModalProps) => {
   const { t } = useTranslation();
   const { onLogin } = useContext(UserContext);
   const [apiError, setApiError] = useState<string | null>(null);
-  const [loading, setLoading] = useState(false);
+  const { loading, setLoading } = useContext(LoadingContext);
 
   useEffect(() => {
     if (apiError) {
@@ -62,6 +63,18 @@ const LoginModal = ({ onClose, onModalSwitch }: LoginModalProps) => {
     return Promise.resolve();
   };
 
+  const validatePassword = (rule: any, value: string) => {
+    if (
+      value &&
+      !value.match(
+        /^(?=.*[A-Za-z])(?=.*\d)(?=.*[@$!%*#?&])[A-Za-z\d@$!%*#?&]{8,}$/
+      )
+    ) {
+      return Promise.reject(t("login.errors.invalidPassword"));
+    }
+    return Promise.resolve();
+  };
+
   const clearValidation = (fieldName: string) => {
     if (
       (fieldName === "email" && apiError === "User not found") ||
@@ -91,6 +104,7 @@ const LoginModal = ({ onClose, onModalSwitch }: LoginModalProps) => {
             layout="vertical"
             onFinish={onSubmit}
             requiredMark={false}
+            initialValues={{ remember: true }}
           >
             <Form.Item
               label={t("login.email")}
@@ -115,6 +129,9 @@ const LoginModal = ({ onClose, onModalSwitch }: LoginModalProps) => {
               rules={[
                 { required: true, message: t("login.errors.noPassword") },
                 { validator: validate },
+                {
+                  validator: validatePassword,
+                },
               ]}
             >
               <Input.Password
@@ -135,8 +152,8 @@ const LoginModal = ({ onClose, onModalSwitch }: LoginModalProps) => {
                 type="primary"
                 className="form-button"
                 htmlType="submit"
-                loading={loading}
                 disabled={loading}
+                loading={loading}
                 data-testid="submit-login"
               >
                 {t("login.buttonText")}

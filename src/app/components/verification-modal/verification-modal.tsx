@@ -1,11 +1,12 @@
 import "./verification-modal.scss";
 import { Button, Form, Input, message, Modal } from "antd";
 import axios from "axios";
-import { useEffect, useState } from "react";
+import { useContext, useEffect, useState } from "react";
 import { useTranslation } from "react-i18next";
 import { LoginUserInterface } from "app/interfaces/login-user.interface";
 import { EyeInvisibleOutlined, EyeTwoTone } from "@ant-design/icons";
 import { useNavigate } from "react-router-dom";
+import LoadingContext from "../../contexts/loading-context";
 
 interface VerificationModalProps {
   open: boolean;
@@ -17,7 +18,7 @@ const VerificationModal = ({ open, onClose }: VerificationModalProps) => {
   const [form] = Form.useForm();
   const navigate = useNavigate();
   const [apiError, setApiError] = useState<string | null>(null);
-  const [loading, setLoading] = useState<boolean>(false);
+  const { loading, setLoading } = useContext(LoadingContext);
 
   useEffect(() => {
     if (apiError) {

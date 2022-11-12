@@ -1,6 +1,6 @@
 import { useTranslation } from "react-i18next";
 import { Button, Dropdown, Layout, Menu, Tooltip, Typography } from "antd";
-import { Link } from 'react-router-dom';
+import { Link } from "react-router-dom";
 
 import logo from "app/assets/img/logo.png";
 
@@ -47,22 +47,20 @@ const Header = () => {
 
   const navigationMenu = [
     {
-      label: "My profile",
+      label: t("header.myProfile"),
       url: `/users/${user?.uuid}`,
     },
     {
-      label: "Messages",
+      label: t("header.messages"),
       url: "/messages",
     },
     {
-      label: "Board",
+      label: t("header.board"),
       url: "/board",
     },
-  ].map((item) => ({ 
-    key: item.url, 
-    label: (
-      <Link to={item.url}>{item.label}</Link>
-    ),
+  ].map((item) => ({
+    key: item.url,
+    label: <Link to={item.url}>{item.label}</Link>,
   }));
 
   return (
@@ -84,25 +82,31 @@ const Header = () => {
           <img src={logo} alt="Travelly logo" className="logo" />
         </Link>
         {user && (
-          <Menu mode="horizontal" items={navigationMenu} className="navigation" selectedKeys={[pathname]} />
+          <Menu
+            mode="horizontal"
+            items={navigationMenu}
+            className="navigation"
+            selectedKeys={[pathname]}
+          />
         )}
         {user ? (
           <div className="button-group">
-            <Button onClick={onLogout}>Logout</Button>
+            <Button onClick={onLogout}>{t("header.logout")}</Button>
 
             <Dropdown overlay={languageMenu} placement="bottomRight">
-              <Tooltip title={t("")}>
-                <Button icon={<GlobalOutlined />}></Button>
-              </Tooltip>
+              <Button icon={<GlobalOutlined />}></Button>
             </Dropdown>
           </div>
         ) : (
           <div className="button-group">
-            <Button onClick={() => setModal("login")} data-testid="login-button">
-              {t("navbar.login")}
+            <Button
+              onClick={() => setModal("login")}
+              data-testid="login-button"
+            >
+              {t("header.login")}
             </Button>
-            <Button type="primary" onClick={() => setModal("register")} data-testid="registration-button">
-              {t("navbar.register")}
+            <Button type="primary" onClick={() => setModal("register")}>
+              {t("header.register")}
             </Button>
 
             <Dropdown overlay={languageMenu} placement="bottomRight">
@@ -112,23 +116,6 @@ const Header = () => {
             </Dropdown>
           </div>
         )}
-
-        {/*<Menu*/}
-        {/*  theme="light"*/}
-        {/*  mode="horizontal"*/}
-        {/*  items={pages.unauthorized.map((page: NavbarPageInterface) => {*/}
-        {/*    return {*/}
-        {/*      key: page.link,*/}
-        {/*      label: t(page.translationKey),*/}
-        {/*    };*/}
-        {/*  })}*/}
-        {/*  style={{*/}
-        {/*    flex: "1",*/}
-        {/*    display: "flex",*/}
-        {/*    justifyContent: "flex-end",*/}
-        {/*    borderBottom: "none",*/}
-        {/*  }}*/}
-        {/*/>*/}
       </AntHeader>
     </>
   );

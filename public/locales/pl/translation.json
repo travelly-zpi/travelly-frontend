@@ -1,7 +1,11 @@
 {
-  "navbar": {
+  "header": {
     "register": "Zarejestruj się",
-    "login": "Zaloguj się"
+    "login": "Zaloguj się",
+    "myProfile": "Mój profil",
+    "messages": "Wiadomości",
+    "board": "Board",
+    "logout": "Wyloguj"
   },
   "footer": {
     "copyright": "Wszelkie prawa zastrzeżone."
@@ -49,6 +53,7 @@
       "invalidEmail": "E-mail jest nieprawidłowy!",
       "wrongEmail": "Nie ma użytkownika z tym e-mailem!",
       "wrongPassword": "Hasło jest nieprawidłowe!",
+      "invalidPassword": "Hasło jest za krótkie!",
       "notActivated": "Proszę, sprawdź swoją skrzynkę odbiorczą i zweryfikuj konto."
     }
   },
@@ -89,9 +94,54 @@
     }
   },
   "userProfilePage": {
-    "languages": "<bold>Języki, które znam: </bold>",
-    "aboutMe": "<bold>O mnie: </bold>",
+    "languages": "JĘZYKI, KTÓRE ZNAM",
+    "aboutMe": "O MNIE",
     "editPostButtonText": "Edytuj profil",
     "createPostButtonText": "+ Utwórz nowy post"
+  },
+  "editProfile": {
+    "editProfile": "Edycja profilu",
+    "profileInfo": "Informacja o profilu",
+    "changePassword": "Zmiana hasła",
+    "newAvatar": "Załaduj nowy awatar",
+    "removeAvatar": "Usuń awatar",
+    "firstName": "Imie",
+    "lastName": "Nazwisko",
+    "email": "E-mail",
+    "location": "Lokalizacja",
+    "dateOfBirth": "Data urodzenia",
+    "languages": "Języki",
+    "aboutYou": "O ciebie",
+    "aboutYouPlaceholder": "Napisz więcej informacji o siebie...",
+    "languagesPlaceholder": "Wybierz języki, które znasz",
+    "dateOfBirthPlaceholder": "Wybierz swoją datę urodzenia",
+    "oldPassword": "Stare hasło",
+    "newPassword": "Nowe hasło",
+    "confirmNewPassword": "Potwierdż nowe hasło",
+    "save": "Zapisz",
+    "errors": {
+      "avatarOnlyJpgPng": "Możesz przesłać tylko plik JPG/PNG!",
+      "avatarSmaller2MB": "Obraz musi być mniejszy niż 2 MB!",
+      "noFirstName": "Proszę podać swoje imię!",
+      "noLastName": "Proszę podać swoje nazwisko!",
+      "noLocation": "Proszę wybrać swoją lokalizację!",
+      "noDateOfBirth": "Proszę wybrać swoją datę urodzenia!",
+      "noLanguages": "Proszę wybrać języki, które znasz!",
+      "wrongPassword": "Hasło jest nieprawidłowe!",
+      "invalidPassword": "Hasło powinno mieć co najmniej 8 znaków, zawierać cyfrę i specjalny symbol.",
+      "noOldPassword": "Proszę podać stare hasło!",
+      "noNewPassword": "Proszę podać nowe hasło!",
+      "noNewPasswordConfirm": "Proszę podać nowe hasło ponownie!",
+      "invalidNewPasswordConfirm": "Hasła nie są takie same!"
+    },
+    "messages": {
+      "avatarUpdated": "Pomyślnie zaktualizowano awatar!",
+      "avatarRemoved": "Awatar został pomyślnie usunięty!",
+      "avatarConfirm": "Czy na pewno chcesz usunąć swój awatar??",
+      "avatarConfirmYes": "Tak",
+      "avatarConfirmNo": "Nie",
+      "profileUpdated": "Informacje o Twoim profilu zostały pomyślnie zapisane!",
+      "passwordUpdated": "Twoje hasło zostało pomyślnie zmienione!"
+    }
   }
 }

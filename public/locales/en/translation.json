@@ -1,7 +1,11 @@
 {
-  "navbar": {
+  "header": {
     "register": "Sign up",
-    "login": "Log in"
+    "login": "Log in",
+    "myProfile": "My profile",
+    "messages": "Messages",
+    "board": "Board",
+    "logout": "Logout"
   },
   "footer": {
     "copyright": "All rights reserved."
@@ -62,6 +66,7 @@
       "invalidEmail": "The email is invalid!",
       "wrongEmail": "There is no user with this email!",
       "wrongPassword": "Password is incorrect!",
+      "invalidPassword": "Password is too short!",
       "notActivated": "Please check your inbox and verify your account."
     }
   },
@@ -88,10 +93,55 @@
       "emailTaken": "This email is already taken! Log in instead."
     }
   },
-  "userProfilePage": {
-    "languages": "<bold>Languages I speak: </bold>",
-    "aboutMe": "<bold>About me: </bold>",
+  "userProfile": {
+    "languages": "LANGUAGES I SPEAK",
+    "aboutMe": "ABOUT ME",
     "editPostButtonText": "Edit my profile",
     "createPostButtonText": "+ Create new post"
+  },
+  "editProfile": {
+    "editProfile": "Edit Profile",
+    "profileInfo": "Profile Info",
+    "changePassword": "Change password",
+    "newAvatar": "Upload new avatar",
+    "removeAvatar": "Remove avatar",
+    "firstName": "Name",
+    "lastName": "Surname",
+    "email": "Email",
+    "location": "Location",
+    "dateOfBirth": "Date of birth",
+    "languages": "Languages",
+    "aboutYou": "About you",
+    "aboutYouPlaceholder": "Write some information about you...",
+    "languagesPlaceholder": "Select languages you speak",
+    "dateOfBirthPlaceholder": "Select your birth date",
+    "oldPassword": "Old password",
+    "newPassword": "New password",
+    "confirmNewPassword": "Confirm new password",
+    "save": "Save",
+    "errors": {
+      "avatarOnlyJpgPng": "You can only upload JPG/PNG file!",
+      "avatarSmaller2MB": "Image must smaller than 2MB!",
+      "noFirstName": "Please input your first name!",
+      "noLastName": "Please input your last name!",
+      "noLocation": "Please select your location!",
+      "noDateOfBirth": "Please select your date of birth!",
+      "noLanguages": "Please select languages you speak!",
+      "wrongPassword": "Password is incorrect!",
+      "invalidPassword": "Password should be at least 8 characters long, include a digit and a special symbol.",
+      "noOldPassword": "Please enter your old password!",
+      "noNewPassword": "Please enter your new password!",
+      "noNewPasswordConfirm": "Please enter your new password again!",
+      "invalidNewPasswordConfirm": "Passwords don't match!"
+    },
+    "messages": {
+      "avatarUpdated": "Avatar successfully updated!",
+      "avatarRemoved": "Avatar successfully removed!",
+      "avatarConfirm": "Are you sure to remove your avatar?",
+      "avatarConfirmYes": "Yes",
+      "avatarConfirmNo": "No",
+      "profileUpdated": "Your profile information was successfully saved!",
+      "passwordUpdated": "Your password was successfully updated!"
+    }
   }
 }
