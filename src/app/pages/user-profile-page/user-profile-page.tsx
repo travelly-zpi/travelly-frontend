@@ -17,7 +17,12 @@ const { Text, Title } = Typography;
 const UserProfilePage = () => {
   const { t } = useTranslation();
   const navigate = useNavigate();
-  const { user: loggedInUser, decodeUser } = useContext(UserContext);
+  const {
+    user: loggedInUser,
+    decodeUser,
+    warningShown,
+    setWarningShown,
+  } = useContext(UserContext);
   const { id } = useParams();
   const { setLoading } = useContext(LoadingContext);
 
@@ -25,7 +30,6 @@ const UserProfilePage = () => {
   const [modal, setModal] = useState<null | "edit-profile" | "create-post">(
     null
   );
-  const [warningShown, setWarningShown] = useState(false);
 
   const isMyProfile = loggedInUser?.uuid === id;
 
@@ -46,18 +50,19 @@ const UserProfilePage = () => {
     loadUser();
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
+
   useEffect(() => {
     if (
       !warningShown &&
       isMyProfile &&
       user &&
-      (!user?.languages || !user?.localisation || !user?.dateOfBirth)
+      (!user?.languages.length || !user?.localisation || !user?.dateOfBirth)
     ) {
       message.warn("Please fill your profile!");
       setModal("edit-profile");
       setWarningShown(true);
     }
-  }, [isMyProfile, user, warningShown]);
+  }, [isMyProfile, user, warningShown, setWarningShown]);
 
   if (!user) {
     return null;
