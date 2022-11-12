@@ -53,6 +53,7 @@ const UserPosts = ({ user, isMyProfile }: UserPostsProps) => {
 
   useEffect(() => {
     loadPosts();
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [user, active, page, pageSize]);
 
   const onTabChange = () => {

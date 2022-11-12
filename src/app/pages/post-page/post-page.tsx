@@ -50,6 +50,7 @@ const PostPage = () => {
 
   useEffect(() => {
     loadPost();
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [id, setLoading]);
 
   const postDelete = () => {
