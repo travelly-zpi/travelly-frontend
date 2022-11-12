@@ -1,5 +1,5 @@
 import "./user-profile-page.scss";
-import { Avatar, Button, message, Tag, Typography } from "antd";
+import { Avatar, Button, Image, message, Tag, Typography } from "antd";
 import { useContext, useEffect, useState } from "react";
 import { useTranslation } from "react-i18next";
 import UserContext from "../../contexts/user-context";
@@ -85,10 +85,10 @@ const UserProfilePage = () => {
       <section className="user-profile-page">
         <div className="user-info-section">
           {user.imageUrl ? (
-            <Avatar
-              size={150}
+            <Image
+              className="user-avatar"
               src={process.env.REACT_APP_AZURE_CONTAINER_URL + user.imageUrl}
-            ></Avatar>
+            ></Image>
           ) : (
             <Avatar size={150} icon={<UserOutlined></UserOutlined>}></Avatar>
           )}

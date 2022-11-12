@@ -3,7 +3,16 @@ import { useNavigate, useParams } from "react-router-dom";
 import { useContext, useEffect, useState } from "react";
 import LoadingContext from "../../contexts/loading-context";
 import axios from "axios";
-import { Button, message, Switch, Typography, Modal, Avatar, Tag } from "antd";
+import {
+  Button,
+  message,
+  Switch,
+  Typography,
+  Modal,
+  Avatar,
+  Tag,
+  Image,
+} from "antd";
 
 import { decodePost, defaultImageName } from "../../utils/post-utils";
 import { PostInterface } from "../../interfaces/post.interface";
@@ -38,7 +47,6 @@ const PostPage = () => {
         const data = res.data;
         decodePost(data).then((post: PostInterface) => {
           setPost(post);
-          console.log(post);
         });
       })
       .catch((err) => {
@@ -64,7 +72,7 @@ const PostPage = () => {
           .delete(`/post/${post?.uuid}`)
           .then(() => {
             message.success(t("postPage.messages.deleteSuccessful"));
-            navigate("user/" + post?.author?.uuid);
+            navigate("/user/" + post?.author?.uuid);
           })
           .catch((err) => {
             const msg = err.response?.data?.message;
@@ -98,6 +106,14 @@ const PostPage = () => {
     });
   };
 
+  const postImages = post?.imagesUrls.map((url: string) => (
+    <Image
+      alt={url}
+      key={url}
+      src={process.env.REACT_APP_AZURE_CONTAINER_URL + url}
+    />
+  ));
+
   if (!post) {
     return null;
   }
@@ -120,11 +136,22 @@ const PostPage = () => {
           )}
         </div>
 
-        <img
-          className="post-main-image"
-          alt={post.title}
-          src={post.mainImageUrl ? post.mainImageUrl : defaultImageName(post)}
-        />
+        <div className="post-images-block">
+          <Image.PreviewGroup>
+            <Image
+              className="post-main-image"
+              alt={post.title}
+              src={
+                post.mainImageUrl
+                  ? process.env.REACT_APP_AZURE_CONTAINER_URL +
+                    post.mainImageUrl
+                  : defaultImageName(post)
+              }
+            />
+            <div className="post-images">{postImages}</div>
+          </Image.PreviewGroup>
+        </div>
+
         {!isMyProfile && <Title level={3}>{t("postPage.postedBy")}</Title>}
         <div className="post-author">
           <div className="post-author-info">

@@ -42,7 +42,6 @@ const UserPosts = ({ user, isMyProfile }: UserPostsProps) => {
         const data = res.data;
         setPosts(data.posts);
         setTotalPosts(data.count);
-        console.log(data);
       })
       .catch((err) => {
         const msg = err.response?.data?.message;
@@ -70,15 +69,13 @@ const UserPosts = ({ user, isMyProfile }: UserPostsProps) => {
   const postDelete = (post: PostPreviewInterface) => {
     confirm({
       title: t("userPosts.messages.deletePostConfirm"),
-      okText: t("userPosts.messages.deletePostYes"),
+      okText: t("userPosts.messages.deletePostConfirmYes"),
       okType: "danger",
-      cancelText: t("userPosts.messages.deletePostNo"),
+      cancelText: t("userPosts.messages.deletePostConfirmNo"),
       onOk() {
         axios
           .delete(`/post/${post.uuid}`)
-          .then((res) => {
-            const data = res.data;
-            console.log(data);
+          .then(() => {
             loadPosts();
             message.success(t("userPosts.messages.deleteSuccessful"));
           })

@@ -17,13 +17,35 @@
       .switch {
         display: flex;
         gap: 20px;
+        align-items: center;
       }
     }
 
-    .post-main-image {
-      margin: 25px 0;
-      height: 350px;
-      width: auto;
+    .post-images-block {
+      display: flex;
+      gap: 20px;
+      margin-top: 25px;
+      margin-bottom: 50px;
+      height: 400px;
+
+      .post-main-image {
+        width: 640px;
+        height: 400px;
+        object-fit: cover;
+      }
+
+      .post-images {
+        display: flex;
+        gap: 20px;
+        flex-wrap: wrap;
+
+        .ant-image,
+        img {
+          width: 288px;
+          height: 190px;
+          object-fit: cover;
+        }
+      }
     }
 
     .post-author {
