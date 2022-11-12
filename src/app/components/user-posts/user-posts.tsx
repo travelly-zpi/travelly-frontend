@@ -1,5 +1,5 @@
 import "./user-posts.scss";
-import { Pagination, Tabs, Typography } from "antd";
+import { message, Pagination, Tabs, Typography, Modal } from "antd";
 import * as React from "react";
 import Post from "../post/post";
 import { useContext, useEffect, useState } from "react";
@@ -8,14 +8,18 @@ import axios from "axios";
 import { UserInterface } from "../../interfaces/user.interface";
 import ClipartNoResults from "../../assets/img/clipart-no-results";
 import { PostPreviewInterface } from "../../interfaces/post-preview.interface";
+import { useTranslation } from "react-i18next";
 
 const { Title } = Typography;
+const { confirm } = Modal;
 
 interface UserPostsProps {
   user: UserInterface;
+  isMyProfile: boolean;
 }
 
-const UserPosts = ({ user }: UserPostsProps) => {
+const UserPosts = ({ user, isMyProfile }: UserPostsProps) => {
+  const { t } = useTranslation();
   const [posts, setPosts] = useState([]);
   const [active, setActive] = useState(true);
   const [page, setPage] = useState(1);
@@ -63,30 +67,51 @@ const UserPosts = ({ user }: UserPostsProps) => {
   };
 
   const postDelete = (post: PostPreviewInterface) => {
-    axios
-      .delete(`/post/${post.uuid}`)
-      .then((res) => {
-        const data = res.data;
-        console.log(data);
-        loadPosts();
-      })
-      .catch((err) => {
-        const msg = err.response?.data?.message;
-        console.error(msg);
-      });
+    confirm({
+      title: t("userPosts.messages.deletePostConfirm"),
+      okText: t("userPosts.messages.deletePostYes"),
+      okType: "danger",
+      cancelText: t("userPosts.messages.deletePostNo"),
+      onOk() {
+        axios
+          .delete(`/post/${post.uuid}`)
+          .then((res) => {
+            const data = res.data;
+            console.log(data);
+            loadPosts();
+            message.success(t("userPosts.messages.deleteSuccessful"));
+          })
+          .catch((err) => {
+            const msg = err.response?.data?.message;
+            console.error(msg);
+          });
+      },
+      centered: true,
+    });
   };
 
   const postChangeStatus = (post: PostPreviewInterface) => {
-    axios
-      .put(`/post/${post.uuid}/status?status=${!active}`)
-      .then((res) => {
-        console.log(res);
-        loadPosts();
-      })
-      .catch((err) => {
-        const msg = err.response?.data?.message;
-        console.error(msg);
-      });
+    confirm({
+      title: active
+        ? t("userPosts.messages.statusConfirmInactive")
+        : t("userPosts.messages.statusConfirmActive"),
+      okText: t("userPosts.messages.statusConfirmYes"),
+      cancelText: t("userPosts.messages.statusConfirmNo"),
+      onOk() {
+        axios
+          .put(`/post/${post.uuid}/status?status=${!active}`)
+          .then((res) => {
+            console.log(res);
+            loadPosts();
+            message.success(t("userPosts.messages.statusSuccessful"));
+          })
+          .catch((err) => {
+            const msg = err.response?.data?.message;
+            console.error(msg);
+          });
+      },
+      centered: true,
+    });
   };
 
   const postsDiv = (
@@ -98,6 +123,7 @@ const UserPosts = ({ user }: UserPostsProps) => {
             key={post.uuid}
             onDelete={() => postDelete(post)}
             onChangeStatus={() => postChangeStatus(post)}
+            isMyProfile={isMyProfile}
           ></Post>
         ))}
       </div>
@@ -115,12 +141,12 @@ const UserPosts = ({ user }: UserPostsProps) => {
 
   const tabs = [
     {
-      label: "Active",
+      label: t("userPosts.active"),
       key: "active",
       children: postsDiv,
     },
     {
-      label: "Inactive",
+      label: t("userPosts.inactive"),
       key: "inactive",
       children: postsDiv,
     },
@@ -130,9 +156,17 @@ const UserPosts = ({ user }: UserPostsProps) => {
     return (
       <div className="user-posts">
         <ClipartNoResults></ClipartNoResults>
-        <Title level={3}>You don't have any posts yet, create one!</Title>
+        <Title level={3}>
+          {isMyProfile
+            ? t("userPosts.noPostsMine")
+            : user.firstName + t("userPosts.noPosts")}
+        </Title>
       </div>
     );
+  }
+
+  if (!isMyProfile) {
+    return postsDiv;
   }
 
   return <Tabs items={tabs} onChange={onTabChange} style={{ width: "100%" }} />;

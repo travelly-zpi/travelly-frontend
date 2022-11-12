@@ -11,8 +11,8 @@ export interface PostDtoInterface {
   endPoint: string;
   active: boolean;
   author: {
-    uuid: string;
-    email: string;
+    uuid?: string;
+    email?: string;
   };
   mainImageUrl: string;
   imagesUrls: string[];

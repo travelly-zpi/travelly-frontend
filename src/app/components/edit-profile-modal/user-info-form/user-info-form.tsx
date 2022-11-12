@@ -5,7 +5,7 @@ import {
   Form,
   Input,
   message,
-  Popconfirm,
+  Modal,
   Select,
   Typography,
   Upload,
@@ -29,6 +29,7 @@ import { encodeUser } from "../../../utils/user-utils";
 
 const { Text } = Typography;
 const { TextArea } = Input;
+const { confirm } = Modal;
 
 interface UserInfoFormProps {
   onClose: Function;
@@ -148,19 +149,27 @@ const UserInfoForm = ({ onClose, user }: UserInfoFormProps) => {
   };
 
   const removeImage = () => {
-    setLoading(true);
-    axios
-      .put(`/user/${user.uuid}/removeProfileImage`)
-      .then(() => {
-        message.success(t("editProfile.messages.avatarRemoved"));
-        onClose();
-      })
-      .catch((err) => {
-        message.error(err.message);
-      })
-      .finally(() => {
-        setLoading(false);
-      });
+    confirm({
+      title: t("editProfile.messages.avatarConfirm"),
+      okText: t("editProfile.messages.avatarConfirmYes"),
+      cancelText: t("editProfile.messages.avatarConfirmNo"),
+      onOk() {
+        setLoading(true);
+        axios
+          .put(`/user/${user.uuid}/removeProfileImage`)
+          .then(() => {
+            message.success(t("editProfile.messages.avatarRemoved"));
+            onClose();
+          })
+          .catch((err) => {
+            message.error(err.message);
+          })
+          .finally(() => {
+            setLoading(false);
+          });
+      },
+      centered: true,
+    });
   };
 
   return (
@@ -188,16 +197,11 @@ const UserInfoForm = ({ onClose, user }: UserInfoFormProps) => {
         </ImgCrop>
 
         {user.imageUrl && (
-          <Popconfirm
-            title={t("editProfile.messages.avatarConfirm")}
-            onConfirm={removeImage}
-            okText={t("editProfile.messages.avatarConfirmYes")}
-            cancelText={t("editProfile.messages.avatarConfirmNo")}
-          >
-            <Button>
-              <Text type="danger">{t("editProfile.removeAvatar")}</Text>
-            </Button>
-          </Popconfirm>
+          <Button>
+            <Text type="danger" onClick={removeImage}>
+              {t("editProfile.removeAvatar")}
+            </Text>
+          </Button>
         )}
       </div>
 

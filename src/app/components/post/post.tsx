@@ -1,5 +1,5 @@
 import "./post.scss";
-import { Card } from "antd";
+import { Card, Tooltip } from "antd";
 import {
   CloseCircleOutlined,
   DeleteOutlined,
@@ -11,19 +11,22 @@ import LoadingContext from "../../contexts/loading-context";
 import { Link } from "react-router-dom";
 import { PostPreviewInterface } from "../../interfaces/post-preview.interface";
 import Other from "../../assets/img/post/other.png";
+import { useTranslation } from "react-i18next";
 
 interface PostProps {
   post: PostPreviewInterface;
   onDelete: Function;
   onChangeStatus: Function;
+  isMyProfile: boolean;
 }
 
-const Post = ({ post, onDelete, onChangeStatus }: PostProps) => {
+const Post = ({ post, onDelete, onChangeStatus, isMyProfile }: PostProps) => {
+  const { t } = useTranslation();
   const { loading } = useContext(LoadingContext);
 
   return (
     <Card
-      className="post"
+      className={"post" + (isMyProfile ? " post-user" : "")}
       cover={
         <img
           alt={post.title}
@@ -31,15 +34,25 @@ const Post = ({ post, onDelete, onChangeStatus }: PostProps) => {
         />
       }
       title={post?.title}
-      extra={<Link to={"/post/" + post.uuid}>More</Link>}
-      actions={[
-        <DeleteOutlined key="delete" onClick={() => onDelete()} />,
-        <EditOutlined key="edit" />,
-        <CloseCircleOutlined
-          key="deactivate"
-          onClick={() => onChangeStatus()}
-        />,
-      ]}
+      extra={<Link to={"/post/" + post.uuid}>{t("post.more")}</Link>}
+      actions={
+        isMyProfile
+          ? [
+              <Tooltip title={t("post.deletePost")}>
+                <DeleteOutlined key="delete" onClick={() => onDelete()} />
+              </Tooltip>,
+              <Tooltip title={t("post.editPost")}>
+                <EditOutlined key="edit" />
+              </Tooltip>,
+              <Tooltip title={t("post.changeStatus")}>
+                <CloseCircleOutlined
+                  key="deactivate"
+                  onClick={() => onChangeStatus()}
+                />
+              </Tooltip>,
+            ]
+          : []
+      }
       loading={loading}
     >
       <Meta description={post?.description} />

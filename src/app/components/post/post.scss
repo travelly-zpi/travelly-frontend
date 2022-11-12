@@ -4,16 +4,23 @@
   display: flex;
   flex-direction: column;
 
-  .ant-card-cover {
+  img {
+    object-fit: cover;
     height: 250px;
   }
 
   .ant-card-body {
     flex: 1;
-    max-height: 150px;
+    max-height: 185px;
 
     .ant-card-meta {
       height: 100%;
     }
+  }
+}
+
+.post-user {
+  .ant-card-body {
+    max-height: 145px;
   }
 }

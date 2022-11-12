@@ -32,7 +32,7 @@
         max-height: 100px;
       }
 
-      .edit-button {
+      .button {
         align-self: flex-end;
       }
     }
@@ -42,7 +42,7 @@
     display: flex;
     align-items: flex-start;
     flex-direction: column;
-    padding: 35px 0px 60px 0px;
+    padding: 35px 0 60px 0;
 
     .create-post-button {
       align-self: center;

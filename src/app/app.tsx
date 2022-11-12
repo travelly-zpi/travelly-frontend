@@ -9,8 +9,6 @@ import { useCallback, useState } from "react";
 import { UserInterface } from "./interfaces/user.interface";
 import AuthGuard from "./components/auth-guard/auth-guard";
 import VerificationPage from "./pages/user-verification-page/user-verification-page";
-import { UserDtoInterface } from "./interfaces/user-dto.interface";
-import moment from "moment/moment";
 import { Spin } from "antd";
 import * as React from "react";
 import PostPage from "./pages/post-page/post-page";

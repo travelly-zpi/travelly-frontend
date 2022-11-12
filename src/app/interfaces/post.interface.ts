@@ -1,4 +1,5 @@
 import moment from "moment";
+import { UserInterface } from "./user.interface";
 
 export interface PostInterface {
   uuid: string;
@@ -12,10 +13,7 @@ export interface PostInterface {
   startPoint: string;
   endPoint: string;
   active: boolean;
-  author: {
-    uuid: string;
-    email: string;
-  };
+  author: UserInterface | null;
   mainImageUrl: string;
   imagesUrls: string[];
 }

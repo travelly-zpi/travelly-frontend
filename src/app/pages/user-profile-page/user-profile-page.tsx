@@ -15,6 +15,7 @@ import UserPosts from "../../components/user-posts/user-posts";
 import { decodeUser } from "../../utils/user-utils";
 
 const { Text, Title } = Typography;
+const { CheckableTag } = Tag;
 
 const UserProfilePage = () => {
   const { t } = useTranslation();
@@ -55,11 +56,11 @@ const UserProfilePage = () => {
       user &&
       (!user?.languages || !user?.localisation || !user?.dateOfBirth)
     ) {
-      message.warn("Please fill your profile!");
+      message.warn(t("userProfile.fillProfile"));
       setModal("edit-profile");
       setWarningShown(true);
     }
-  }, [isMyProfile, user, warningShown]);
+  }, [isMyProfile, user]);
 
   if (!user) {
     return null;
@@ -100,7 +101,8 @@ const UserProfilePage = () => {
                 style={{ display: "inline", fontSize: "18px" }}
               >
                 {" "}
-                {moment().diff(user.dateOfBirth, "years")} years
+                {moment().diff(user.dateOfBirth, "years")}{" "}
+                {t("userProfile.years")}
               </Text>
             </div>
 
@@ -111,18 +113,24 @@ const UserProfilePage = () => {
             <Text type="secondary">{t("userProfile.languages")}</Text>
             <Text className="languages">
               {user.languages?.map((lang: string) => (
-                <Tag key={lang}>{lang}</Tag>
+                <CheckableTag key={lang} checked={true}>
+                  {lang}
+                </CheckableTag>
               ))}
             </Text>
 
             <Text type="secondary">{t("userProfile.aboutMe")}</Text>
             <Text className="about-me">{user.description}</Text>
-            {isMyProfile && (
+            {isMyProfile ? (
               <Button
-                className="edit-button"
+                className="button"
                 onClick={() => setModal("edit-profile")}
               >
                 {t("userProfile.editPostButtonText")}
+              </Button>
+            ) : (
+              <Button className="button" type="primary" onClick={() => {}}>
+                {t("userProfile.contactButtonText")}
               </Button>
             )}
           </div>
@@ -137,7 +145,7 @@ const UserProfilePage = () => {
               {t("userProfile.createPostButtonText")}
             </Button>
           )}
-          <UserPosts user={user}></UserPosts>
+          <UserPosts user={user} isMyProfile={isMyProfile}></UserPosts>
         </div>
       </section>
     </>
