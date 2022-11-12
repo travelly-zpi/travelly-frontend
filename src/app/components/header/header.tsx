@@ -48,7 +48,7 @@ const Header = () => {
   const navigationMenu = [
     {
       label: t("header.myProfile"),
-      url: `/users/${user?.uuid}`,
+      url: `/user/${user?.uuid}`,
     },
     {
       label: t("header.messages"),

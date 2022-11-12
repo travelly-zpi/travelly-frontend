@@ -96,8 +96,11 @@
   "userProfile": {
     "languages": "LANGUAGES I SPEAK",
     "aboutMe": "ABOUT ME",
+    "contactButtonText": "Contact with me",
     "editPostButtonText": "Edit my profile",
-    "createPostButtonText": "+ Create new post"
+    "createPostButtonText": "+ Create new post",
+    "fillProfile": "Please fill your profile!",
+    "years": "years"
   },
   "editProfile": {
     "editProfile": "Edit Profile",
@@ -137,11 +140,60 @@
     "messages": {
       "avatarUpdated": "Avatar successfully updated!",
       "avatarRemoved": "Avatar successfully removed!",
-      "avatarConfirm": "Are you sure to remove your avatar?",
+      "avatarConfirm": "Are you sure you want to remove your avatar?",
       "avatarConfirmYes": "Yes",
       "avatarConfirmNo": "No",
       "profileUpdated": "Your profile information was successfully saved!",
       "passwordUpdated": "Your password was successfully updated!"
+    }
+  },
+  "userPosts": {
+    "active": "Active",
+    "inactive": "Inactive",
+    "noPostsMine": "You don't have any posts yet, create one!",
+    "noPosts": " doesn't have any posts yet",
+    "messages": {
+      "deletePostConfirm": "Are you sure you want to delete this post?",
+      "deletePostConfirmYes": "Yes",
+      "deletePostConfirmNo": "No",
+      "deleteSuccessful": "Post removed successfully!",
+      "statusConfirmInactive": "Are you sure you want to make this post inactive?",
+      "statusConfirmActive": "Are you sure you want to activate this post?",
+      "statusConfirmYes": "Yes",
+      "statusConfirmNo": "No",
+      "statusSuccessful": "Post status updated!"
+    }
+  },
+  "post": {
+    "more": "More",
+    "deletePost": "Delete post",
+    "editPost": "Edit post",
+    "activate": "Activate",
+    "deactivate": "Deactivate"
+  },
+  "postPage": {
+    "postActive": "Post is active",
+    "postInactive": "Post is inactive",
+    "edit": "Edit",
+    "delete": "Delete",
+    "contact": "Contact with author",
+    "location": "Location",
+    "date": "Date",
+    "people": "People",
+    "description": "Description",
+    "postedBy": "Posted by",
+    "languages": "Languages: ",
+    "years": "years",
+    "messages": {
+      "deletePostConfirm": "Are you sure you want to delete this post?",
+      "deletePostConfirmYes": "Yes",
+      "deletePostConfirmNo": "No",
+      "deleteSuccessful": "Post removed successfully!",
+      "statusConfirmInactive": "Are you sure you want to make this post inactive?",
+      "statusConfirmActive": "Are you sure you want to activate this post?",
+      "statusConfirmYes": "Yes",
+      "statusConfirmNo": "No",
+      "statusSuccessful": "Post status updated!"
     }
   }
 }

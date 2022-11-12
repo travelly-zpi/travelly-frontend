@@ -1,5 +1,5 @@
 import "./user-profile-page.scss";
-import { Avatar, Button, message, Tag, Typography } from "antd";
+import { Avatar, Button, Image, message, Tag, Typography } from "antd";
 import { useContext, useEffect, useState } from "react";
 import { useTranslation } from "react-i18next";
 import UserContext from "../../contexts/user-context";
@@ -11,18 +11,16 @@ import CreatePostModal from "../../components/new-post-modal/new-post-modal";
 import LoadingContext from "../../contexts/loading-context";
 import moment from "moment";
 import { HomeFilled, UserOutlined } from "@ant-design/icons";
+import UserPosts from "../../components/user-posts/user-posts";
+import { decodeUser } from "../../utils/user-utils";
 
 const { Text, Title } = Typography;
+const { CheckableTag } = Tag;
 
 const UserProfilePage = () => {
   const { t } = useTranslation();
   const navigate = useNavigate();
-  const {
-    user: loggedInUser,
-    decodeUser,
-    warningShown,
-    setWarningShown,
-  } = useContext(UserContext);
+  const { user: loggedInUser, warningShown, setWarningShown } = useContext(UserContext);
   const { id } = useParams();
   const { setLoading } = useContext(LoadingContext);
 
@@ -58,11 +56,12 @@ const UserProfilePage = () => {
       user &&
       (!user?.languages.length || !user?.localisation || !user?.dateOfBirth)
     ) {
-      message.warn("Please fill your profile!");
+      message.warn(t("userProfile.fillProfile"));
       setModal("edit-profile");
       setWarningShown(true);
     }
-  }, [isMyProfile, user, warningShown, setWarningShown]);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [isMyProfile, user]);
 
   if (!user) {
     return null;
@@ -85,10 +84,10 @@ const UserProfilePage = () => {
       <section className="user-profile-page">
         <div className="user-info-section">
           {user.imageUrl ? (
-            <Avatar
-              size={150}
+            <Image
+              className="user-avatar"
               src={process.env.REACT_APP_AZURE_CONTAINER_URL + user.imageUrl}
-            ></Avatar>
+            ></Image>
           ) : (
             <Avatar size={150} icon={<UserOutlined></UserOutlined>}></Avatar>
           )}
@@ -103,7 +102,8 @@ const UserProfilePage = () => {
                 style={{ display: "inline", fontSize: "18px" }}
               >
                 {" "}
-                {moment().diff(user.dateOfBirth, "years")} years
+                {moment().diff(user.dateOfBirth, "years")}{" "}
+                {t("userProfile.years")}
               </Text>
             </div>
 
@@ -114,18 +114,24 @@ const UserProfilePage = () => {
             <Text type="secondary">{t("userProfile.languages")}</Text>
             <Text className="languages">
               {user.languages?.map((lang: string) => (
-                <Tag key={lang}>{lang}</Tag>
+                <CheckableTag key={lang} checked={true}>
+                  {lang}
+                </CheckableTag>
               ))}
             </Text>
 
             <Text type="secondary">{t("userProfile.aboutMe")}</Text>
             <Text className="about-me">{user.description}</Text>
-            {isMyProfile && (
+            {isMyProfile ? (
               <Button
-                className="edit-button"
+                className="button"
                 onClick={() => setModal("edit-profile")}
               >
                 {t("userProfile.editPostButtonText")}
+              </Button>
+            ) : (
+              <Button className="button" type="primary" onClick={() => {}}>
+                {t("userProfile.contactButtonText")}
               </Button>
             )}
           </div>
@@ -140,6 +146,7 @@ const UserProfilePage = () => {
               {t("userProfile.createPostButtonText")}
             </Button>
           )}
+          <UserPosts user={user} isMyProfile={isMyProfile}></UserPosts>
         </div>
       </section>
     </>
