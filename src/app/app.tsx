@@ -19,6 +19,7 @@ const App = () => {
     JSON.parse(sessionStorage.getItem("user") || "null") ||
       JSON.parse(localStorage.getItem("user") || "null")
   );
+  const [warningShown, setWarningShown] = useState(false);
   const [loading, setLoading] = useState(false);
   const navigate = useNavigate();
 
@@ -62,7 +63,15 @@ const App = () => {
 
   return (
     <UserContext.Provider
-      value={{ user, onLogin, onLogout, decodeUser, encodeUser }}
+      value={{
+        user,
+        onLogin,
+        onLogout,
+        warningShown,
+        setWarningShown,
+        decodeUser,
+        encodeUser,
+      }}
     >
       <LoadingContext.Provider value={{ loading, setLoading }}>
         <Routes>

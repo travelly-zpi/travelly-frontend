@@ -6,6 +6,8 @@ interface UserContextInterface {
   user: UserInterface | null;
   onLogin: (user: UserInterface, remember: boolean) => void;
   onLogout: () => void;
+  warningShown: boolean;
+  setWarningShown: Function;
   decodeUser: (user: UserDtoInterface) => UserInterface;
   encodeUser: (user: UserInterface) => UserDtoInterface;
 }
