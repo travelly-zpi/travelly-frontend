@@ -10,6 +10,7 @@ import { useContext } from "react";
 import LoadingContext from "../../contexts/loading-context";
 import { Link } from "react-router-dom";
 import { PostPreviewInterface } from "../../interfaces/post-preview.interface";
+import Other from "../../assets/img/post/other.png";
 
 interface PostProps {
   post: PostPreviewInterface;
@@ -26,11 +27,7 @@ const Post = ({ post, onDelete, onChangeStatus }: PostProps) => {
       cover={
         <img
           alt={post.title}
-          src={
-            post.mainImageUrl
-              ? post.mainImageUrl
-              : "https://gw.alipayobjects.com/zos/rmsportal/JiqGstEfoWAOHiTxclqi.png"
-          }
+          src={post.mainImageUrl ? post.mainImageUrl : Other}
         />
       }
       title={post?.title}

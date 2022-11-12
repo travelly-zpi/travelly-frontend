@@ -5,7 +5,7 @@ import LoadingContext from "../../contexts/loading-context";
 import axios from "axios";
 import { Button, Switch, Typography } from "antd";
 
-import { decodePost } from "../../utils/post-utils";
+import { decodePost, defaultImageName } from "../../utils/post-utils";
 import { PostInterface } from "../../interfaces/post.interface";
 import {
   CalendarOutlined,
@@ -65,11 +65,7 @@ const PostPage = () => {
 
         <img
           alt={post.title}
-          src={
-            post.mainImageUrl
-              ? post.mainImageUrl
-              : "https://gw.alipayobjects.com/zos/rmsportal/JiqGstEfoWAOHiTxclqi.png"
-          }
+          src={post.mainImageUrl ? post.mainImageUrl : defaultImageName(post)}
         />
         <div className="post-buttons">
           <Button style={{ marginRight: "30px" }}>Edit</Button>
