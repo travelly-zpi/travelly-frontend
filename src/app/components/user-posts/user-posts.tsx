@@ -112,30 +112,40 @@ const UserPosts = ({ user, isMyProfile }: UserPostsProps) => {
     });
   };
 
-  const postsDiv = (
-    <div className="user-posts">
-      <div className="posts-block">
-        {posts?.map((post: PostPreviewInterface) => (
-          <Post
-            post={post}
-            key={post.uuid}
-            onDelete={() => postDelete(post)}
-            onChangeStatus={() => postChangeStatus(post)}
-            isMyProfile={isMyProfile}
-          ></Post>
-        ))}
-      </div>
+  const postsDiv =
+    posts.length > 0 ? (
+      <div className="user-posts">
+        <div className="posts-block">
+          {posts?.map((post: PostPreviewInterface) => (
+            <Post
+              post={post}
+              key={post.uuid}
+              onDelete={() => postDelete(post)}
+              onChangeStatus={() => postChangeStatus(post)}
+              isMyProfile={isMyProfile}
+            ></Post>
+          ))}
+        </div>
 
-      <Pagination
-        current={page}
-        onChange={onPaginationChange}
-        pageSize={pageSize}
-        total={totalPosts}
-        showSizeChanger={true}
-        pageSizeOptions={[3, 9, 18, 27]}
-      />
-    </div>
-  );
+        <Pagination
+          current={page}
+          onChange={onPaginationChange}
+          pageSize={pageSize}
+          total={totalPosts}
+          showSizeChanger={true}
+          pageSizeOptions={[3, 9, 18, 27]}
+        />
+      </div>
+    ) : (
+      <div className="user-posts">
+        <ClipartNoResults></ClipartNoResults>
+        <Title level={3}>
+          {isMyProfile
+            ? t("userPosts.noPostsMine")
+            : user.firstName + t("userPosts.noPosts")}
+        </Title>
+      </div>
+    );
 
   const tabs = [
     {
@@ -149,19 +159,6 @@ const UserPosts = ({ user, isMyProfile }: UserPostsProps) => {
       children: postsDiv,
     },
   ];
-
-  if (!posts.length) {
-    return (
-      <div className="user-posts">
-        <ClipartNoResults></ClipartNoResults>
-        <Title level={3}>
-          {isMyProfile
-            ? t("userPosts.noPostsMine")
-            : user.firstName + t("userPosts.noPosts")}
-        </Title>
-      </div>
-    );
-  }
 
   if (!isMyProfile) {
     return postsDiv;
