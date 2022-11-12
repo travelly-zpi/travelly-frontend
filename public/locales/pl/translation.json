@@ -168,7 +168,8 @@
     "more": "Więcej",
     "deletePost": "Usuń post",
     "editPost": "Edytuj post",
-    "changeStatus": "Zmień status"
+    "activate": "Aktywuj",
+    "deactivate": "Dezaktywuj"
   },
   "postPage": {
     "postActive": "Post jest aktywny",

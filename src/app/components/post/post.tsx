@@ -1,6 +1,7 @@
 import "./post.scss";
 import { Card, Tooltip } from "antd";
 import {
+  CheckCircleOutlined,
   CloseCircleOutlined,
   DeleteOutlined,
   EditOutlined,
@@ -18,11 +19,28 @@ interface PostProps {
   onDelete: Function;
   onChangeStatus: Function;
   isMyProfile: boolean;
+  active: boolean;
 }
 
-const Post = ({ post, onDelete, onChangeStatus, isMyProfile }: PostProps) => {
+const Post = ({
+  post,
+  onDelete,
+  onChangeStatus,
+  isMyProfile,
+  active,
+}: PostProps) => {
   const { t } = useTranslation();
   const { loading } = useContext(LoadingContext);
+
+  const statusIcon = active ? (
+    <Tooltip title={t("post.deactivate")}>
+      <CloseCircleOutlined key="deactivate" onClick={() => onChangeStatus()} />
+    </Tooltip>
+  ) : (
+    <Tooltip title={t("post.activate")}>
+      <CheckCircleOutlined key="activate" onClick={() => onChangeStatus()} />
+    </Tooltip>
+  );
 
   return (
     <Card
@@ -44,12 +62,7 @@ const Post = ({ post, onDelete, onChangeStatus, isMyProfile }: PostProps) => {
               <Tooltip title={t("post.editPost")}>
                 <EditOutlined key="edit" />
               </Tooltip>,
-              <Tooltip title={t("post.changeStatus")}>
-                <CloseCircleOutlined
-                  key="deactivate"
-                  onClick={() => onChangeStatus()}
-                />
-              </Tooltip>,
+              statusIcon,
             ]
           : []
       }

@@ -123,6 +123,7 @@ const UserPosts = ({ user, isMyProfile }: UserPostsProps) => {
               onDelete={() => postDelete(post)}
               onChangeStatus={() => postChangeStatus(post)}
               isMyProfile={isMyProfile}
+              active={active}
             ></Post>
           ))}
         </div>

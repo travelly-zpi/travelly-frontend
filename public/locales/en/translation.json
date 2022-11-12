@@ -168,7 +168,8 @@
     "more": "More",
     "deletePost": "Delete post",
     "editPost": "Edit post",
-    "changeStatus": "Change status"
+    "activate": "Activate",
+    "deactivate": "Deactivate"
   },
   "postPage": {
     "postActive": "Post is active",
