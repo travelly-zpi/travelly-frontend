@@ -60,6 +60,7 @@ const UserProfilePage = () => {
       setModal("edit-profile");
       setWarningShown(true);
     }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [isMyProfile, user]);
 
   if (!user) {
