@@ -5,6 +5,8 @@ interface UserContextInterface {
   user: UserInterface | null;
   onLogin: (user: UserInterface, remember: boolean) => void;
   onLogout: () => void;
+  warningShown: boolean;
+  setWarningShown: Function;
 }
 
 const UserContext = React.createContext<UserContextInterface>(

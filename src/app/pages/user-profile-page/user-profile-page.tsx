@@ -20,7 +20,7 @@ const { CheckableTag } = Tag;
 const UserProfilePage = () => {
   const { t } = useTranslation();
   const navigate = useNavigate();
-  const { user: loggedInUser } = useContext(UserContext);
+  const { user: loggedInUser, warningShown, setWarningShown } = useContext(UserContext);
   const { id } = useParams();
   const { setLoading } = useContext(LoadingContext);
 
@@ -28,7 +28,6 @@ const UserProfilePage = () => {
   const [modal, setModal] = useState<null | "edit-profile" | "create-post">(
     null
   );
-  const [warningShown, setWarningShown] = useState(false);
 
   const isMyProfile = loggedInUser?.uuid === id;
 
@@ -55,7 +54,7 @@ const UserProfilePage = () => {
       !warningShown &&
       isMyProfile &&
       user &&
-      (!user?.languages || !user?.localisation || !user?.dateOfBirth)
+      (!user?.languages.length || !user?.localisation || !user?.dateOfBirth)
     ) {
       message.warn(t("userProfile.fillProfile"));
       setModal("edit-profile");
