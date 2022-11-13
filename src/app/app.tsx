@@ -12,6 +12,7 @@ import VerificationPage from "./pages/user-verification-page/user-verification-p
 import { Spin } from "antd";
 import * as React from "react";
 import PostPage from "./pages/post-page/post-page";
+import BoardPage from "./pages/board-page/board-page";
 
 const App = () => {
   const [user, setUser] = useState<UserInterface | null>(
@@ -43,7 +44,9 @@ const App = () => {
   }, [navigate]);
 
   return (
-    <UserContext.Provider value={{ user, onLogin, onLogout, warningShown, setWarningShown }}>
+    <UserContext.Provider
+      value={{ user, onLogin, onLogout, warningShown, setWarningShown }}
+    >
       <LoadingContext.Provider value={{ loading, setLoading }}>
         <Routes>
           <Route path="/" element={<AppContainer />}>
@@ -61,6 +64,14 @@ const App = () => {
               element={
                 <AuthGuard>
                   <PostPage />
+                </AuthGuard>
+              }
+            ></Route>
+            <Route
+              path="board"
+              element={
+                <AuthGuard>
+                  <BoardPage />
                 </AuthGuard>
               }
             ></Route>

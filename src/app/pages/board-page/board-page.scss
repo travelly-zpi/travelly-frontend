@@ -1,0 +1,54 @@
+.board-page {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  padding: 40px 0;
+
+  .board-search {
+    width: 460px;
+  }
+
+  .ant-tabs-nav {
+    margin: 25px 0;
+  }
+
+  .board-posts {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    width: 100%;
+
+    .posts-block {
+      width: 100%;
+      display: flex;
+      gap: 70px;
+      flex-wrap: wrap;
+      justify-content: center;
+    }
+
+    .ant-pagination {
+      margin-top: 50px;
+      align-self: flex-end;
+    }
+  }
+}
+
+@media (min-width: 1280px) {
+  .board-page {
+    padding: 40px 130px;
+
+    .board-posts {
+      .posts-block {
+        justify-content: flex-start;
+      }
+    }
+  }
+}
+
+@media (min-width: 1920px) {
+  .board-page {
+    padding: 40px 50px;
+  }
+}
