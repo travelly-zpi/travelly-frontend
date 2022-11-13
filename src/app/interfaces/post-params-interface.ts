@@ -2,8 +2,8 @@ export interface PostParamsInterface {
   page: number;
   size: number;
   active?: boolean;
-  startDate?: string;
-  endDate?: string;
+  activeFrom?: string;
+  activeTo?: string;
   participants?: number;
   startPoint?: string;
   endPoint?: string;
