@@ -22,7 +22,7 @@ const PostCarpoolingForm = ({
   onSubmit,
   children
 }: PostCarpoolingInterface) => {
-  const { i18n, t } = useTranslation();
+  const { t } = useTranslation();
   const [createPost] = Form.useForm();
 
   useEffect(() => {
@@ -45,41 +45,42 @@ const PostCarpoolingForm = ({
   return (
     <Form form={createPost} layout="vertical" onFinish={handleSubmit}>
       <Form.Item 
-        label="Title" name="title"
-        rules={[{ required: true, message: "The title field is required" }]}
+        label={t("createPost.form.title")}
+        name="title"
+        rules={[{ required: true, message: t("createPost.messages.title") }]}
       >
         <Input />
       </Form.Item>
       <Form.Item
-        label={"From"}
+        label={t("createPost.form.from")}
         name="startPoint"
-        rules={[{ required: true, message: "Please select location" }]}
+        rules={[{ required: true, message: t("createPost.messages.location") }]}
       >
         <Select
           showSearch
           options={locations}
           onSearch={onLocationSearch}
-          placeholder="Please, provide your start point"
+          placeholder={t("createPost.form.locationFrom")}
         ></Select>
       </Form.Item>
       <Form.Item
-        label={"To"}
+        label={t("createPost.form.to")}
         name="endPoint"
-        rules={[{ required: true, message: "Please select location" }]}
+        rules={[{ required: true, message: t("createPost.messages.location") }]}
       >
         <Select
           showSearch
           options={locations}
           onSearch={onLocationSearch}
-          placeholder="Please, provide your destination point"
+          placeholder={t("createPost.form.locationTo")}
         ></Select>
       </Form.Item>
       <Form.Item>
         <Form.Item
           style={{ display: "inline-block", width: "50%" }}
-          label="Date"
+          label={t("createPost.form.date")}
           name="date"
-          rules={[{ required: true, message: "The date field is required" }]}
+          rules={[{ required: true, message: t("createPost.messages.date") }]}
         >
           <DatePicker />
         </Form.Item>
@@ -89,20 +90,20 @@ const PostCarpoolingForm = ({
             width: "30%",
             marginLeft: "10px",
           }}
-          label="Number of people"
+          label={t("createPost.form.numb")}
           name="numberOfPeople"
-          rules={[{ required: true, message: "This field is required" }]}
+          rules={[{ required: true, message: t("createPost.messages.require") }]}
         >
           <Input prefix={<UserOutlined />} />
         </Form.Item>
       </Form.Item>
-      <Form.Item label="Description" name="description">
-        <TextArea rows={4} placeholder="Write something more here" />
+      <Form.Item label={t("createPost.form.desc")} name="description">
+        <TextArea rows={4} placeholder={t("createPost.form.descInfo")} />
       </Form.Item>
       {children}
       <Form.Item>
         <Button type="primary" htmlType="submit">
-          Create
+        {t("createPost.createBtn")}
         </Button>
       </Form.Item>
     </Form>

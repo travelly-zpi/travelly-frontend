@@ -143,5 +143,38 @@
       "profileUpdated": "Informacje o Twoim profilu zostały pomyślnie zapisane!",
       "passwordUpdated": "Twoje hasło zostało pomyślnie zmienione!"
     }
+  },
+  "createPost": {
+    "modalTitle": "Utwórz nowy post",
+    "uploadImg": "Dodaj",
+    "uploadAvatar": "Dodaj obraz główny",
+    "accommodation": "Nocleg",
+    "carpooling": "Wspólny przejazd",
+    "trip": "Wspólna podróż",
+    "excursion": "Wycieczka",
+    "other": "Inne",
+    "createBtn": "Utwórz",
+    "form": {
+      "title": "Tytuł",
+      "location": "Lokalizacja",
+      "locationInfo": "Proszę podać, dokąd się wybierasz",
+      "locationFrom": "Proszę podać swój punkt startowy",
+      "locationTo": "Proszę podać punkt docelowy",
+      "locationOther": "Proszę podać swoją lokalizację",
+      "date": "Data",
+      "dateR": "Zakres dat",
+      "from": "Z",
+      "to": "Do",
+      "numb": "Liczba ludzi",
+      "desc": "Opis",
+      "descInfo": "Napisz tutaj coś więcej"
+    },
+    "messages": {
+      "require": "Pole jest wymagane",
+      "title": "Pole tytuł jest wymagane",
+      "dateR": "Pole zakres dat jest wymagane",
+      "date": "Pole data jest wymagane",
+      "location": "Pole lokalizacja jest wymagane"
+    }
   }
 }

@@ -2,7 +2,7 @@ import { UserOutlined } from "@ant-design/icons";
 
 import { Button, DatePicker, Form, Input, Select } from "antd";
 import { CreatePostInterface } from "app/interfaces/create.post.interface";
-import { useEffect } from "react";
+import { useTranslation } from "react-i18next";
 
 const { RangePicker } = DatePicker;
 const { TextArea } = Input;
@@ -23,6 +23,7 @@ const PostAccommodationForm = ({
   children,
 }: PostAccommodationInterface) => {
   const [createPost] = Form.useForm();
+  const { t } = useTranslation();
 
   const handleSubmit = (values: any) => {
     onSubmit({
@@ -40,31 +41,31 @@ const PostAccommodationForm = ({
   return (
     <Form form={createPost} layout="vertical" onFinish={handleSubmit}>
       <Form.Item
-        label="Title"
+        label= {t("createPost.form.title")}
         name="title"
-        rules={[{ required: true, message: "The title field is required" }]}
+        rules={[{ required: true, message: t("createPost.messages.title") }]}
       >
         <Input />
       </Form.Item>
       <Form.Item
-        label={"Location"}
+        label={t("createPost.form.location")}
         name="startPoint"
-        rules={[{ required: true, message: "Please select location" }]}
+        rules={[{ required: true, message: t("createPost.messages.location") }]}
       >
         <Select
           showSearch
           options={locations}
           onSearch={onLocationSearch}
-          placeholder="Please, provide where are you going"
+          placeholder={t("createPost.form.locationInfo")}
         ></Select>
       </Form.Item>
       <Form.Item>
         <Form.Item
           style={{ display: "inline-block", width: "50%" }}
-          label="Date range"
+          label={t("createPost.form.dateR")}
           name="dateRange"
           rules={[
-            { required: true, message: "The date range field is required" },
+            { required: true, message: t("createPost.messages.dateR")  },
           ]}
         >
           <RangePicker />
@@ -75,20 +76,23 @@ const PostAccommodationForm = ({
             width: "30%",
             marginLeft: "10px",
           }}
-          label="Number of people"
+          label={t("createPost.form.numb")}
           name="numberOfPeople"
-          rules={[{ required: true, message: "This field is required" }]}
+          rules={[{ required: true, message: t("createPost.messages.require") }]}
         >
           <Input prefix={<UserOutlined />} />
         </Form.Item>
       </Form.Item>
-      <Form.Item label="Description" name="description">
-        <TextArea rows={4} placeholder="Write something more here" />
+      <Form.Item 
+        label={t("createPost.form.desc")}
+        name="description"
+      >
+        <TextArea rows={4} placeholder={t("createPost.form.descInfo")} />
       </Form.Item>
       {children}
       <Form.Item>
         <Button type="primary" htmlType="submit">
-          Create
+        {t("createPost.createBtn")}
         </Button>
       </Form.Item>
     </Form>

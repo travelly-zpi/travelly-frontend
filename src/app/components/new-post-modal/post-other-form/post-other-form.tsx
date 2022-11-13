@@ -19,7 +19,7 @@ const PostOtherForm = ({
   onSubmit,
   children
 }: PostOtherInterface) => {
-  const { i18n, t } = useTranslation();
+  const { t } = useTranslation();
   const [createPost] = Form.useForm();
 
   useEffect(() => {
@@ -39,30 +39,31 @@ const PostOtherForm = ({
   return (
     <Form form={createPost} layout="vertical" onFinish={handleSubmit}>
       <Form.Item 
-        label="Title" name="title"
-        rules={[{ required: true, message: "The title field is required" }]}
+        label={t("createPost.form.title")}
+        name="title"
+        rules={[{ required: true, message: t("createPost.messages.title") }]}
         >
         <Input />
       </Form.Item>
       <Form.Item
-        label={"Location"}
+        label={t("createPost.form.location")}
         name="location"
-        rules={[{ required: true, message: "Please select location" }]}
+        rules={[{ required: true, message: t("createPost.messages.location") }]}
       >
         <Select
           showSearch
           options={locations}
           onSearch={onLocationSearch}
-          placeholder="Please, provide your location"
+          placeholder={t("createPost.form.locationOther")}
         ></Select>
       </Form.Item>
-      <Form.Item label="Description" name="description">
-        <TextArea rows={4} placeholder="Write something more here" />
+      <Form.Item label={t("createPost.form.desc")} name="description">
+        <TextArea rows={4} placeholder={t("createPost.form.descInfo")}/>
       </Form.Item>
       {children}
       <Form.Item>
         <Button type="primary" htmlType="submit">
-          Create
+        {t("createPost.createBtn")}
         </Button>
       </Form.Item>
     </Form>

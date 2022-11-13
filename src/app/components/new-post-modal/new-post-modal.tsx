@@ -162,14 +162,14 @@ const CreatePostModal = ({ onClose, userId }: CreatePostModalProps) => {
     >
       <div>
         <PlusOutlined />
-        <div style={{ marginTop: 8 }}>Upload</div>
+        <div style={{ marginTop: 8 }}>{t("createPost.uploadImg")}</div>
       </div>
     </Upload>
   );
 
   const forms = [
     {
-      label: "Accommodation",
+      label: t("createPost.accommodation"),
       key: "accommodation",
       children: (
         <PostAccommodationForm
@@ -183,7 +183,7 @@ const CreatePostModal = ({ onClose, userId }: CreatePostModalProps) => {
       ),
     },
     {
-      label: "Carpooling",
+      label: t("createPost.carpooling"),
       key: "carpooling",
       children: (
         <PostCarpoolingForm
@@ -197,7 +197,7 @@ const CreatePostModal = ({ onClose, userId }: CreatePostModalProps) => {
       ),
     },
     {
-      label: "Trip together",
+      label: t("createPost.trip"),
       key: "trip-together",
       children: (
         <PostTripForm
@@ -211,7 +211,7 @@ const CreatePostModal = ({ onClose, userId }: CreatePostModalProps) => {
       ),
     },
     {
-      label: "Excursions",
+      label: t("createPost.excursion"),
       key: "excursions",
       children: (
         <PostExcursionsForm
@@ -225,7 +225,7 @@ const CreatePostModal = ({ onClose, userId }: CreatePostModalProps) => {
       ),
     },
     {
-      label: "Other",
+      label: t("createPost.other"),
       key: "other",
       children: (
         <PostOtherForm
@@ -245,7 +245,7 @@ const CreatePostModal = ({ onClose, userId }: CreatePostModalProps) => {
       <Modal onClose={onClose} size="large">
         <div className="create-post-container">
           <Title className="title" level={3}>
-            Create new post
+            {t("createPost.modalTitle")}
           </Title>
           <div className="create-post-form">
             <Tabs items={forms}></Tabs>
@@ -258,7 +258,7 @@ const CreatePostModal = ({ onClose, userId }: CreatePostModalProps) => {
                   beforeUpload={beforeUpload}
                   customRequest={setImage}
                 >
-                  <Button icon={<UploadOutlined />}>Upload main image</Button>
+                  <Button icon={<UploadOutlined />}>{t("createPost.uploadAvatar")}</Button>
                 </Upload>
               </div>
             </div>
