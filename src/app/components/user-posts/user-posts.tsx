@@ -9,6 +9,7 @@ import { UserInterface } from "../../interfaces/user.interface";
 import ClipartNoResults from "../../assets/img/clipart-no-results";
 import { PostPreviewInterface } from "../../interfaces/post-preview.interface";
 import { useTranslation } from "react-i18next";
+import { PostParamsInterface } from "../../interfaces/post-params-interface";
 
 const { Title } = Typography;
 const { confirm } = Modal;
@@ -28,15 +29,17 @@ const UserPosts = ({ user, isMyProfile }: UserPostsProps) => {
   const { setLoading } = useContext(LoadingContext);
 
   const loadPosts = () => {
+    const params: PostParamsInterface = {
+      author: user.uuid,
+      active: active,
+      page: page,
+      size: pageSize,
+    };
+
     setLoading(true);
     axios
       .get(`/post`, {
-        params: {
-          author: user.uuid,
-          active: active,
-          page: page,
-          size: pageSize,
-        },
+        params,
       })
       .then((res) => {
         const data = res.data;

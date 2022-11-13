@@ -8,6 +8,8 @@ import * as React from "react";
 import { useContext, useEffect, useState } from "react";
 import LoadingContext from "../../contexts/loading-context";
 import axios from "axios";
+import { PostParamsInterface } from "../../interfaces/post-params-interface";
+import UserContext from "../../contexts/user-context";
 
 const { Search } = Input;
 const { Title } = Typography;
@@ -17,18 +19,27 @@ const BoardPage = () => {
   const [page, setPage] = useState(1);
   const [pageSize, setPageSize] = useState(9);
   const [totalPosts, setTotalPosts] = useState(1);
-  const [postType] = useState("discover");
+  const [postType, setPostType] = useState("discover");
   const { setLoading } = useContext(LoadingContext);
+  const { user } = useContext(UserContext);
 
   useEffect(() => {
     setLoading(true);
+
+    const params: PostParamsInterface = {
+      page: page,
+      size: pageSize,
+      active: true,
+      notAuthor: user?.uuid,
+    };
+
+    if (postType !== "discover") {
+      params["type"] = postType;
+    }
+
     axios
       .get(`/post`, {
-        params: {
-          active: true,
-          page: page,
-          size: pageSize,
-        },
+        params,
       })
       .then((res) => {
         const data = res.data;
@@ -44,7 +55,7 @@ const BoardPage = () => {
   }, [page, pageSize, postType]);
 
   const onTabChange = (key: string) => {
-    console.log(key);
+    setPostType(key);
     setPage(1);
     setTotalPosts(1);
   };
@@ -122,7 +133,12 @@ const BoardPage = () => {
         className="board-search"
         size="large"
       />
-      <Tabs items={tabs} onChange={onTabChange} centered />
+      <Tabs
+        items={tabs}
+        onChange={onTabChange}
+        centered
+        style={{ width: "100%" }}
+      />
     </section>
   );
 };
