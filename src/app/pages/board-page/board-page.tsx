@@ -6,7 +6,6 @@ import Post from "../../components/post/post";
 import ClipartNoResults from "../../assets/img/clipart-no-results";
 import * as React from "react";
 import { useContext, useEffect, useState } from "react";
-import { useTranslation } from "react-i18next";
 import LoadingContext from "../../contexts/loading-context";
 import axios from "axios";
 
@@ -14,7 +13,6 @@ const { Search } = Input;
 const { Title } = Typography;
 
 const BoardPage = () => {
-  const { t } = useTranslation();
   const [posts, setPosts] = useState([]);
   const [page, setPage] = useState(1);
   const [pageSize, setPageSize] = useState(9);
@@ -77,7 +75,7 @@ const BoardPage = () => {
     ) : (
       <div className="board-posts">
         <ClipartNoResults></ClipartNoResults>
-        <Title level={3}>{t("userPosts.noPosts")}</Title>
+        <Title level={3}>No posts found</Title>
       </div>
     );
 

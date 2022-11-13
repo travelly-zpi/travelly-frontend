@@ -1,5 +1,5 @@
 import "./post-page.scss";
-import { useNavigate, useParams } from "react-router-dom";
+import { Link, useNavigate, useParams } from "react-router-dom";
 import { useContext, useEffect, useState } from "react";
 import LoadingContext from "../../contexts/loading-context";
 import axios from "axios";
@@ -172,12 +172,15 @@ const PostPage = () => {
                   ></Avatar>
                 )}
                 <div className="post-author-info-text">
-                  <Text className="post-author-name">
-                    {post.author?.firstName!} {post.author?.lastName!}
-                    {", "}
-                    {moment().diff(post.author?.dateOfBirth!, "years")}{" "}
-                    {t("postPage.years")}
-                  </Text>
+                  <Link to={"/user/" + post.author?.uuid}>
+                    <Text className="post-author-name">
+                      {post.author?.firstName!} {post.author?.lastName!}
+                      {", "}
+                      {moment().diff(post.author?.dateOfBirth!, "years")}{" "}
+                      {t("postPage.years")}
+                    </Text>
+                  </Link>
+
                   <Text type="secondary">
                     {t("postPage.languages")}
                     {post.author?.languages?.map((lang: string) => (
