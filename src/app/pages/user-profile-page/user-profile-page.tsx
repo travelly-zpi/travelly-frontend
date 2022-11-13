@@ -94,7 +94,7 @@ const UserProfilePage = () => {
 
           <div className="user-info">
             <div>
-              <Title className="title" level={2} style={{ display: "inline" }}>
+              <Title className="title" data-testid="user-title" level={2} style={{ display: "inline" }}>
                 {user.firstName} {user.lastName}
               </Title>
               <Text

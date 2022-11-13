@@ -87,6 +87,7 @@ const Header = () => {
             items={navigationMenu}
             className="navigation"
             selectedKeys={[pathname]}
+            data-testid="navigation-menu"
           />
         )}
         {user ? (
@@ -105,7 +106,7 @@ const Header = () => {
             >
               {t("header.login")}
             </Button>
-            <Button type="primary" onClick={() => setModal("register")}>
+            <Button type="primary" onClick={() => setModal("register")} data-testid="registration-button">
               {t("header.register")}
             </Button>
 
