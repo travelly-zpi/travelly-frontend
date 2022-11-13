@@ -1,7 +1,8 @@
 import { UserOutlined } from "@ant-design/icons";
 
 import { Button, DatePicker, Form, Input, Select } from "antd";
-import { PostInterface } from "app/interfaces/post.interface";
+import { CreatePostInterface } from "app/interfaces/create.post.interface";
+import { useEffect } from "react";
 
 const { RangePicker } = DatePicker;
 const { TextArea } = Input;
@@ -9,8 +10,9 @@ const { TextArea } = Input;
 interface PostAccommodationInterface {
   onLocationSearch: (val: string) => void;
   locations: any;
-  post: PostInterface;
-  onSubmit: (model: PostInterface) => void;
+  post: CreatePostInterface;
+  onSubmit: (model: CreatePostInterface) => void;
+  children: JSX.Element;
 }
 
 const PostAccommodationForm = ({
@@ -18,6 +20,7 @@ const PostAccommodationForm = ({
   locations,
   post,
   onSubmit,
+  children,
 }: PostAccommodationInterface) => {
   const [createPost] = Form.useForm();
 
@@ -36,7 +39,11 @@ const PostAccommodationForm = ({
 
   return (
     <Form form={createPost} layout="vertical" onFinish={handleSubmit}>
-      <Form.Item label="Title" name="title">
+      <Form.Item
+        label="Title"
+        name="title"
+        rules={[{ required: true, message: "The title field is required" }]}
+      >
         <Input />
       </Form.Item>
       <Form.Item
@@ -56,6 +63,9 @@ const PostAccommodationForm = ({
           style={{ display: "inline-block", width: "50%" }}
           label="Date range"
           name="dateRange"
+          rules={[
+            { required: true, message: "The date range field is required" },
+          ]}
         >
           <RangePicker />
         </Form.Item>
@@ -67,6 +77,7 @@ const PostAccommodationForm = ({
           }}
           label="Number of people"
           name="numberOfPeople"
+          rules={[{ required: true, message: "This field is required" }]}
         >
           <Input prefix={<UserOutlined />} />
         </Form.Item>
@@ -74,6 +85,7 @@ const PostAccommodationForm = ({
       <Form.Item label="Description" name="description">
         <TextArea rows={4} placeholder="Write something more here" />
       </Form.Item>
+      {children}
       <Form.Item>
         <Button type="primary" htmlType="submit">
           Create

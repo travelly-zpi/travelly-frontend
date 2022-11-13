@@ -1,4 +1,4 @@
-export interface PostInterface {
+export interface CreatePostInterface { 
     title: string;
     description: string;
     activeFrom: moment.Moment | null;

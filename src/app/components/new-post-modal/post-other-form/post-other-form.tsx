@@ -1,33 +1,47 @@
 import { Button, DatePicker, Form, Input, Select } from "antd";
 import TextArea from "antd/lib/input/TextArea";
-import { PostInterface } from "app/interfaces/post.interface";
+import { CreatePostInterface } from "app/interfaces/create.post.interface";
 import { useEffect } from "react";
 import { useTranslation } from "react-i18next";
 
 interface PostOtherInterface {
   onLocationSearch: (val: string) => void;
   locations: any;
-  post: PostInterface;
-  onSubmit: (model: PostInterface) => void;
+  post: CreatePostInterface;
+  onSubmit: (model: CreatePostInterface) => void;
+  children: JSX.Element;
 }
 
-const PostOtherForm = ({ onLocationSearch, locations , post, onSubmit}: PostOtherInterface) => {
+const PostOtherForm = ({
+  onLocationSearch,
+  locations,
+  post,
+  onSubmit,
+  children
+}: PostOtherInterface) => {
   const { i18n, t } = useTranslation();
   const [createPost] = Form.useForm();
 
+  useEffect(() => {
+    createPost.resetFields();
+  });
+
   const handleSubmit = (values: any) => {
     onSubmit({
-      ...post, 
+      ...post,
       type: "other",
       title: values.title,
       description: values.description,
       startPoint: values.location,
     });
-  }
+  };
 
   return (
     <Form form={createPost} layout="vertical" onFinish={handleSubmit}>
-      <Form.Item label="Title" name="title">
+      <Form.Item 
+        label="Title" name="title"
+        rules={[{ required: true, message: "The title field is required" }]}
+        >
         <Input />
       </Form.Item>
       <Form.Item
@@ -45,6 +59,7 @@ const PostOtherForm = ({ onLocationSearch, locations , post, onSubmit}: PostOthe
       <Form.Item label="Description" name="description">
         <TextArea rows={4} placeholder="Write something more here" />
       </Form.Item>
+      {children}
       <Form.Item>
         <Button type="primary" htmlType="submit">
           Create

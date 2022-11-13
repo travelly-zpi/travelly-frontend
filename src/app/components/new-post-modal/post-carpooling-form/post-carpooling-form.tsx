@@ -1,7 +1,8 @@
 import { UserOutlined } from "@ant-design/icons";
 
 import { Button, DatePicker, Form, Input, Select } from "antd";
-import { PostInterface } from "app/interfaces/post.interface";
+import { CreatePostInterface } from "app/interfaces/create.post.interface";
+import { useEffect } from "react";
 import { useTranslation } from "react-i18next";
 
 const { TextArea } = Input;
@@ -9,18 +10,24 @@ const { TextArea } = Input;
 interface PostCarpoolingInterface {
   onLocationSearch: (val: string) => void;
   locations: any;
-  post: PostInterface;
-  onSubmit: (model: PostInterface) => void;
+  post: CreatePostInterface;
+  onSubmit: (model: CreatePostInterface) => void;
+  children: JSX.Element;
 }
 
 const PostCarpoolingForm = ({
   onLocationSearch,
   locations,
   post,
-  onSubmit
+  onSubmit,
+  children
 }: PostCarpoolingInterface) => {
   const { i18n, t } = useTranslation();
   const [createPost] = Form.useForm();
+
+  useEffect(() => {
+    createPost.resetFields();
+  });
 
   const handleSubmit = (values: any) => {
     onSubmit({
@@ -37,7 +44,10 @@ const PostCarpoolingForm = ({
 
   return (
     <Form form={createPost} layout="vertical" onFinish={handleSubmit}>
-      <Form.Item label="Title" name="title">
+      <Form.Item 
+        label="Title" name="title"
+        rules={[{ required: true, message: "The title field is required" }]}
+      >
         <Input />
       </Form.Item>
       <Form.Item
@@ -69,6 +79,7 @@ const PostCarpoolingForm = ({
           style={{ display: "inline-block", width: "50%" }}
           label="Date"
           name="date"
+          rules={[{ required: true, message: "The date field is required" }]}
         >
           <DatePicker />
         </Form.Item>
@@ -80,6 +91,7 @@ const PostCarpoolingForm = ({
           }}
           label="Number of people"
           name="numberOfPeople"
+          rules={[{ required: true, message: "This field is required" }]}
         >
           <Input prefix={<UserOutlined />} />
         </Form.Item>
@@ -87,6 +99,7 @@ const PostCarpoolingForm = ({
       <Form.Item label="Description" name="description">
         <TextArea rows={4} placeholder="Write something more here" />
       </Form.Item>
+      {children}
       <Form.Item>
         <Button type="primary" htmlType="submit">
           Create

@@ -1,14 +1,7 @@
 import "./new-post-modal.scss";
 import Modal from "../modal/modal";
 
-import {
-  Button,
-  Image,
-  message,
-  Tabs,
-  Typography,
-  Upload,
-} from "antd";
+import { Button, Image, message, Tabs, Typography, Upload } from "antd";
 
 import { useCallback, useContext, useState } from "react";
 import { UploadOutlined, PlusOutlined } from "@ant-design/icons";
@@ -20,8 +13,11 @@ import PostCarpoolingForm from "./post-carpooling-form/post-carpooling-form";
 import PostExcursionsForm from "./post-excursions-form/post-excursions-form";
 import PostTripForm from "./post-trip-form/post-trip-form";
 import PostOtherForm from "./post-other-form/post-other-form";
-import { PostInterface } from "app/interfaces/post.interface";
+import { CreatePostInterface } from "app/interfaces/create.post.interface";
 import LoadingContext from "app/contexts/loading-context";
+import { RcFile } from "antd/lib/upload";
+import { UploadFile } from "antd/es/upload";
+import { isEmpty, reject } from "lodash";
 
 const { Title } = Typography;
 
@@ -33,9 +29,13 @@ interface CreatePostModalProps {
 const CreatePostModal = ({ onClose, userId }: CreatePostModalProps) => {
   const { i18n, t } = useTranslation();
   const [locations, setLocations] = useState();
-  const [avatarPreview, setAvatarPreview] = useState<string>();
+  const [avatarPreview, setAvatarPreview] = useState<string | undefined>(
+    undefined
+  );
+  const [avatarFile, setAvatarFile] = useState<FormData | null>(null);
+  const [fileList, setFileList] = useState<FormData[]>([]);
   const { loading, setLoading } = useContext(LoadingContext);
-  const [post] = useState<PostInterface>({
+  const [post] = useState<CreatePostInterface>({
     title: "",
     description: "",
     activeFrom: null,
@@ -48,15 +48,37 @@ const CreatePostModal = ({ onClose, userId }: CreatePostModalProps) => {
     author: userId,
   });
 
-  const onSubmit = (model: PostInterface) => {
-    console.log(model);
+  const onSubmit = (model: CreatePostInterface) => {
     setLoading(true);
     axios
       .post("/post/", model)
       .then((res) => {
         const data = res.data;
+        const id = data.uuid;
         console.log(data);
         message.success("okey");
+        if (avatarFile) {
+          console.log("main image uploading");
+          // axios
+          //   .put(`/post/${id}/attachmentUpload?status=true`, avatarFile)
+          //   .then((r) => {
+          //     const data = r.data;
+          //     console.log(data);
+          //     message.success("avatar uploaded");
+          //   })
+          //   .catch((err) => {
+          //     const msg = err.response?.data?.message;
+          //     console.error(msg);
+          //   });
+        }
+        if (!isEmpty(fileList)) {
+          console.log("post images uploading");
+          // let promises = fileList.map((fd) => {
+          //   axios.put(`/post/${id}/attachmentUpload?status=false`, fd)
+          //     .catch((err) => reject(err));
+          // });
+          // Promise.all(promises).then((r) => console.log(r), (reason) => console.log(reason));
+        }
         onClose();
       })
       .catch((err) => {
@@ -66,7 +88,7 @@ const CreatePostModal = ({ onClose, userId }: CreatePostModalProps) => {
       .finally(() => setLoading(false));
   };
 
-  //location fing function
+  //location find function
   const onLocationSearch = (val: string) => {
     if (val) {
       const axiosNoAuth = axios.create();
@@ -98,11 +120,51 @@ const CreatePostModal = ({ onClose, userId }: CreatePostModalProps) => {
     []
   );
 
-  const uploadButton = (
-    <div>
-      <PlusOutlined />
-      <div style={{ marginTop: 8 }}>Upload</div>
-    </div>
+  const handleChange = ({ file }: any) => {
+    if (file.status === "removed") setAvatarPreview(undefined);
+    else setAvatarPreview(URL.createObjectURL(file.originFileObj));
+  };
+
+  const beforeUpload = (file: RcFile) => {
+    const isJpgOrPng = file.type === "image/jpeg" || file.type === "image/png";
+    if (!isJpgOrPng) {
+      message.error(t("editProfile.errors.avatarOnlyJpgPng"));
+    }
+    const isLt2M = file.size / 1024 / 1024 < 2;
+    if (!isLt2M) {
+      message.error(t("editProfile.errors.avatarSmaller2MB"));
+    }
+    return isJpgOrPng && isLt2M;
+  };
+
+  const setImage = ({ onSuccess, file }: any) => {
+    console.log(file + "   " + typeof(file));
+    const fd = new FormData();
+    fd.append("image", file);
+    setAvatarFile(fd);
+    onSuccess();
+  };
+
+  const setAttachment = ({ onSuccess, file }: any) => {
+    const fd = new FormData();
+    fd.append("image", file);
+    setFileList([...fileList, fd]);
+    onSuccess();
+  };
+
+  const uploadMultipleImg = (
+    <Upload
+      name="avatar"
+      listType="picture-card"
+      className="avatar-uploader"
+      customRequest={setAttachment}
+      beforeUpload={beforeUpload}
+    >
+      <div>
+        <PlusOutlined />
+        <div style={{ marginTop: 8 }}>Upload</div>
+      </div>
+    </Upload>
   );
 
   const forms = [
@@ -115,7 +177,9 @@ const CreatePostModal = ({ onClose, userId }: CreatePostModalProps) => {
           locations={locations}
           post={post}
           onSubmit={onSubmit}
-        />
+        >
+          {uploadMultipleImg}
+        </PostAccommodationForm>
       ),
     },
     {
@@ -127,7 +191,9 @@ const CreatePostModal = ({ onClose, userId }: CreatePostModalProps) => {
           locations={locations}
           post={post}
           onSubmit={onSubmit}
-        />
+        >
+          {uploadMultipleImg}
+        </PostCarpoolingForm>
       ),
     },
     {
@@ -139,7 +205,9 @@ const CreatePostModal = ({ onClose, userId }: CreatePostModalProps) => {
           locations={locations}
           post={post}
           onSubmit={onSubmit}
-        />
+        >
+          {uploadMultipleImg}
+        </PostTripForm>
       ),
     },
     {
@@ -151,7 +219,9 @@ const CreatePostModal = ({ onClose, userId }: CreatePostModalProps) => {
           locations={locations}
           post={post}
           onSubmit={onSubmit}
-        />
+        >
+          {uploadMultipleImg}
+        </PostExcursionsForm>
       ),
     },
     {
@@ -163,15 +233,12 @@ const CreatePostModal = ({ onClose, userId }: CreatePostModalProps) => {
           locations={locations}
           post={post}
           onSubmit={onSubmit}
-        />
+        >
+          {uploadMultipleImg}
+        </PostOtherForm>
       ),
     },
   ];
-  const [activeKey, setActiveKey] = useState(forms[0].key);
-
-  const handleChange = ({ file }: any) => {
-    setAvatarPreview(URL.createObjectURL(file.originFileObj));
-  };
 
   return (
     <div className="fff">
@@ -181,33 +248,21 @@ const CreatePostModal = ({ onClose, userId }: CreatePostModalProps) => {
             Create new post
           </Title>
           <div className="create-post-form">
-            <Tabs
-              items={forms}
-              activeKey={activeKey}
-              onChange={(key: string) => setActiveKey(key)}
-            ></Tabs>
+            <Tabs items={forms}></Tabs>
             <div className="create-post-avatar">
               <Image src={avatarPreview} width={250} height={150} placeholder />
               <div style={{ maxWidth: "195px" }}>
-                <Upload maxCount={1} onChange={handleChange}>
+                <Upload
+                  maxCount={1}
+                  onChange={handleChange}
+                  beforeUpload={beforeUpload}
+                  customRequest={setImage}
+                >
                   <Button icon={<UploadOutlined />}>Upload main image</Button>
                 </Upload>
               </div>
-              {/* <FormItem>
-                <Upload
-                  name="avatar"
-                  listType="picture-card"
-                  className="avatar-uploader"
-                  action="/"
-                >
-                  {uploadButton}
-                </Upload>
-              </FormItem> */}
             </div>
           </div>
-          <Button className="submitButton" type="primary" htmlType="submit">
-            Create
-          </Button>
         </div>
       </Modal>
     </div>

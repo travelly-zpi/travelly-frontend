@@ -1,19 +1,30 @@
 import { Button, DatePicker, Form, Input, Select } from "antd";
 import TextArea from "antd/lib/input/TextArea";
-import { PostInterface } from "app/interfaces/post.interface";
+import { CreatePostInterface } from "app/interfaces/create.post.interface";
 import { useEffect } from "react";
 import { useTranslation } from "react-i18next";
 
 interface PostTripInterface {
   onLocationSearch: (val: string) => void;
   locations: any;
-  post: PostInterface;
-  onSubmit: (model: PostInterface) => void;
+  post: CreatePostInterface;
+  onSubmit: (model: CreatePostInterface) => void;
+  children: JSX.Element;
 }
 
-const PostTripForm = ({ onLocationSearch, locations, post, onSubmit }: PostTripInterface) => {
+const PostTripForm = ({
+  onLocationSearch,
+  locations,
+  post,
+  onSubmit,
+  children,
+}: PostTripInterface) => {
   const { i18n, t } = useTranslation();
   const [createPost] = Form.useForm();
+
+  useEffect(() => {
+    createPost.resetFields();
+  });
 
   const handleSubmit = (values: any) => {
     onSubmit({
@@ -23,11 +34,15 @@ const PostTripForm = ({ onLocationSearch, locations, post, onSubmit }: PostTripI
       description: values.description,
       startPoint: values.location,
     });
-  }
+  };
 
   return (
-    <Form form={createPost} layout="vertical" onFinish={handleSubmit} >
-      <Form.Item label="Title" name="title">
+    <Form form={createPost} layout="vertical" onFinish={handleSubmit}>
+      <Form.Item
+        label="Title"
+        name="title"
+        rules={[{ required: true, message: "The title field is required" }]}
+      >
         <Input />
       </Form.Item>
       <Form.Item
@@ -45,6 +60,7 @@ const PostTripForm = ({ onLocationSearch, locations, post, onSubmit }: PostTripI
       <Form.Item label="Description" name="description">
         <TextArea rows={4} placeholder="Write something more here" />
       </Form.Item>
+      {children}
       <Form.Item>
         <Button type="primary" htmlType="submit">
           Create
