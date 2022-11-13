@@ -246,6 +246,7 @@ const UserInfoForm = ({ onClose, user }: UserInfoFormProps) => {
             showSearch
             options={locations}
             onSearch={debounceOnLocationSearch}
+            notFoundContent={t("editProfile.messages.noLocations")}
           ></Select>
         </Form.Item>
         <Form.Item

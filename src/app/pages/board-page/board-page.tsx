@@ -42,7 +42,7 @@ interface FiltersInterface {
 }
 
 const BoardPage = () => {
-  const { i18n } = useTranslation();
+  const { i18n, t } = useTranslation();
   const [posts, setPosts] = useState([]);
   const [page, setPage] = useState(1);
   const [pageSize, setPageSize] = useState(9);
@@ -137,6 +137,12 @@ const BoardPage = () => {
             setLocationsTo(locations);
           }
         });
+    } else {
+      if (fromLocations) {
+        setLocationsFrom([]);
+      } else {
+        setLocationsTo([]);
+      }
     }
   };
 
@@ -161,7 +167,7 @@ const BoardPage = () => {
     ) : (
       <div className="board-posts">
         <ClipartNoResults></ClipartNoResults>
-        <Title level={3}>No posts found</Title>
+        <Title level={3}>{t("boardPage.noPosts")}</Title>
       </div>
     );
 
@@ -170,16 +176,17 @@ const BoardPage = () => {
       {["carpooling", "trip"].includes(filters.type) ? (
         <>
           <div>
-            <label>From : </label>
+            <label>{t("boardPage.from")}</label>
             <Select
               showSearch
               options={locationsFrom}
               onSearch={(val: string) => onLocationSearch(val)}
-              placeholder="Please provide start point"
+              placeholder={t("boardPage.fromPrompt")}
               onSelect={(startPoint: string) =>
                 setFilters({ ...filters, startPoint })
               }
               allowClear
+              notFoundContent={t("boardPage.fromNoData")}
             ></Select>
           </div>
 
@@ -189,11 +196,12 @@ const BoardPage = () => {
               showSearch
               options={locationsTo}
               onSearch={(val: string) => onLocationSearch(val, false)}
-              placeholder="Please provide destination"
+              placeholder={t("boardPage.toPrompt")}
               onSelect={(endPoint: string) =>
                 setFilters({ ...filters, endPoint })
               }
               allowClear
+              notFoundContent={t("boardPage.toNoData")}
             ></Select>
           </div>
         </>
@@ -202,17 +210,19 @@ const BoardPage = () => {
           showSearch
           options={locationsFrom}
           onSearch={(val: string) => onLocationSearch(val)}
-          placeholder="Please provide location"
+          placeholder={t("boardPage.locationPrompt")}
           onSelect={(startPoint: string) => {
             setFilters({ ...filters, startPoint });
           }}
           allowClear
+          notFoundContent={t("boardPage.locationNoData")}
         ></Select>
       )}
 
       {filters.type === "accommodation" && (
         <RangePicker
           name="activeDateRange"
+          placeholder={[t("boardPage.startDate"), t("boardPage.endDate")]}
           onChange={(dates: any, dateStrings: Array<string>) => {
             setFilters({
               ...filters,
@@ -225,6 +235,7 @@ const BoardPage = () => {
       {["carpooling", "trip"].includes(filters.type) && (
         <DatePicker
           name="activeFrom"
+          placeholder={t("boardPage.datePrompt")}
           onChange={(date: any, dateString: string) => {
             setFilters({ ...filters, activeFrom: dateString });
           }}
@@ -249,32 +260,32 @@ const BoardPage = () => {
 
   const tabs = [
     {
-      label: "Discover",
+      label: t("boardPage.discover"),
       key: "discover",
       children: tabChildren,
     },
     {
-      label: "Accommodation",
+      label: t("boardPage.accommodation"),
       key: "accommodation",
       children: tabChildren,
     },
     {
-      label: "Carpooling",
+      label: t("boardPage.carpooling"),
       key: "carpooling",
       children: tabChildren,
     },
     {
-      label: "Trip together",
+      label: t("boardPage.trip"),
       key: "trip",
       children: tabChildren,
     },
     {
-      label: "Excursion",
+      label: t("boardPage.excursion"),
       key: "excursion",
       children: tabChildren,
     },
     {
-      label: "Other",
+      label: t("boardPage.other"),
       key: "other",
       children: tabChildren,
     },
@@ -283,7 +294,7 @@ const BoardPage = () => {
   return (
     <section className="board-page">
       <Search
-        placeholder="Start your search"
+        placeholder={t("boardPage.searchPrompt")}
         onSearch={(query: string) => loadPosts(query)}
         className="board-search"
         size="large"
