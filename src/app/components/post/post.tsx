@@ -16,10 +16,10 @@ import { defaultImageName } from "../../utils/post-utils";
 
 interface PostProps {
   post: PostPreviewInterface;
-  onDelete: Function;
-  onChangeStatus: Function;
-  isMyProfile: boolean;
-  active: boolean;
+  onDelete?: Function;
+  onChangeStatus?: Function;
+  isMyProfile?: boolean;
+  active?: boolean;
 }
 
 const Post = ({
@@ -34,11 +34,25 @@ const Post = ({
 
   const statusIcon = active ? (
     <Tooltip title={t("post.deactivate")}>
-      <CloseCircleOutlined key="deactivate" onClick={() => onChangeStatus()} />
+      <CloseCircleOutlined
+        key="deactivate"
+        onClick={() => {
+          if (onChangeStatus) {
+            onChangeStatus();
+          }
+        }}
+      />
     </Tooltip>
   ) : (
     <Tooltip title={t("post.activate")}>
-      <CheckCircleOutlined key="activate" onClick={() => onChangeStatus()} />
+      <CheckCircleOutlined
+        key="activate"
+        onClick={() => {
+          if (onChangeStatus) {
+            onChangeStatus();
+          }
+        }}
+      />
     </Tooltip>
   );
 
@@ -57,7 +71,14 @@ const Post = ({
         isMyProfile
           ? [
               <Tooltip title={t("post.deletePost")}>
-                <DeleteOutlined key="delete" onClick={() => onDelete()} />
+                <DeleteOutlined
+                  key="delete"
+                  onClick={() => {
+                    if (onDelete) {
+                      onDelete();
+                    }
+                  }}
+                />
               </Tooltip>,
               <Tooltip title={t("post.editPost")}>
                 <EditOutlined key="edit" />

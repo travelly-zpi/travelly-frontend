@@ -144,7 +144,8 @@
       "avatarConfirmYes": "Yes",
       "avatarConfirmNo": "No",
       "profileUpdated": "Your profile information was successfully saved!",
-      "passwordUpdated": "Your password was successfully updated!"
+      "passwordUpdated": "Your password was successfully updated!",
+      "noLocations": "Start typing location"
     }
   },
   "userPosts": {
@@ -195,5 +196,26 @@
       "statusConfirmNo": "No",
       "statusSuccessful": "Post status updated!"
     }
+  },
+  "boardPage": {
+    "searchPrompt": "Start your search",
+    "noPosts": "No posts found",
+    "startDate": "Start date",
+    "endDate": "End date",
+    "datePrompt": "Select date",
+    "locationPrompt": "Please provide location",
+    "locationNoData": "Start typing location",
+    "from": "From : ",
+    "fromPrompt": "Please provide a start point",
+    "fromNoData": "Start typing a start point",
+    "to": "To : ",
+    "toPrompt": "Please provide a destination",
+    "toNoData": "Start typing a destination",
+    "discover": "Discover",
+    "accommodation": "Accommodation",
+    "carpooling": "Carpooling",
+    "trip": "Trip together",
+    "excursion": "Excursion",
+    "other": "Other"
   }
 }

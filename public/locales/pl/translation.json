@@ -144,7 +144,8 @@
       "avatarConfirmYes": "Tak",
       "avatarConfirmNo": "Nie",
       "profileUpdated": "Informacje o Twoim profilu zostały pomyślnie zapisane!",
-      "passwordUpdated": "Twoje hasło zostało pomyślnie zmienione!"
+      "passwordUpdated": "Twoje hasło zostało pomyślnie zmienione!",
+      "noLocations": "Zacznij wpisywać lokalizację"
     }
   },
   "userPosts": {
@@ -195,5 +196,26 @@
       "statusConfirmNo": "Nie",
       "statusSuccessful": "Status postu zaktualizowany!"
     }
+  },
+  "boardPage": {
+    "searchPrompt": "Rozpocznij wyszukiwanie",
+    "noPosts": "Nie znaleziono postów",
+    "startDate": "Data rozpoczęcia",
+    "endDate": "Data zakończenia",
+    "datePrompt": "Wybierz datę",
+    "locationPrompt": "Proszę podać lokalizację",
+    "locationNoData": "Zacznij wpisywać lokalizację",
+    "from": "Z : ",
+    "fromPrompt": "Proszę podać punkt wyjścia",
+    "fromNoData": "Rozpoczynanie wpisywania punktu początkowego",
+    "to": "Do : ",
+    "toPrompt": "Podaj miejsce docelowe",
+    "toNoData": "Zacznij wpisywać miejsce docelowe",
+    "discover": "Odkryć",
+    "accommodation": "Zakwaterowanie",
+    "carpooling": "Wspólny przejazd",
+    "trip": "Wspólny wyjazd",
+    "excursion": "Wycieczka",
+    "other": "Inne"
   }
 }
