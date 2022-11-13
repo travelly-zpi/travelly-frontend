@@ -8,10 +8,11 @@ import Trip from "app/assets/img/post/trip.png";
 import Other from "app/assets/img/post/other.png";
 import axios from "axios";
 import { decodeUser } from "./user-utils";
+import { PostPreviewInterface } from "../interfaces/post-preview.interface";
 
 const decodePost = (post: PostDtoInterface): Promise<PostInterface> => {
   return axios
-    .get(`/user/${post.author.uuid}`)
+    .get(`/user/${post.author?.uuid}`)
     .then(({ data }) => {
       return {
         ...post,
@@ -32,20 +33,7 @@ const decodePost = (post: PostDtoInterface): Promise<PostInterface> => {
     });
 };
 
-const encodePost = (post: PostInterface): PostDtoInterface => {
-  return {
-    ...post,
-    creationTimestamp: post.creationTimestamp.format("YYYY-MM-DD"),
-    activeFrom: post.activeFrom.format("YYYY-MM-DD"),
-    activeTo: post.activeTo.format("YYYY-MM-DD"),
-    author: {
-      uuid: post.author?.uuid,
-      email: post.author?.email,
-    },
-  };
-};
-
-const defaultImageName = (post: PostInterface) => {
+const defaultImageName = (post: PostInterface | PostPreviewInterface) => {
   switch (post.type) {
     case "accommodation":
       return Accommodation;
@@ -60,4 +48,4 @@ const defaultImageName = (post: PostInterface) => {
   }
 };
 
-export { decodePost, encodePost, defaultImageName };
+export { decodePost, defaultImageName };
