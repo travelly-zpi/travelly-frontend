@@ -30,10 +30,14 @@ When("Provide second time password {string}", (password) => {
   registrationPage.typeSecondPassword(password);
 });
 
-When("Click register button", (password) => {
-  registrationPage.clickRegistartion()
+When("Click register button", () => {
+  registrationPage.clickRegistrate();
 });
 
-Then("Then user gets a notification about sent activation link and redirected to login screen", () => {
-  
+Then("I get a nsotification about sent activation link and redirected to login screen", () => {
+  registrationPage.elements.messageAboutSentLink().should('be.visible');
 });
+
+Then("I see {int} validation messages", (number)=>{
+  registrationPage.elements.explainError().should('have.length', number)
+})

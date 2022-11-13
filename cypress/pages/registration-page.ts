@@ -7,8 +7,9 @@ class RegistrationPage {
     emailInput: () => cy.get('#email'),
     passwordFirstInput: () => cy.get('#password'),
     passwordSecondInput: () => cy.get('#passwordConfirm'),
-    registartionBtn: () => cy.get('[data-testid="submit-login"]'),
-    explainError: () => cy.get('.ant-form-item-explain-error')
+    registartionBtn: () => cy.get('[data-testid="submit-registration"]'),
+    explainError: () => cy.get('.ant-form-item-explain-error'),
+    messageAboutSentLink: () => cy.get('.ant-message-notice-content')
   };
 
   typeName(name:string) {
@@ -31,7 +32,7 @@ class RegistrationPage {
     this.elements.passwordSecondInput().type(password);
   }
 
-  clickRegistartion() {
+  clickRegistrate() {
     this.elements.registartionBtn().click();
   }
 }
