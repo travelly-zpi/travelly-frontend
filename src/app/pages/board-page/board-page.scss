@@ -19,6 +19,7 @@
     padding: 15px 30px;
     background: #fafafa;
     margin-bottom: 30px;
+    height: 65px;
 
     .ant-select {
       width: 320px;
@@ -61,18 +62,10 @@
 
 @media (min-width: 1280px) {
   .board-page {
-    padding: 40px 130px;
-
     .board-posts {
       .posts-block {
         justify-content: flex-start;
       }
     }
-  }
-}
-
-@media (min-width: 1920px) {
-  .board-page {
-    padding: 40px 50px;
   }
 }

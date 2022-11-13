@@ -49,19 +49,11 @@
     display: flex;
     align-items: flex-start;
     flex-direction: column;
-    padding: 35px 0 60px 0;
+    padding: 35px 50px 60px 50px;
 
     .create-post-button {
       align-self: center;
       margin-bottom: 50px;
-    }
-  }
-}
-
-@media (min-width: 800px) {
-  .user-profile-page {
-    .posts-section {
-      padding: 35px 75px 60px 75px;
     }
   }
 }
