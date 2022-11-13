@@ -10,6 +10,13 @@
     border-radius: 0 0 15px 15px;
     padding: 25px 50px;
 
+    .user-avatar,
+    .ant-image-mask {
+      height: 150px;
+      width: 150px;
+      border-radius: 50%;
+    }
+
     .user-info {
       flex: 1;
       display: flex;
@@ -27,7 +34,12 @@
         margin-bottom: 16px;
       }
 
-      .edit-button {
+      .about-me {
+        overflow: hidden;
+        max-height: 100px;
+      }
+
+      .button {
         align-self: flex-end;
       }
     }
@@ -35,9 +47,21 @@
 
   .posts-section {
     display: flex;
-    justify-content: center;
-    align-items: center;
+    align-items: flex-start;
     flex-direction: column;
-    margin-top: 35px;
+    padding: 35px 0 60px 0;
+
+    .create-post-button {
+      align-self: center;
+      margin-bottom: 50px;
+    }
+  }
+}
+
+@media (min-width: 800px) {
+  .user-profile-page {
+    .posts-section {
+      padding: 35px 75px 60px 75px;
+    }
   }
 }
