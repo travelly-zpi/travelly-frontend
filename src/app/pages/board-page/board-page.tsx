@@ -185,6 +185,9 @@ const BoardPage = () => {
               onSelect={(startPoint: string) =>
                 setFilters({ ...filters, startPoint })
               }
+              onDeselect={() => {
+                setFilters({ ...filters, startPoint: undefined });
+              }}
               allowClear
               notFoundContent={t("boardPage.fromNoData")}
             ></Select>
@@ -200,6 +203,9 @@ const BoardPage = () => {
               onSelect={(endPoint: string) =>
                 setFilters({ ...filters, endPoint })
               }
+              onDeselect={() => {
+                setFilters({ ...filters, endPoint: undefined });
+              }}
               allowClear
               notFoundContent={t("boardPage.toNoData")}
             ></Select>
@@ -213,6 +219,9 @@ const BoardPage = () => {
           placeholder={t("boardPage.locationPrompt")}
           onSelect={(startPoint: string) => {
             setFilters({ ...filters, startPoint });
+          }}
+          onDeselect={() => {
+            setFilters({ ...filters, startPoint: undefined });
           }}
           allowClear
           notFoundContent={t("boardPage.locationNoData")}
