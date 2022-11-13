@@ -11,8 +11,8 @@ import { useContext } from "react";
 import LoadingContext from "../../contexts/loading-context";
 import { Link } from "react-router-dom";
 import { PostPreviewInterface } from "../../interfaces/post-preview.interface";
-import Other from "../../assets/img/post/other.png";
 import { useTranslation } from "react-i18next";
+import { defaultImageName } from "../../utils/post-utils";
 
 interface PostProps {
   post: PostPreviewInterface;
@@ -62,7 +62,7 @@ const Post = ({
       cover={
         <img
           alt={post.title}
-          src={post.mainImageUrl ? post.mainImageUrl : Other}
+          src={post.mainImage ? post.mainImage : defaultImageName(post)}
         />
       }
       title={post?.title}

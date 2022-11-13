@@ -19,8 +19,17 @@ Open [http://localhost:3000](http://localhost:3000) to view it in the browser.
 The page will reload if you make edits.\
 You will also see any lint errors in the console.
 
+## Cypress tests
+
+Cypress tests can be run on local your machine. Before each running of tests, you should run scrypt for database, which is located in cypress/support folder and chage REACT_APP_API_URL in .env file.
+
 ### `npm run cypress:open`
-Runs cypress tests
+Runs cypress tests in browser
+
+### `npm run cypress:run`
+Runs cypress tests in background, results will be visible in console
+
+-----------------------------------------------------------------------
 
 ### `npm test`
 
