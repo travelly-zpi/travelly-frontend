@@ -106,7 +106,7 @@ const PostPage = () => {
     });
   };
 
-  const postImages = post?.imagesUrls.map((url: string) => (
+  const postImages = post?.images.map((url: string) => (
     <Image
       alt={url}
       key={url}
@@ -142,9 +142,8 @@ const PostPage = () => {
               className="post-main-image"
               alt={post.title}
               src={
-                post.mainImageUrl
-                  ? process.env.REACT_APP_AZURE_CONTAINER_URL +
-                    post.mainImageUrl
+                post.mainImage
+                  ? process.env.REACT_APP_AZURE_CONTAINER_URL + post.mainImage
                   : defaultImageName(post)
               }
             />

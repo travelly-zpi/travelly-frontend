@@ -14,6 +14,6 @@ export interface PostDtoInterface {
     uuid?: string;
     email?: string;
   };
-  mainImageUrl: string;
-  imagesUrls: string[];
+  mainImage: string;
+  images: string[];
 }
