@@ -174,7 +174,8 @@
       "title": "The title field is required",
       "dateR": "The date range field is required",
       "date": "The date field is required",
-      "location": "Please select location"
+      "location": "Please select location",
+      "success": "Your post has been created"
     }
   }
 }

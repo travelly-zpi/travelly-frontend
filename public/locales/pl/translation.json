@@ -174,7 +174,8 @@
       "title": "Pole tytuł jest wymagane",
       "dateR": "Pole zakres dat jest wymagane",
       "date": "Pole data jest wymagane",
-      "location": "Pole lokalizacja jest wymagane"
+      "location": "Pole lokalizacja jest wymagane",
+      "success": "Nowy post został utworzony"
     }
   }
 }
