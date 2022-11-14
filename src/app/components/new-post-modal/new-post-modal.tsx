@@ -15,9 +15,9 @@ import PostTripForm from "./post-trip-form/post-trip-form";
 import PostOtherForm from "./post-other-form/post-other-form";
 import { CreatePostInterface } from "app/interfaces/create.post.interface";
 import LoadingContext from "app/contexts/loading-context";
-import { RcFile } from "antd/lib/upload";
+import { RcFile, UploadProps } from "antd/lib/upload";
+import { isEmpty, isUndefined, reject } from "lodash";
 import { UploadFile } from "antd/es/upload";
-import { isEmpty, reject } from "lodash";
 
 const { Title } = Typography;
 
@@ -56,29 +56,29 @@ const CreatePostModal = ({ onClose, userId }: CreatePostModalProps) => {
         const data = res.data;
         const id = data.uuid;
         console.log(data);
-        message.success("okey");
         if (avatarFile) {
-          console.log("main image uploading");
-          // axios
-          //   .put(`/post/${id}/attachmentUpload?status=true`, avatarFile)
-          //   .then((r) => {
-          //     const data = r.data;
-          //     console.log(data);
-          //     message.success("avatar uploaded");
-          //   })
-          //   .catch((err) => {
-          //     const msg = err.response?.data?.message;
-          //     console.error(msg);
-          //   });
+          //console.log("main image uploading");
+          axios
+            .put(`/post/${id}/attachmentUpload?status=true`, avatarFile)
+            .then((r) => {
+              const data = r.data;
+              console.log(data);
+              //message.success("avatar uploaded");
+            })
+            .catch((err) => {
+              const msg = err.response?.data?.message;
+              console.error(msg);
+            });
         }
         if (!isEmpty(fileList)) {
           console.log("post images uploading");
-          // let promises = fileList.map((fd) => {
-          //   axios.put(`/post/${id}/attachmentUpload?status=false`, fd)
-          //     .catch((err) => reject(err));
-          // });
-          // Promise.all(promises).then((r) => console.log(r), (reason) => console.log(reason));
+          let promises = fileList.map((fd) => {
+            axios.put(`/post/${id}/attachmentUpload?status=false`, fd)
+              .catch((err) => reject(err));
+          });
+          Promise.all(promises).then((r) => console.log(r), (reason) => console.log(reason));
         }
+        message.success(t("createPost.messages.success"));
         onClose();
       })
       .catch((err) => {
@@ -134,11 +134,10 @@ const CreatePostModal = ({ onClose, userId }: CreatePostModalProps) => {
     if (!isLt2M) {
       message.error(t("editProfile.errors.avatarSmaller2MB"));
     }
-    return isJpgOrPng && isLt2M;
+    return (isJpgOrPng && isLt2M) || Upload.LIST_IGNORE;;
   };
 
   const setImage = ({ onSuccess, file }: any) => {
-    console.log(file + "   " + typeof(file));
     const fd = new FormData();
     fd.append("image", file);
     setAvatarFile(fd);

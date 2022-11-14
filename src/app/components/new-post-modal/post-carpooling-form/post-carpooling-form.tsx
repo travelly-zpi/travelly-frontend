@@ -2,7 +2,6 @@ import { UserOutlined } from "@ant-design/icons";
 
 import { Button, DatePicker, Form, Input, Select } from "antd";
 import { CreatePostInterface } from "app/interfaces/create.post.interface";
-import { useEffect } from "react";
 import { useTranslation } from "react-i18next";
 
 const { TextArea } = Input;
@@ -24,11 +23,7 @@ const PostCarpoolingForm = ({
 }: PostCarpoolingInterface) => {
   const { t } = useTranslation();
   const [createPost] = Form.useForm();
-
-  useEffect(() => {
-    createPost.resetFields();
-  });
-
+  
   const handleSubmit = (values: any) => {
     onSubmit({
       ...post,

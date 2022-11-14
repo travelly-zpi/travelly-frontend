@@ -1,7 +1,6 @@
 import { Button, DatePicker, Form, Input, Select } from "antd";
 import TextArea from "antd/lib/input/TextArea";
 import { CreatePostInterface } from "app/interfaces/create.post.interface";
-import { useEffect } from "react";
 import { useTranslation } from "react-i18next";
 
 interface PostTripInterface {
@@ -21,10 +20,6 @@ const PostTripForm = ({
 }: PostTripInterface) => {
   const { t } = useTranslation();
   const [createPost] = Form.useForm();
-
-  useEffect(() => {
-    createPost.resetFields();
-  });
 
   const handleSubmit = (values: any) => {
     onSubmit({
