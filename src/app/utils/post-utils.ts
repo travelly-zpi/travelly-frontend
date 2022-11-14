@@ -17,7 +17,7 @@ const decodePost = (post: PostDtoInterface): Promise<PostInterface> => {
     creationTimestamp: moment(post.creationTimestamp),
     activeFrom: post.activeFrom ? moment(post.activeFrom) : null,
     activeTo: post.activeTo ? moment(post.activeTo) : null,
-    mainImage: post.mainImage.url,
+    mainImage: post.mainImage ? post.mainImage.url : null,
     images: post.images.map((image: ImageInterface) => image.url),
     author: null,
   };

@@ -14,6 +14,6 @@ export interface PostInterface {
   endPoint: string;
   active: boolean;
   author: UserInterface | null;
-  mainImage: string;
+  mainImage: string | null;
   images: string[];
 }
