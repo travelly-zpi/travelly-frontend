@@ -6,8 +6,8 @@ export interface PostInterface {
   title: string;
   description: string;
   creationTimestamp: moment.Moment;
-  activeFrom: moment.Moment;
-  activeTo: moment.Moment;
+  activeFrom: moment.Moment | null;
+  activeTo: moment.Moment | null;
   type: string;
   participants: number;
   startPoint: string;

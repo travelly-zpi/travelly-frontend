@@ -9,27 +9,27 @@ import Other from "app/assets/img/post/other.png";
 import axios from "axios";
 import { decodeUser } from "./user-utils";
 import { PostPreviewInterface } from "../interfaces/post-preview.interface";
+import { ImageInterface } from "../interfaces/image.interface";
 
 const decodePost = (post: PostDtoInterface): Promise<PostInterface> => {
+  const res: PostInterface = {
+    ...post,
+    creationTimestamp: moment(post.creationTimestamp),
+    activeFrom: post.activeFrom ? moment(post.activeFrom) : null,
+    activeTo: post.activeTo ? moment(post.activeTo) : null,
+    mainImage: post.mainImage.url,
+    images: post.images.map((image: ImageInterface) => image.url),
+    author: null,
+  };
+
   return axios
     .get(`/user/${post.author?.uuid}`)
     .then(({ data }) => {
-      return {
-        ...post,
-        creationTimestamp: moment(post.creationTimestamp),
-        activeFrom: moment(post.activeFrom),
-        activeTo: moment(post.activeTo),
-        author: decodeUser(data),
-      };
+      res.author = decodeUser(data);
+      return res;
     })
     .catch(() => {
-      return {
-        ...post,
-        creationTimestamp: moment(post.creationTimestamp),
-        activeFrom: moment(post.activeFrom),
-        activeTo: moment(post.activeTo),
-        author: null,
-      };
+      return res;
     });
 };
 

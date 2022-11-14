@@ -226,8 +226,9 @@ const PostPage = () => {
               <Text>{t("postPage.date")}</Text>
               <Text type="secondary">
                 {post.activeFrom.format("MMM d, yyyy") +
-                  " - " +
-                  post.activeTo.format("MMM d, yyyy")}
+                  (post.activeTo
+                    ? " - " + post.activeTo.format("MMM d, yyyy")
+                    : "")}
               </Text>
             </div>
           </div>

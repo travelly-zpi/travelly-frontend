@@ -212,6 +212,10 @@
     "toPrompt": "Please provide a destination",
     "toNoData": "Start typing a destination",
     "discover": "Discover",
+    "accommodation": "Accommodation",
+    "carpooling": "Carpooling",
+    "trip": "Trip together",
+    "excursion": "Excursion",
     "other": "Other"
   },
   "createPost": {

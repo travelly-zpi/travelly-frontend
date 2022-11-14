@@ -11,10 +11,13 @@ interface ModalProps {
 const Modal = ({ children, onClose, size = "small" }: ModalProps) => {
   useEffect(() => {
     document.body.style.overflow = "hidden";
+
+    return () => {
+      document.body.style.overflow = "visible";
+    };
   }, []);
 
   const closeModal = () => {
-    document.body.style.overflow = "visible";
     if (onClose) {
       onClose();
     }
