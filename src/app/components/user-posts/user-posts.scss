@@ -1,0 +1,28 @@
+.user-posts {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  width: 100%;
+
+  .posts-block {
+    width: 100%;
+    display: flex;
+    gap: 70px;
+    flex-wrap: wrap;
+    justify-content: center;
+  }
+
+  .ant-pagination {
+    margin-top: 50px;
+    align-self: flex-end;
+  }
+}
+
+@media (min-width: 1280px) {
+  .user-posts {
+    .posts-block {
+      justify-content: flex-start;
+    }
+  }
+}

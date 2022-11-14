@@ -4,10 +4,7 @@ import {Given, When, Then} from "@badeball/cypress-cucumber-preprocessor";
 
 const loginPage = require("../../pages/login-page");
 const homePage = require("../../pages/home-page");
-
-Given("I navigate to Travelly web page", () => {
-  cy.visit("/");
-});
+const myProfilePage = require("../../pages/my-profile-page");
 
 When("I click log in button on home page", () => {
   homePage.clickLogin();
@@ -26,12 +23,18 @@ When("Submit login form", () => {
 });
 
 Then("I am logged in", () => {
-  cy.get('.ant-message-success').should('contain', "Logged in, redirecting to your profile")
+  myProfilePage.elements.navigationMenu().should('be.visible')
+  myProfilePage.elements.userTitle().should('be.visible')
 });
 
+Then("I am notified about not existed email", () => {
+  loginPage.elements.explainError().should('not.be.empty')
+});
 
+Then("I am notified about provided incorect password", () => {
+  loginPage.elements.explainError().should('not.be.empty')
+});
 
-
-
-
-
+Then("I am asked to provide email and password", () => {
+  loginPage.elements.explainError().should('have.length', 2)
+});

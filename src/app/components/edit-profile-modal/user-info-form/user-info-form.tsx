@@ -5,7 +5,7 @@ import {
   Form,
   Input,
   message,
-  Popconfirm,
+  Modal,
   Select,
   Typography,
   Upload,
@@ -17,7 +17,6 @@ import { RcFile } from "antd/es/upload";
 import { UserDtoInterface } from "../../../interfaces/user-dto.interface";
 import axios from "axios";
 import { useCallback, useContext, useEffect, useState } from "react";
-import UserContext from "../../../contexts/user-context";
 import { UserInterface } from "../../../interfaces/user.interface";
 import { useTranslation } from "react-i18next";
 import { getLangNameFromCode, getLangCodeList } from "language-name-map";
@@ -26,9 +25,11 @@ import _debounce from "lodash/debounce";
 import "./user-info-form.scss";
 import LoadingContext from "../../../contexts/loading-context";
 import ImgCrop from "antd-img-crop";
+import { encodeUser } from "../../../utils/user-utils";
 
 const { Text } = Typography;
 const { TextArea } = Input;
+const { confirm } = Modal;
 
 interface UserInfoFormProps {
   onClose: Function;
@@ -38,7 +39,6 @@ interface UserInfoFormProps {
 const UserInfoForm = ({ onClose, user }: UserInfoFormProps) => {
   const { i18n, t } = useTranslation();
   const [form] = Form.useForm();
-  const { encodeUser } = useContext(UserContext);
   const { loading, setLoading } = useContext(LoadingContext);
   const [locations, setLocations] = useState();
   const [languages, setLanguages] = useState<any>();
@@ -149,19 +149,27 @@ const UserInfoForm = ({ onClose, user }: UserInfoFormProps) => {
   };
 
   const removeImage = () => {
-    setLoading(true);
-    axios
-      .put(`/user/${user.uuid}/removeProfileImage`)
-      .then(() => {
-        message.success(t("editProfile.messages.avatarRemoved"));
-        onClose();
-      })
-      .catch((err) => {
-        message.error(err.message);
-      })
-      .finally(() => {
-        setLoading(false);
-      });
+    confirm({
+      title: t("editProfile.messages.avatarConfirm"),
+      okText: t("editProfile.messages.avatarConfirmYes"),
+      cancelText: t("editProfile.messages.avatarConfirmNo"),
+      onOk() {
+        setLoading(true);
+        axios
+          .put(`/user/${user.uuid}/removeProfileImage`)
+          .then(() => {
+            message.success(t("editProfile.messages.avatarRemoved"));
+            onClose();
+          })
+          .catch((err) => {
+            message.error(err.message);
+          })
+          .finally(() => {
+            setLoading(false);
+          });
+      },
+      centered: true,
+    });
   };
 
   return (
@@ -189,16 +197,11 @@ const UserInfoForm = ({ onClose, user }: UserInfoFormProps) => {
         </ImgCrop>
 
         {user.imageUrl && (
-          <Popconfirm
-            title={t("editProfile.messages.avatarConfirm")}
-            onConfirm={removeImage}
-            okText={t("editProfile.messages.avatarConfirmYes")}
-            cancelText={t("editProfile.messages.avatarConfirmNo")}
-          >
-            <Button>
-              <Text type="danger">{t("editProfile.removeAvatar")}</Text>
-            </Button>
-          </Popconfirm>
+          <Button>
+            <Text type="danger" onClick={removeImage}>
+              {t("editProfile.removeAvatar")}
+            </Text>
+          </Button>
         )}
       </div>
 
@@ -243,6 +246,7 @@ const UserInfoForm = ({ onClose, user }: UserInfoFormProps) => {
             showSearch
             options={locations}
             onSearch={debounceOnLocationSearch}
+            notFoundContent={t("editProfile.messages.noLocations")}
           ></Select>
         </Form.Item>
         <Form.Item
