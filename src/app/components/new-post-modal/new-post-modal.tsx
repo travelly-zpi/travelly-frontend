@@ -71,10 +71,10 @@ const CreatePostModal = ({ onClose, userId }: CreatePostModalProps) => {
         }
         if (!isEmpty(fileList)) {
           //console.log("post images uploading");
-          let promises = fileList.map((fd) => {
+          let promises = fileList.map((fd) => (
             axios.put(`/post/${id}/attachmentUpload?status=false`, fd)
-              .catch((err) => reject(err));
-          });
+              .catch((err) => reject(err))
+          ));
           Promise.all(promises).then((r) => console.log(r), (reason) => console.log(reason));
         }
         message.success(t("createPost.messages.success"));
