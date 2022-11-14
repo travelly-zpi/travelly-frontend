@@ -9,6 +9,7 @@ interface PostTripInterface {
   post: CreatePostInterface;
   onSubmit: (model: CreatePostInterface) => void;
   children: JSX.Element;
+  loading: boolean;
 }
 
 const PostTripForm = ({
@@ -17,6 +18,7 @@ const PostTripForm = ({
   post,
   onSubmit,
   children,
+  loading
 }: PostTripInterface) => {
   const { t } = useTranslation();
   const [createPost] = Form.useForm();
@@ -57,7 +59,7 @@ const PostTripForm = ({
       </Form.Item>
       {children}
       <Form.Item>
-        <Button type="primary" htmlType="submit">
+        <Button type="primary" htmlType="submit" loading={loading}>
         {t("createPost.createBtn")}
         </Button>
       </Form.Item>

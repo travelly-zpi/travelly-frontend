@@ -13,6 +13,7 @@ interface PostAccommodationInterface {
   post: CreatePostInterface;
   onSubmit: (model: CreatePostInterface) => void;
   children: JSX.Element;
+  loading: boolean;
 }
 
 const PostAccommodationForm = ({
@@ -21,6 +22,7 @@ const PostAccommodationForm = ({
   post,
   onSubmit,
   children,
+  loading
 }: PostAccommodationInterface) => {
   const [createPost] = Form.useForm();
   const { t } = useTranslation();
@@ -91,7 +93,7 @@ const PostAccommodationForm = ({
       </Form.Item>
       {children}
       <Form.Item>
-        <Button type="primary" htmlType="submit">
+        <Button type="primary" htmlType="submit" loading={loading}>
         {t("createPost.createBtn")}
         </Button>
       </Form.Item>

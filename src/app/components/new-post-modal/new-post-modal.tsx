@@ -15,9 +15,8 @@ import PostTripForm from "./post-trip-form/post-trip-form";
 import PostOtherForm from "./post-other-form/post-other-form";
 import { CreatePostInterface } from "app/interfaces/create.post.interface";
 import LoadingContext from "app/contexts/loading-context";
-import { RcFile, UploadProps } from "antd/lib/upload";
-import { isEmpty, isUndefined, reject } from "lodash";
-import { UploadFile } from "antd/es/upload";
+import { RcFile } from "antd/lib/upload";
+import { isEmpty, reject } from "lodash";
 
 const { Title } = Typography;
 
@@ -71,7 +70,7 @@ const CreatePostModal = ({ onClose, userId }: CreatePostModalProps) => {
             });
         }
         if (!isEmpty(fileList)) {
-          console.log("post images uploading");
+          //console.log("post images uploading");
           let promises = fileList.map((fd) => {
             axios.put(`/post/${id}/attachmentUpload?status=false`, fd)
               .catch((err) => reject(err));
@@ -176,6 +175,7 @@ const CreatePostModal = ({ onClose, userId }: CreatePostModalProps) => {
           locations={locations}
           post={post}
           onSubmit={onSubmit}
+          loading={loading}
         >
           {uploadMultipleImg}
         </PostAccommodationForm>
@@ -190,6 +190,7 @@ const CreatePostModal = ({ onClose, userId }: CreatePostModalProps) => {
           locations={locations}
           post={post}
           onSubmit={onSubmit}
+          loading={loading}
         >
           {uploadMultipleImg}
         </PostCarpoolingForm>
@@ -204,6 +205,7 @@ const CreatePostModal = ({ onClose, userId }: CreatePostModalProps) => {
           locations={locations}
           post={post}
           onSubmit={onSubmit}
+          loading={loading}
         >
           {uploadMultipleImg}
         </PostTripForm>
@@ -218,6 +220,7 @@ const CreatePostModal = ({ onClose, userId }: CreatePostModalProps) => {
           locations={locations}
           post={post}
           onSubmit={onSubmit}
+          loading={loading}
         >
           {uploadMultipleImg}
         </PostExcursionsForm>
@@ -232,6 +235,7 @@ const CreatePostModal = ({ onClose, userId }: CreatePostModalProps) => {
           locations={locations}
           post={post}
           onSubmit={onSubmit}
+          loading={loading}
         >
           {uploadMultipleImg}
         </PostOtherForm>

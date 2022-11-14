@@ -9,6 +9,7 @@ interface PostOtherInterface {
   post: CreatePostInterface;
   onSubmit: (model: CreatePostInterface) => void;
   children: JSX.Element;
+  loading: boolean;
 }
 
 const PostOtherForm = ({
@@ -16,7 +17,8 @@ const PostOtherForm = ({
   locations,
   post,
   onSubmit,
-  children
+  children,
+  loading
 }: PostOtherInterface) => {
   const { t } = useTranslation();
   const [createPost] = Form.useForm();
@@ -57,7 +59,7 @@ const PostOtherForm = ({
       </Form.Item>
       {children}
       <Form.Item>
-        <Button type="primary" htmlType="submit">
+        <Button type="primary" htmlType="submit" loading={loading}>
         {t("createPost.createBtn")}
         </Button>
       </Form.Item>
