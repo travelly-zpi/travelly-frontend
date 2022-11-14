@@ -93,11 +93,14 @@
       "emailTaken": "Ten e-mail jest już zajęty! Zamiast tego zaloguj się."
     }
   },
-  "userProfilePage": {
+  "userProfile": {
     "languages": "JĘZYKI, KTÓRE ZNAM",
     "aboutMe": "O MNIE",
     "editPostButtonText": "Edytuj profil",
-    "createPostButtonText": "+ Utwórz nowy post"
+    "contactButtonText": "Skontaktuj się ze mną",
+    "createPostButtonText": "+ Utwórz nowy post",
+    "fillProfile": "Proszę uzupełnić swój profil!",
+    "years": "lat"
   },
   "editProfile": {
     "editProfile": "Edycja profilu",
@@ -137,12 +140,83 @@
     "messages": {
       "avatarUpdated": "Pomyślnie zaktualizowano awatar!",
       "avatarRemoved": "Awatar został pomyślnie usunięty!",
-      "avatarConfirm": "Czy na pewno chcesz usunąć swój awatar??",
+      "avatarConfirm": "Czy na pewno chcesz usunąć swój awatar?",
       "avatarConfirmYes": "Tak",
       "avatarConfirmNo": "Nie",
       "profileUpdated": "Informacje o Twoim profilu zostały pomyślnie zapisane!",
-      "passwordUpdated": "Twoje hasło zostało pomyślnie zmienione!"
+      "passwordUpdated": "Twoje hasło zostało pomyślnie zmienione!",
+      "noLocations": "Zacznij wpisywać lokalizację"
     }
+  },
+  "userPosts": {
+    "active": "Aktywny",
+    "inactive": "Nieaktywny",
+    "noPostsMine": "Nie masz jeszcze żadnych postów, utwórz jeden!",
+    "noPosts": " jeszcze nie ma postów",
+    "messages": {
+      "deletePostConfirm": "Czy na pewno chcesz usunąć ten post?",
+      "deletePostConfirmYes": "Tak",
+      "deletePostConfirmNo": "Nie",
+      "deleteSuccessful": "Post usunięty pomyślnie!",
+      "statusConfirmInactive": "Czy na pewno chcesz, aby ten post był nieaktywny?",
+      "statusConfirmActive": "Czy na pewno chcesz aktywować ten post?",
+      "statusConfirmYes": "Tak",
+      "statusConfirmNo": "Nie",
+      "statusSuccessful": "Status postu zaktualizowany!"
+    }
+  },
+  "post": {
+    "more": "Więcej",
+    "deletePost": "Usuń post",
+    "editPost": "Edytuj post",
+    "activate": "Aktywuj",
+    "deactivate": "Dezaktywuj"
+  },
+  "postPage": {
+    "postActive": "Post jest aktywny",
+    "postInactive": "Post jest nieaktywny",
+    "edit": "Edycja",
+    "delete": "Usunąć",
+    "contact": "Kontakt z autorem",
+    "location": "Lokalizacja",
+    "date": "Data",
+    "people": "Liczba osób",
+    "description": "Opis",
+    "postedBy": "Opublikowane przez",
+    "languages": "Języki, które znam: ",
+    "years": "lat",
+    "messages": {
+      "deletePostConfirm": "Czy na pewno chcesz usunąć ten post?",
+      "deletePostConfirmYes": "Tak",
+      "deletePostConfirmNo": "Nie",
+      "deleteSuccessful": "Post usunięty pomyślnie!",
+      "statusConfirmInactive": "Czy na pewno chcesz, aby ten post był nieaktywny?",
+      "statusConfirmActive": "Czy na pewno chcesz aktywować ten post?",
+      "statusConfirmYes": "Tak",
+      "statusConfirmNo": "Nie",
+      "statusSuccessful": "Status postu zaktualizowany!"
+    }
+  },
+  "boardPage": {
+    "searchPrompt": "Rozpocznij wyszukiwanie",
+    "noPosts": "Nie znaleziono postów",
+    "startDate": "Data rozpoczęcia",
+    "endDate": "Data zakończenia",
+    "datePrompt": "Wybierz datę",
+    "locationPrompt": "Proszę podać lokalizację",
+    "locationNoData": "Zacznij wpisywać lokalizację",
+    "from": "Z : ",
+    "fromPrompt": "Proszę podać punkt wyjścia",
+    "fromNoData": "Rozpoczynanie wpisywania punktu początkowego",
+    "to": "Do : ",
+    "toPrompt": "Podaj miejsce docelowe",
+    "toNoData": "Zacznij wpisywać miejsce docelowe",
+    "discover": "Odkryć",
+    "accommodation": "Zakwaterowanie",
+    "carpooling": "Wspólny przejazd",
+    "trip": "Wspólny wyjazd",
+    "excursion": "Wycieczka",
+    "other": "Inne"
   },
   "createPost": {
     "modalTitle": "Utwórz nowy post",

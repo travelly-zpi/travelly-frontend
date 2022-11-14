@@ -169,6 +169,7 @@ const RegisterModal = ({ onClose, onModalSwitch }: RegisterModalProps) => {
                 htmlType="submit"
                 loading={loading}
                 disabled={loading}
+                data-testid="submit-registration"
               >
                 {t("register.buttonText")}
               </Button>

@@ -5,6 +5,7 @@ class LoginPage {
     emailInput: () => cy.get('[data-testid="email"]'),
     passwordInput: () => cy.get('[data-testid="password"]'),
     loginBtn: () => cy.get('[data-testid="submit-login"]'),
+    explainError: () => cy.get('.ant-form-item-explain-error')
   };
 
   typeEmail(email:string) {
