@@ -70,7 +70,7 @@ const UserProfilePage = () => {
   return (
     <>
       {modal === "create-post" && (
-        <CreatePostModal onClose={() => setModal(null)} />
+        <CreatePostModal userId={user.uuid} onClose={() => setModal(null)} />
       )}
       {modal === "edit-profile" && (
         <EditProfileModal
