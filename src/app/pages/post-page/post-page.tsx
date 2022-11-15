@@ -225,9 +225,9 @@ const PostPage = () => {
             <div className="post-info-text">
               <Text>{t("postPage.date")}</Text>
               <Text type="secondary">
-                {post.activeFrom.format("MMM d, yyyy") +
+                {post.activeFrom.format("MMM Do, yyyy") +
                   (post.activeTo
-                    ? " - " + post.activeTo.format("MMM d, yyyy")
+                    ? " - " + post.activeTo.format("MMM Do, yyyy")
                     : "")}
               </Text>
             </div>
