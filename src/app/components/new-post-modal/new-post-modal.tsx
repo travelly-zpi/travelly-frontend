@@ -56,12 +56,9 @@ const CreatePostModal = ({ onClose, userId }: CreatePostModalProps) => {
         const id = data.uuid;
         console.log(data);
         if (avatarFile) {
-          //console.log("main image uploading");
           axios
             .put(`/post/${id}/attachmentUpload?status=true`, avatarFile)
             .then((r) => {
-              const data = r.data;
-              console.log(data);
               //message.success("avatar uploaded");
             })
             .catch((err) => {
@@ -70,7 +67,6 @@ const CreatePostModal = ({ onClose, userId }: CreatePostModalProps) => {
             });
         }
         if (!isEmpty(fileList)) {
-          //console.log("post images uploading");
           let promises = fileList.map((fd) => (
             axios.put(`/post/${id}/attachmentUpload?status=false`, fd)
               .catch((err) => reject(err))
@@ -78,6 +74,7 @@ const CreatePostModal = ({ onClose, userId }: CreatePostModalProps) => {
           Promise.all(promises).then((r) => console.log(r), (reason) => console.log(reason));
         }
         message.success(t("createPost.messages.success"));
+        
         onClose();
       })
       .catch((err) => {

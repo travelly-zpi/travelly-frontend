@@ -1,5 +1,5 @@
 import "./user-posts.scss";
-import { message, Pagination, Tabs, Typography, Modal } from "antd";
+import { message, Pagination, Tabs, Typography, Modal, Button } from "antd";
 import * as React from "react";
 import Post from "../post/post";
 import { useContext, useEffect, useState } from "react";
@@ -17,9 +17,10 @@ const { confirm } = Modal;
 interface UserPostsProps {
   user: UserInterface;
   isMyProfile: boolean;
+  setModal: () => void;
 }
 
-const UserPosts = ({ user, isMyProfile }: UserPostsProps) => {
+const UserPosts = ({ user, isMyProfile, setModal }: UserPostsProps) => {
   const { t } = useTranslation();
   const [posts, setPosts] = useState([]);
   const [active, setActive] = useState(true);
@@ -168,7 +169,15 @@ const UserPosts = ({ user, isMyProfile }: UserPostsProps) => {
     return postsDiv;
   }
 
-  return <Tabs items={tabs} onChange={onTabChange} style={{ width: "100%" }} />;
+  return (
+    <><Button
+      type="primary"
+      onClick={setModal}
+      className="create-post-button"
+    >
+      {t("userProfile.createPostButtonText")}
+    </Button><Tabs items={tabs} onChange={onTabChange} style={{ width: "100%" }} /></>
+    );
 };
 
 export default UserPosts;

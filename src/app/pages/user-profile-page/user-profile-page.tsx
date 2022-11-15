@@ -137,7 +137,7 @@ const UserProfilePage = () => {
           </div>
         </div>
         <div className="posts-section">
-          {isMyProfile && (
+          {/* {isMyProfile && (
             <Button
               type="primary"
               onClick={() => setModal("create-post")}
@@ -145,8 +145,8 @@ const UserProfilePage = () => {
             >
               {t("userProfile.createPostButtonText")}
             </Button>
-          )}
-          <UserPosts user={user} isMyProfile={isMyProfile}></UserPosts>
+          )} */}
+          <UserPosts user={user} isMyProfile={isMyProfile} setModal={() => setModal("create-post")}></UserPosts>
         </div>
       </section>
     </>
