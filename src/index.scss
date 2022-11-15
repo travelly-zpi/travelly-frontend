@@ -12,6 +12,10 @@ body {
   position: relative;
 }
 
+.layout {
+  min-width: 100vh !important;
+}
+
 #root {
   white-space: pre-line;
 }

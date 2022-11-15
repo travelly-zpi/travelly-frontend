@@ -7,7 +7,6 @@ import { useNavigate, useParams } from "react-router-dom";
 import axios from "axios";
 import { UserInterface } from "app/interfaces/user.interface";
 import EditProfileModal from "../../components/edit-profile-modal/edit-profile-modal";
-import CreatePostModal from "../../components/new-post-modal/new-post-modal";
 import LoadingContext from "../../contexts/loading-context";
 import moment from "moment";
 import { HomeFilled, UserOutlined } from "@ant-design/icons";
@@ -73,9 +72,6 @@ const UserProfilePage = () => {
 
   return (
     <>
-      {modal === "create-post" && (
-        <CreatePostModal userId={user.uuid} onClose={() => setModal(null)} />
-      )}
       {modal === "edit-profile" && (
         <EditProfileModal
           user={user}
@@ -151,16 +147,12 @@ const UserProfilePage = () => {
           </div>
         </div>
         <div className="posts-section">
-          {isMyProfile && (
-            <Button
-              type="primary"
-              onClick={() => setModal("create-post")}
-              className="create-post-button"
-            >
-              {t("userProfile.createPostButtonText")}
-            </Button>
-          )}
-          <UserPosts user={user} isMyProfile={isMyProfile}></UserPosts>
+          <UserPosts
+            user={user}
+            isMyProfile={isMyProfile}
+            openModal={() => setModal("create-post")}
+            closeModal={() => setModal(null)}
+          ></UserPosts>
         </div>
       </section>
     </>
