@@ -20,7 +20,11 @@ const { CheckableTag } = Tag;
 const UserProfilePage = () => {
   const { t } = useTranslation();
   const navigate = useNavigate();
-  const { user: loggedInUser, warningShown, setWarningShown } = useContext(UserContext);
+  const {
+    user: loggedInUser,
+    warningShown,
+    setWarningShown,
+  } = useContext(UserContext);
   const { id } = useParams();
   const { setLoading } = useContext(LoadingContext);
 
@@ -47,7 +51,7 @@ const UserProfilePage = () => {
   useEffect(() => {
     loadUser();
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, []);
+  }, [id]);
 
   useEffect(() => {
     if (
@@ -94,7 +98,12 @@ const UserProfilePage = () => {
 
           <div className="user-info">
             <div>
-              <Title className="title" data-testid="user-title" level={2} style={{ display: "inline" }}>
+              <Title
+                className="title"
+                data-testid="user-title"
+                level={2}
+                style={{ display: "inline" }}
+              >
                 {user.firstName} {user.lastName}
               </Title>
               <Text
@@ -120,8 +129,13 @@ const UserProfilePage = () => {
               ))}
             </Text>
 
-            <Text type="secondary">{t("userProfile.aboutMe")}</Text>
-            <Text className="about-me">{user.description}</Text>
+            {user.description && (
+              <>
+                <Text type="secondary">{t("userProfile.aboutMe")}</Text>
+                <Text className="about-me">{user.description}</Text>
+              </>
+            )}
+
             {isMyProfile ? (
               <Button
                 className="button"

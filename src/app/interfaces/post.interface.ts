@@ -6,14 +6,14 @@ export interface PostInterface {
   title: string;
   description: string;
   creationTimestamp: moment.Moment;
-  activeFrom: moment.Moment;
-  activeTo: moment.Moment;
+  activeFrom: moment.Moment | null;
+  activeTo: moment.Moment | null;
   type: string;
   participants: number;
   startPoint: string;
   endPoint: string;
   active: boolean;
   author: UserInterface | null;
-  mainImage: string;
+  mainImage: string | null;
   images: string[];
 }

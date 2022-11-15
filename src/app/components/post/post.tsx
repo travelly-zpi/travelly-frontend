@@ -62,7 +62,11 @@ const Post = ({
       cover={
         <img
           alt={post.title}
-          src={post.mainImage ? post.mainImage : defaultImageName(post)}
+          src={
+            post.mainImage
+              ? process.env.REACT_APP_AZURE_CONTAINER_URL + post.mainImage
+              : defaultImageName(post)
+          }
         />
       }
       title={post?.title}

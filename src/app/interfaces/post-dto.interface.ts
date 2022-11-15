@@ -1,3 +1,5 @@
+import { ImageInterface } from "./image.interface";
+
 export interface PostDtoInterface {
   uuid: string;
   title: string;
@@ -14,6 +16,6 @@ export interface PostDtoInterface {
     uuid?: string;
     email?: string;
   };
-  mainImage: string;
-  images: string[];
+  mainImage: ImageInterface;
+  images: ImageInterface[];
 }
