@@ -1,6 +1,5 @@
 import "./user-posts.scss";
 import { message, Pagination, Tabs, Typography, Modal, Button } from "antd";
-import * as React from "react";
 import Post from "../post/post";
 import { useContext, useEffect, useState } from "react";
 import LoadingContext from "../../contexts/loading-context";
@@ -10,6 +9,7 @@ import ClipartNoResults from "../../assets/img/clipart-no-results";
 import { PostPreviewInterface } from "../../interfaces/post-preview.interface";
 import { useTranslation } from "react-i18next";
 import { PostParamsInterface } from "../../interfaces/post-params-interface";
+import CreatePostModal from "../new-post-modal/new-post-modal";
 
 const { Title } = Typography;
 const { confirm } = Modal;
@@ -17,16 +17,23 @@ const { confirm } = Modal;
 interface UserPostsProps {
   user: UserInterface;
   isMyProfile: boolean;
-  setModal: () => void;
+  openModal: () => void;
+  closeModal: () => void;
 }
 
-const UserPosts = ({ user, isMyProfile, setModal }: UserPostsProps) => {
+const UserPosts = ({
+  user,
+  isMyProfile,
+  openModal,
+  closeModal,
+}: UserPostsProps) => {
   const { t } = useTranslation();
   const [posts, setPosts] = useState([]);
   const [active, setActive] = useState(true);
   const [page, setPage] = useState(1);
   const [pageSize, setPageSize] = useState(9);
   const [totalPosts, setTotalPosts] = useState(1);
+  const [modal, setModal] = useState(false);
   const { setLoading } = useContext(LoadingContext);
 
   const loadPosts = () => {
@@ -68,6 +75,16 @@ const UserPosts = ({ user, isMyProfile, setModal }: UserPostsProps) => {
   const onPaginationChange = (page: number, pageSize: number) => {
     setPage(page);
     setPageSize(pageSize);
+  };
+
+  const modalOpen = () => {
+    setModal(true);
+    openModal();
+  };
+
+  const modalClose = () => {
+    setModal(false);
+    closeModal();
   };
 
   const postDelete = (post: PostPreviewInterface) => {
@@ -170,14 +187,14 @@ const UserPosts = ({ user, isMyProfile, setModal }: UserPostsProps) => {
   }
 
   return (
-    <><Button
-      type="primary"
-      onClick={setModal}
-      className="create-post-button"
-    >
-      {t("userProfile.createPostButtonText")}
-    </Button><Tabs items={tabs} onChange={onTabChange} style={{ width: "100%" }} /></>
-    );
+    <>
+      {modal && <CreatePostModal userId={user.uuid} onClose={modalClose} afterCreate={loadPosts} />}
+      <Button type="primary" onClick={modalOpen} className="create-post-button">
+        {t("userProfile.createPostButtonText")}
+      </Button>
+      <Tabs items={tabs} onChange={onTabChange} style={{ width: "100%" }} />
+    </>
+  );
 };
 
 export default UserPosts;

@@ -23,9 +23,10 @@ const { Title } = Typography;
 interface CreatePostModalProps {
   onClose: Function;
   userId: string;
+  afterCreate: () => void;
 }
 
-const CreatePostModal = ({ onClose, userId }: CreatePostModalProps) => {
+const CreatePostModal = ({ onClose, userId, afterCreate }: CreatePostModalProps) => {
   const { i18n, t } = useTranslation();
   const [locations, setLocations] = useState();
   const [avatarPreview, setAvatarPreview] = useState<string | undefined>(
@@ -74,7 +75,7 @@ const CreatePostModal = ({ onClose, userId }: CreatePostModalProps) => {
           Promise.all(promises).then((r) => console.log(r), (reason) => console.log(reason));
         }
         message.success(t("createPost.messages.success"));
-        
+        afterCreate();
         onClose();
       })
       .catch((err) => {
