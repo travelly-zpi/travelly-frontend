@@ -92,7 +92,7 @@ const Header = () => {
         )}
         {user ? (
           <div className="button-group">
-            <Button onClick={onLogout}>{t("header.logout")}</Button>
+            <Button onClick={onLogout} data-testid="logout-button">{t("header.logout")}</Button>
 
             <Dropdown overlay={languageMenu} placement="bottomRight">
               <Button icon={<GlobalOutlined />}></Button>

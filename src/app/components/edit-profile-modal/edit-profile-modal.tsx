@@ -31,14 +31,14 @@ const EditProfileModal = ({ onClose, user }: EditProfileModalProps) => {
       label: t("editProfile.changePassword"),
       key: "change-password",
       children: (
-        <UserPasswordForm user={user} onClose={onClose}></UserPasswordForm>
+        <UserPasswordForm user={user} onClose={onClose} data-testid="change-passsword-tab"></UserPasswordForm>
       ),
     },
   ];
 
   return (
     <Modal onClose={onClose}>
-      <div className="edit-profile-container">
+      <div className="edit-profile-container" data-testid="edit-profile-modal">
         <Title level={3}>{t("editProfile.editProfile")}</Title>
         <Tabs items={forms} />
         <img src={logo} alt="Travelly logo" className="logo" />

@@ -38,3 +38,11 @@ Then("I am notified about provided incorect password", () => {
 Then("I am asked to provide email and password", () => {
   loginPage.elements.explainError().should('have.length', 2)
 });
+
+When("I click logout button", () => {
+  myProfilePage.clickLogout()
+});
+
+Then("I am logout", () => {
+homePage.elements.loginBtn().should('be.visible')
+});

@@ -121,11 +121,12 @@ const UserProfilePage = () => {
             </Text>
 
             <Text type="secondary">{t("userProfile.aboutMe")}</Text>
-            <Text className="about-me">{user.description}</Text>
+            <Text className="about-me" data-testid="user-description">{user.description}</Text>
             {isMyProfile ? (
               <Button
                 className="button"
                 onClick={() => setModal("edit-profile")}
+                data-testid="edit-profile-button"
               >
                 {t("userProfile.editPostButtonText")}
               </Button>

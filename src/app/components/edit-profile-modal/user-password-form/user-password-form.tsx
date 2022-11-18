@@ -84,7 +84,7 @@ const UserPasswordForm = ({ onClose, user }: UserPasswordFormProps) => {
             },
           ]}
         >
-          <Input.Password onBlur={() => setApiError("cleared")} />
+          <Input.Password data-testid="old-password" onBlur={() => setApiError("cleared")} />
         </Form.Item>
         <Form.Item
           name="newPassword"
@@ -94,7 +94,7 @@ const UserPasswordForm = ({ onClose, user }: UserPasswordFormProps) => {
             { validator: validatePassword },
           ]}
         >
-          <Input.Password />
+          <Input.Password data-testid="new-password-1" />
         </Form.Item>
         <Form.Item
           name="newPasswordConfirm"
@@ -116,13 +116,14 @@ const UserPasswordForm = ({ onClose, user }: UserPasswordFormProps) => {
             }),
           ]}
         >
-          <Input.Password />
+          <Input.Password data-testid="new-password-2" />
         </Form.Item>
         <Button
           type="primary"
           htmlType="submit"
           loading={loading}
           disabled={loading}
+          data-testid="save-new-password"
         >
           {t("editProfile.save")}
         </Button>
