@@ -299,6 +299,7 @@ const UserInfoForm = ({ onClose, user }: UserInfoFormProps) => {
           htmlType="submit"
           disabled={loading}
           loading={loading}
+          data-testid="save-button"
         >
           {t("editProfile.save")}
         </Button>
