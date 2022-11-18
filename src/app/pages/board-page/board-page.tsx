@@ -254,7 +254,9 @@ const BoardPage = () => {
         <InputNumber
           addonBefore={<UserOutlined />}
           name="participants"
+          value={filters.participants}
           onChange={(val: any) => setFilters({ ...filters, participants: val })}
+          min={1}
         />
       )}
     </div>

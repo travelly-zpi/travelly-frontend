@@ -14,3 +14,17 @@ axios.interceptors.request.use(
     return Promise.reject(error);
   }
 );
+
+axios.interceptors.response.use(
+  function (response) {
+    return response;
+  },
+  function (error) {
+    if (error.response.status === 403) {
+      localStorage.removeItem("user");
+      sessionStorage.removeItem("user");
+      window.location.href = "/";
+    }
+    return Promise.reject(error);
+  }
+);

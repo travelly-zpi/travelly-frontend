@@ -217,5 +217,39 @@
     "trip": "Trip together",
     "excursion": "Excursion",
     "other": "Other"
+  },
+  "createPost": {
+    "modalTitle": "Create new post",
+    "uploadImg": "Upload",
+    "uploadAvatar": "Upload main image",
+    "accommodation": "Accommodation",
+    "carpooling": "Carpooling",
+    "trip": "Trip together",
+    "excursion": "Excursion",
+    "other": "Other",
+    "createBtn": "Create",
+    "form": {
+      "title": "Title",
+      "location": "Location",
+      "locationInfo": "Please, provide where are you going",
+      "locationFrom": "Please, provide your start point",
+      "locationTo": "Please, provide your destination point",
+      "locationOther": "Please, provide your location",
+      "date": "Date",
+      "dateR": "Date range",
+      "from": "From",
+      "to": "To",
+      "numb": "Number of people",
+      "desc": "Description",
+      "descInfo": "Write something more here"
+    },
+    "messages": {
+      "require": "This field is required",
+      "title": "The title field is required",
+      "dateR": "The date range field is required",
+      "date": "The date field is required",
+      "location": "Please select location",
+      "success": "Your post has been created"
+    }
   }
 }

@@ -7,7 +7,6 @@ import { useNavigate, useParams } from "react-router-dom";
 import axios from "axios";
 import { UserInterface } from "app/interfaces/user.interface";
 import EditProfileModal from "../../components/edit-profile-modal/edit-profile-modal";
-import CreatePostModal from "../../components/new-post-modal/new-post-modal";
 import LoadingContext from "../../contexts/loading-context";
 import moment from "moment";
 import { HomeFilled, UserOutlined } from "@ant-design/icons";
@@ -20,7 +19,11 @@ const { CheckableTag } = Tag;
 const UserProfilePage = () => {
   const { t } = useTranslation();
   const navigate = useNavigate();
-  const { user: loggedInUser, warningShown, setWarningShown } = useContext(UserContext);
+  const {
+    user: loggedInUser,
+    warningShown,
+    setWarningShown,
+  } = useContext(UserContext);
   const { id } = useParams();
   const { setLoading } = useContext(LoadingContext);
 
@@ -47,7 +50,7 @@ const UserProfilePage = () => {
   useEffect(() => {
     loadUser();
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, []);
+  }, [id]);
 
   useEffect(() => {
     if (
@@ -69,9 +72,6 @@ const UserProfilePage = () => {
 
   return (
     <>
-      {modal === "create-post" && (
-        <CreatePostModal onClose={() => setModal(null)} />
-      )}
       {modal === "edit-profile" && (
         <EditProfileModal
           user={user}
@@ -94,7 +94,12 @@ const UserProfilePage = () => {
 
           <div className="user-info">
             <div>
-              <Title className="title" data-testid="user-title" level={2} style={{ display: "inline" }}>
+              <Title
+                className="title"
+                data-testid="user-title"
+                level={2}
+                style={{ display: "inline" }}
+              >
                 {user.firstName} {user.lastName}
               </Title>
               <Text
@@ -120,8 +125,13 @@ const UserProfilePage = () => {
               ))}
             </Text>
 
-            <Text type="secondary">{t("userProfile.aboutMe")}</Text>
-            <Text className="about-me" data-testid="user-description">{user.description}</Text>
+            {user.description && (
+              <>
+                <Text type="secondary">{t("userProfile.aboutMe")}</Text>
+                <Text className="about-me" data-testid="user-description">{user.description}</Text>
+              </>
+            )}
+
             {isMyProfile ? (
               <Button
                 className="button"
@@ -138,16 +148,12 @@ const UserProfilePage = () => {
           </div>
         </div>
         <div className="posts-section">
-          {isMyProfile && (
-            <Button
-              type="primary"
-              onClick={() => setModal("create-post")}
-              className="create-post-button"
-            >
-              {t("userProfile.createPostButtonText")}
-            </Button>
-          )}
-          <UserPosts user={user} isMyProfile={isMyProfile}></UserPosts>
+          <UserPosts
+            user={user}
+            isMyProfile={isMyProfile}
+            openModal={() => setModal("create-post")}
+            closeModal={() => setModal(null)}
+          ></UserPosts>
         </div>
       </section>
     </>
