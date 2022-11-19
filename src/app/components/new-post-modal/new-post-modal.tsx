@@ -242,7 +242,7 @@ const CreatePostModal = ({ onClose, userId, afterCreate }: CreatePostModalProps)
   ];
 
   return (
-    <div className="fff">
+    <div className="create-post-wrapper">
       <Modal onClose={onClose} size="large">
         <div className="create-post-container">
           <Title className="title" level={3}>
