@@ -9,7 +9,7 @@ import ClipartNoResults from "../../assets/img/clipart-no-results";
 import { PostPreviewInterface } from "../../interfaces/post-preview.interface";
 import { useTranslation } from "react-i18next";
 import { PostParamsInterface } from "../../interfaces/post-params-interface";
-import CreatePostModal from "../new-post-modal/new-post-modal";
+import PostModal from "../post-modal/post-modal";
 
 const { Title } = Typography;
 const { confirm } = Modal;
@@ -17,15 +17,11 @@ const { confirm } = Modal;
 interface UserPostsProps {
   user: UserInterface;
   isMyProfile: boolean;
-  openModal: () => void;
-  closeModal: () => void;
 }
 
 const UserPosts = ({
   user,
   isMyProfile,
-  openModal,
-  closeModal,
 }: UserPostsProps) => {
   const { t } = useTranslation();
   const [posts, setPosts] = useState([]);
@@ -33,6 +29,7 @@ const UserPosts = ({
   const [page, setPage] = useState(1);
   const [pageSize, setPageSize] = useState(9);
   const [totalPosts, setTotalPosts] = useState(1);
+  const [editPostId, setEditPostId] = useState<string | undefined>();
   const [modal, setModal] = useState(false);
   const { setLoading } = useContext(LoadingContext);
 
@@ -79,12 +76,11 @@ const UserPosts = ({
 
   const modalOpen = () => {
     setModal(true);
-    openModal();
   };
 
   const modalClose = () => {
     setModal(false);
-    closeModal();
+    setEditPostId(undefined);
   };
 
   const postDelete = (post: PostPreviewInterface) => {
@@ -143,6 +139,7 @@ const UserPosts = ({
               key={post.uuid}
               onDelete={() => postDelete(post)}
               onChangeStatus={() => postChangeStatus(post)}
+              onEdit={() => setEditPostId(post.uuid)}
               isMyProfile={isMyProfile}
               active={active}
             ></Post>
@@ -188,7 +185,14 @@ const UserPosts = ({
 
   return (
     <>
-      {modal && <CreatePostModal userId={user.uuid} onClose={modalClose} afterCreate={loadPosts} />}
+      {(modal || editPostId) && (
+        <PostModal 
+          userId={user.uuid} 
+          postId={editPostId} 
+          onClose={modalClose} 
+          onSuccess={loadPosts} 
+        />
+      )}
       <Button type="primary" onClick={modalOpen} className="create-post-button">
         {t("userProfile.createPostButtonText")}
       </Button>

@@ -10,6 +10,7 @@ interface PostCarpoolingInterface {
   onLocationSearch: (val: string) => void;
   locations: any;
   post: CreatePostInterface;
+  editMode?: boolean;
   onSubmit: (model: CreatePostInterface) => void;
   children: JSX.Element;
   loading: boolean;
@@ -19,12 +20,12 @@ const PostCarpoolingForm = ({
   onLocationSearch,
   locations,
   post,
+  editMode,
   onSubmit,
   children,
   loading
 }: PostCarpoolingInterface) => {
   const { t } = useTranslation();
-  const [createPost] = Form.useForm();
   
   const handleSubmit = (values: any) => {
     onSubmit({
@@ -32,15 +33,15 @@ const PostCarpoolingForm = ({
       type: "carpooling",
       title: values.title,
       description: values.description,
-      activeFrom: values.date.format("YYYY-MM-DD"),
+      activeFrom: values.activeFrom.format("YYYY-MM-DD"),
       startPoint: values.startPoint,
       endPoint: values.endPoint,
-      participants: values.numberOfPeople,
+      participants: values.participants,
     });
   };
 
   return (
-    <Form form={createPost} layout="vertical" onFinish={handleSubmit}>
+    <Form initialValues={post} layout="vertical" onFinish={handleSubmit}>
       <Form.Item 
         label={t("createPost.form.title")}
         name="title"
@@ -76,7 +77,7 @@ const PostCarpoolingForm = ({
         <Form.Item
           style={{ display: "inline-block", width: "50%" }}
           label={t("createPost.form.date")}
-          name="date"
+          name="activeFrom"
           rules={[{ required: true, message: t("createPost.messages.date") }]}
         >
           <DatePicker />
@@ -88,7 +89,7 @@ const PostCarpoolingForm = ({
             marginLeft: "10px",
           }}
           label={t("createPost.form.numb")}
-          name="numberOfPeople"
+          name="participants"
           rules={[{ required: true, message: t("createPost.messages.require") }]}
         >
           <Input prefix={<UserOutlined />} />
@@ -100,7 +101,7 @@ const PostCarpoolingForm = ({
       {children}
       <Form.Item>
         <Button type="primary" htmlType="submit" loading={loading}>
-        {t("createPost.createBtn")}
+          {editMode ? t("createPost.editBtn") : t("createPost.createBtn")}
         </Button>
       </Form.Item>
     </Form>

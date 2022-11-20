@@ -18,6 +18,7 @@ interface PostProps {
   post: PostPreviewInterface;
   onDelete?: Function;
   onChangeStatus?: Function;
+  onEdit?: () => void;
   isMyProfile?: boolean;
   active?: boolean;
 }
@@ -26,6 +27,7 @@ const Post = ({
   post,
   onDelete,
   onChangeStatus,
+  onEdit,
   isMyProfile,
   active,
 }: PostProps) => {
@@ -85,7 +87,7 @@ const Post = ({
                 />
               </Tooltip>,
               <Tooltip title={t("post.editPost")}>
-                <EditOutlined key="edit" />
+                <EditOutlined key="edit" onClick={onEdit} />
               </Tooltip>,
               statusIcon,
             ]

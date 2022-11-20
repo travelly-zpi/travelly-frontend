@@ -24,6 +24,7 @@ import {
 import { useTranslation } from "react-i18next";
 import UserContext from "../../contexts/user-context";
 import moment from "moment/moment";
+import PostModal from "../../components/post-modal/post-modal";
 
 const { confirm } = Modal;
 const { Title, Text } = Typography;
@@ -34,6 +35,7 @@ const PostPage = () => {
   const { id } = useParams();
   const navigate = useNavigate();
   const [post, setPost] = useState<PostInterface>();
+  const [isEditModalVisible, setIsEditModalVisible] = useState(false);
   const { setLoading } = useContext(LoadingContext);
   const { user } = useContext(UserContext);
 
@@ -81,6 +83,19 @@ const PostPage = () => {
       },
       centered: true,
     });
+  };
+
+  const openEditModal = () => {
+    setIsEditModalVisible(true);
+  };
+
+  const closeEditModal = () => {
+    setIsEditModalVisible(false);
+  };
+
+  const handlePostUpdate = () => {
+    loadPost();
+    closeEditModal();
   };
 
   const postChangeStatus = (checked: boolean) => {
@@ -195,7 +210,7 @@ const PostPage = () => {
 
           {isMyProfile ? (
             <div>
-              <Button style={{ marginRight: "30px" }}>
+              <Button style={{ marginRight: "30px" }} onClick={openEditModal}>
                 {t("postPage.edit")}
               </Button>
               <Button type="primary" onClick={postDelete}>
@@ -247,6 +262,14 @@ const PostPage = () => {
         <Title level={3}>{t("postPage.description")}</Title>
         <Text className="post-description-text">{post.description}</Text>
       </div>
+      {isEditModalVisible && user && (
+        <PostModal 
+          userId={user.uuid} 
+          postId={post.uuid} 
+          onClose={closeEditModal} 
+          onSuccess={handlePostUpdate} 
+        />
+      )}
     </div>
   );
 };
