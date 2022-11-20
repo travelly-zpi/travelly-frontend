@@ -28,9 +28,7 @@ const UserProfilePage = () => {
   const { setLoading } = useContext(LoadingContext);
 
   const [user, setUser] = useState<UserInterface | null>(null);
-  const [modal, setModal] = useState<null | "edit-profile" | "create-post">(
-    null
-  );
+  const [modal, setModal] = useState<null | "edit-profile">(null);
 
   const isMyProfile = loggedInUser?.uuid === id;
 
@@ -151,8 +149,6 @@ const UserProfilePage = () => {
           <UserPosts
             user={user}
             isMyProfile={isMyProfile}
-            openModal={() => setModal("create-post")}
-            closeModal={() => setModal(null)}
           ></UserPosts>
         </div>
       </section>

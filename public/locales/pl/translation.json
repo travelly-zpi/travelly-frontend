@@ -228,6 +228,7 @@
     "excursion": "Wycieczka",
     "other": "Inne",
     "createBtn": "Utwórz",
+    "editBtn": "Edytuj",
     "form": {
       "title": "Tytuł",
       "location": "Lokalizacja",
@@ -249,7 +250,8 @@
       "dateR": "Pole zakres dat jest wymagane",
       "date": "Pole data jest wymagane",
       "location": "Pole lokalizacja jest wymagane",
-      "success": "Nowy post został utworzony"
+      "success": "Nowy post został utworzony",
+      "successEdit": "Twój post został zaktualizowany!"
     }
   }
 }

@@ -228,6 +228,7 @@
     "excursion": "Excursion",
     "other": "Other",
     "createBtn": "Create",
+    "editBtn": "Edit",
     "form": {
       "title": "Title",
       "location": "Location",
@@ -249,7 +250,8 @@
       "dateR": "The date range field is required",
       "date": "The date field is required",
       "location": "Please select location",
-      "success": "Your post has been created"
+      "success": "Your post has been created",
+      "successEdit": "Your post has been updated"
     }
   }
 }

@@ -1,56 +1,52 @@
-import { UserOutlined } from "@ant-design/icons";
-
 import { Button, DatePicker, Form, Input, Select } from "antd";
+import TextArea from "antd/lib/input/TextArea";
 import { CreatePostInterface } from "app/interfaces/create.post.interface";
 import { useTranslation } from "react-i18next";
 
-const { RangePicker } = DatePicker;
-const { TextArea } = Input;
-
-interface PostAccommodationInterface {
+interface PostTripInterface {
   onLocationSearch: (val: string) => void;
   locations: any;
   post: CreatePostInterface;
+  editMode?: boolean;
   onSubmit: (model: CreatePostInterface) => void;
   children: JSX.Element;
   loading: boolean;
 }
 
-const PostAccommodationForm = ({
+const PostTripForm = ({
   onLocationSearch,
   locations,
   post,
+  editMode,
   onSubmit,
   children,
   loading
-}: PostAccommodationInterface) => {
-  const [createPost] = Form.useForm();
+}: PostTripInterface) => {
   const { t } = useTranslation();
 
   const handleSubmit = (values: any) => {
     onSubmit({
       ...post,
-      type: "accommodation",
+      type: "trip",
       title: values.title,
       description: values.description,
-      activeFrom: values.dateRange[0].format("YYYY-MM-DD"),
-      activeTo: values.dateRange[1].format("YYYY-MM-DD"),
+      activeFrom: values.activeFrom.format("YYYY-MM-DD"),
       startPoint: values.startPoint,
-      participants: values.numberOfPeople,
+      endPoint: values.endPoint,
     });
   };
 
   return (
-    <Form form={createPost} layout="vertical" onFinish={handleSubmit}>
-      <Form.Item
-        label= {t("createPost.form.title")}
+    <Form initialValues={post} layout="vertical" onFinish={handleSubmit}>
+      <Form.Item 
+        label={t("createPost.form.title")}
         name="title"
         rules={[{ required: true, message: t("createPost.messages.title") }]}
       >
         <Input />
       </Form.Item>
       <Form.Item
-        label={t("createPost.form.location")}
+        label={t("createPost.form.from")}
         name="startPoint"
         rules={[{ required: true, message: t("createPost.messages.location") }]}
       >
@@ -58,47 +54,42 @@ const PostAccommodationForm = ({
           showSearch
           options={locations}
           onSearch={onLocationSearch}
-          placeholder={t("createPost.form.locationInfo")}
+          placeholder={t("createPost.form.locationFrom")}
+        ></Select>
+      </Form.Item>
+      <Form.Item
+        label={t("createPost.form.to")}
+        name="endPoint"
+        rules={[{ required: true, message: t("createPost.messages.location") }]}
+      >
+        <Select
+          showSearch
+          options={locations}
+          onSearch={onLocationSearch}
+          placeholder={t("createPost.form.locationTo")}
         ></Select>
       </Form.Item>
       <Form.Item>
         <Form.Item
           style={{ display: "inline-block", width: "50%" }}
-          label={t("createPost.form.dateR")}
-          name="dateRange"
-          rules={[
-            { required: true, message: t("createPost.messages.dateR")  },
-          ]}
+          label={t("createPost.form.date")}
+          name="activeFrom"
+          rules={[{ required: true, message: t("createPost.messages.date") }]}
         >
-          <RangePicker />
-        </Form.Item>
-        <Form.Item
-          style={{
-            display: "inline-block",
-            width: "30%",
-            marginLeft: "10px",
-          }}
-          label={t("createPost.form.numb")}
-          name="numberOfPeople"
-          rules={[{ required: true, message: t("createPost.messages.require") }]}
-        >
-          <Input prefix={<UserOutlined />} />
+          <DatePicker />
         </Form.Item>
       </Form.Item>
-      <Form.Item 
-        label={t("createPost.form.desc")}
-        name="description"
-      >
+      <Form.Item label={t("createPost.form.desc")} name="description">
         <TextArea rows={4} placeholder={t("createPost.form.descInfo")} />
       </Form.Item>
       {children}
       <Form.Item>
         <Button type="primary" htmlType="submit" loading={loading}>
-        {t("createPost.createBtn")}
+          {editMode ? t("createPost.editBtn") : t("createPost.createBtn")}
         </Button>
       </Form.Item>
     </Form>
   );
 };
 
-export default PostAccommodationForm;
+export default PostTripForm;
