@@ -38,6 +38,7 @@ interface FiltersInterface {
   endPoint?: string;
   activeFrom?: string;
   activeTo?: string;
+  date?: string;
   participants?: number;
 }
 
@@ -243,10 +244,10 @@ const BoardPage = () => {
       )}
       {["carpooling", "trip"].includes(filters.type) && (
         <DatePicker
-          name="activeFrom"
+          name="date"
           placeholder={t("boardPage.datePrompt")}
           onChange={(date: any, dateString: string) => {
-            setFilters({ ...filters, activeFrom: dateString });
+            setFilters({ ...filters, date: dateString });
           }}
         />
       )}
