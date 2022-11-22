@@ -11,4 +11,5 @@ export interface UserInterface {
   description: string;
   localisation: any;
   imageUrl: string;
+  imageCreationDate: string;
 }
