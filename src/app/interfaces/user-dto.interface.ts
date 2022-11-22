@@ -9,4 +9,5 @@ export interface UserDtoInterface {
   description: string;
   localisation: string;
   imageUrl: string;
+  imageCreationDate: string;
 }

@@ -178,7 +178,12 @@ const UserInfoForm = ({ onClose, user }: UserInfoFormProps) => {
         {user.imageUrl ? (
           <Avatar
             size={128}
-            src={process.env.REACT_APP_AZURE_CONTAINER_URL + user.imageUrl}
+            src={
+              process.env.REACT_APP_AZURE_CONTAINER_URL +
+              user.imageUrl +
+              "?date=" +
+              user.imageCreationDate
+            }
           />
         ) : (
           <Avatar size={128} icon={<UserOutlined></UserOutlined>} />

@@ -84,7 +84,12 @@ const UserProfilePage = () => {
           {user.imageUrl ? (
             <Image
               className="user-avatar"
-              src={process.env.REACT_APP_AZURE_CONTAINER_URL + user.imageUrl}
+              src={
+                process.env.REACT_APP_AZURE_CONTAINER_URL +
+                user.imageUrl +
+                "?date=" +
+                user.imageCreationDate
+              }
             ></Image>
           ) : (
             <Avatar size={150} icon={<UserOutlined></UserOutlined>}></Avatar>
@@ -126,7 +131,9 @@ const UserProfilePage = () => {
             {user.description && (
               <>
                 <Text type="secondary">{t("userProfile.aboutMe")}</Text>
-                <Text className="about-me" data-testid="user-description">{user.description}</Text>
+                <Text className="about-me" data-testid="user-description">
+                  {user.description}
+                </Text>
               </>
             )}
 
@@ -146,10 +153,7 @@ const UserProfilePage = () => {
           </div>
         </div>
         <div className="posts-section">
-          <UserPosts
-            user={user}
-            isMyProfile={isMyProfile}
-          ></UserPosts>
+          <UserPosts user={user} isMyProfile={isMyProfile}></UserPosts>
         </div>
       </section>
     </>
