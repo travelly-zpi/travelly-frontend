@@ -1,5 +1,5 @@
 import "./post.scss";
-import { Card, Tooltip } from "antd";
+import { Card, Image, Skeleton, Tooltip } from "antd";
 import {
   CheckCircleOutlined,
   CloseCircleOutlined,
@@ -7,7 +7,7 @@ import {
   EditOutlined,
 } from "@ant-design/icons";
 import Meta from "antd/es/card/Meta";
-import { useContext } from "react";
+import { useContext, useState } from "react";
 import LoadingContext from "../../contexts/loading-context";
 import { Link } from "react-router-dom";
 import { PostPreviewInterface } from "../../interfaces/post-preview.interface";
@@ -33,6 +33,7 @@ const Post = ({
 }: PostProps) => {
   const { t } = useTranslation();
   const { loading } = useContext(LoadingContext);
+  const [imageLoaded, setImageLoaded] = useState(false);
 
   const statusIcon = active ? (
     <Tooltip title={t("post.deactivate")}>
@@ -62,14 +63,19 @@ const Post = ({
     <Card
       className={"post" + (isMyProfile ? " post-user" : "")}
       cover={
-        <img
-          alt={post.title}
-          src={
-            post.mainImage
-              ? process.env.REACT_APP_AZURE_CONTAINER_URL + post.mainImage
-              : defaultImageName(post)
-          }
-        />
+        <>
+          {!imageLoaded && <Skeleton.Image active={true} />}
+          <Image
+            alt={post.title}
+            src={
+              post.mainImage
+                ? process.env.REACT_APP_AZURE_CONTAINER_URL + post.mainImage
+                : defaultImageName(post)
+            }
+            style={{ height: imageLoaded ? "250px" : "0" }}
+            onLoad={() => setImageLoaded(true)}
+          />
+        </>
       }
       title={post?.title}
       extra={<Link to={"/post/" + post.uuid}>{t("post.more")}</Link>}

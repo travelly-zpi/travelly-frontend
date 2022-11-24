@@ -12,6 +12,7 @@ import {
   Avatar,
   Tag,
   Image,
+  Skeleton,
 } from "antd";
 
 import { decodePost, defaultImageName } from "../../utils/post-utils";
@@ -37,6 +38,7 @@ const PostPage = () => {
   const [post, setPost] = useState<PostInterface>();
   const [isEditModalVisible, setIsEditModalVisible] = useState(false);
   const { setLoading } = useContext(LoadingContext);
+  const [imageLoaded, setImageLoaded] = useState(false);
   const { user } = useContext(UserContext);
 
   const isMyProfile = post?.author?.uuid === user?.uuid;
@@ -153,15 +155,22 @@ const PostPage = () => {
 
         <div className="post-images-block">
           <Image.PreviewGroup>
-            <Image
-              className="post-main-image"
-              alt={post.title}
-              src={
-                post.mainImage
-                  ? process.env.REACT_APP_AZURE_CONTAINER_URL + post.mainImage
-                  : defaultImageName(post)
-              }
-            />
+            <>
+              {!imageLoaded && (
+                <Skeleton.Image active={true} className="post-main-image" />
+              )}
+              <Image
+                className="post-main-image"
+                alt={post.title}
+                src={
+                  post.mainImage
+                    ? process.env.REACT_APP_AZURE_CONTAINER_URL + post.mainImage
+                    : defaultImageName(post)
+                }
+                style={{ height: imageLoaded ? "400px" : "0" }}
+                onLoad={() => setImageLoaded(true)}
+              />
+            </>
             <div className="post-images">{postImages}</div>
           </Image.PreviewGroup>
         </div>
@@ -263,11 +272,11 @@ const PostPage = () => {
         <Text className="post-description-text">{post.description}</Text>
       </div>
       {isEditModalVisible && user && (
-        <PostModal 
-          userId={user.uuid} 
-          postId={post.uuid} 
-          onClose={closeEditModal} 
-          onSuccess={handlePostUpdate} 
+        <PostModal
+          userId={user.uuid}
+          postId={post.uuid}
+          onClose={closeEditModal}
+          onSuccess={handlePostUpdate}
         />
       )}
     </div>

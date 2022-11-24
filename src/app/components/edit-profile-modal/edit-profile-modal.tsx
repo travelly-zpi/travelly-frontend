@@ -15,23 +15,38 @@ const { Title } = Typography;
 
 interface EditProfileModalProps {
   onClose: Function;
+  reloadUser: Function;
   user: UserInterface;
 }
 
-const EditProfileModal = ({ onClose, user }: EditProfileModalProps) => {
+const EditProfileModal = ({
+  onClose,
+  reloadUser,
+  user,
+}: EditProfileModalProps) => {
   const { t } = useTranslation();
 
   const forms = [
     {
       label: t("editProfile.profileInfo"),
       key: "profile-info",
-      children: <UserInfoForm user={user} onClose={onClose}></UserInfoForm>,
+      children: (
+        <UserInfoForm
+          user={user}
+          onClose={onClose}
+          reloadUser={reloadUser}
+        ></UserInfoForm>
+      ),
     },
     {
       label: t("editProfile.changePassword"),
       key: "change-password",
       children: (
-        <UserPasswordForm user={user} onClose={onClose} data-testid="change-passsword-tab"></UserPasswordForm>
+        <UserPasswordForm
+          user={user}
+          onClose={onClose}
+          data-testid="change-passsword-tab"
+        ></UserPasswordForm>
       ),
     },
   ];

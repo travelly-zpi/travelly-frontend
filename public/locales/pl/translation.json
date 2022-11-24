@@ -151,7 +151,8 @@
   "userPosts": {
     "active": "Aktywny",
     "inactive": "Nieaktywny",
-    "noPostsMine": "Nie masz jeszcze żadnych postów, utwórz jeden!",
+    "noPostsMineInactive": "Nie masz jeszcze nieaktywnych postów.",
+    "noPostsMineActive": "Nie masz jeszcze żadnych postów, utwórz jeden!",
     "noPosts": " jeszcze nie ma postów",
     "messages": {
       "deletePostConfirm": "Czy na pewno chcesz usunąć ten post?",

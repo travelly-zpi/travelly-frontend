@@ -19,10 +19,7 @@ interface UserPostsProps {
   isMyProfile: boolean;
 }
 
-const UserPosts = ({
-  user,
-  isMyProfile,
-}: UserPostsProps) => {
+const UserPosts = ({ user, isMyProfile }: UserPostsProps) => {
   const { t } = useTranslation();
   const [posts, setPosts] = useState([]);
   const [active, setActive] = useState(true);
@@ -31,7 +28,7 @@ const UserPosts = ({
   const [totalPosts, setTotalPosts] = useState(1);
   const [editPostId, setEditPostId] = useState<string | undefined>();
   const [modal, setModal] = useState(false);
-  const { setLoading } = useContext(LoadingContext);
+  const { setLoading, loading } = useContext(LoadingContext);
 
   const loadPosts = () => {
     const params: PostParamsInterface = {
@@ -129,7 +126,7 @@ const UserPosts = ({
     });
   };
 
-  const postsDiv =
+  const postsDiv = !loading ? (
     posts.length > 0 ? (
       <div className="user-posts">
         <div className="posts-block">
@@ -160,11 +157,14 @@ const UserPosts = ({
         <ClipartNoResults></ClipartNoResults>
         <Title level={3}>
           {isMyProfile
-            ? t("userPosts.noPostsMine")
+            ? active
+              ? t("userPosts.noPostsMineActive")
+              : t("userPosts.noPostsMineInactive")
             : user.firstName + t("userPosts.noPosts")}
         </Title>
       </div>
-    );
+    )
+  ) : null;
 
   const tabs = [
     {
@@ -186,11 +186,11 @@ const UserPosts = ({
   return (
     <>
       {(modal || editPostId) && (
-        <PostModal 
-          userId={user.uuid} 
-          postId={editPostId} 
-          onClose={modalClose} 
-          onSuccess={loadPosts} 
+        <PostModal
+          userId={user.uuid}
+          postId={editPostId}
+          onClose={modalClose}
+          onSuccess={loadPosts}
         />
       )}
       <Button type="primary" onClick={modalOpen} className="create-post-button">

@@ -33,10 +33,11 @@ const { confirm } = Modal;
 
 interface UserInfoFormProps {
   onClose: Function;
+  reloadUser: Function;
   user: UserInterface;
 }
 
-const UserInfoForm = ({ onClose, user }: UserInfoFormProps) => {
+const UserInfoForm = ({ onClose, reloadUser, user }: UserInfoFormProps) => {
   const { i18n, t } = useTranslation();
   const [form] = Form.useForm();
   const { loading, setLoading } = useContext(LoadingContext);
@@ -137,7 +138,7 @@ const UserInfoForm = ({ onClose, user }: UserInfoFormProps) => {
       .then(() => {
         message.success(t("editProfile.messages.avatarUpdated"));
         onSuccess();
-        onClose();
+        reloadUser();
       })
       .catch((err) => {
         message.error(err.message);
@@ -159,7 +160,7 @@ const UserInfoForm = ({ onClose, user }: UserInfoFormProps) => {
           .put(`/user/${user.uuid}/removeProfileImage`)
           .then(() => {
             message.success(t("editProfile.messages.avatarRemoved"));
-            onClose();
+            reloadUser();
           })
           .catch((err) => {
             message.error(err.message);

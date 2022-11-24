@@ -77,6 +77,7 @@ const UserProfilePage = () => {
             setModal(null);
             loadUser();
           }}
+          reloadUser={loadUser}
         />
       )}
       <section className="user-profile-page">

@@ -6,7 +6,11 @@
 
   img {
     object-fit: cover;
+  }
+
+  .ant-skeleton-image {
     height: 250px;
+    width: 400px;
   }
 
   .ant-card-body {
@@ -21,6 +25,6 @@
 
 .post-user {
   .ant-card-body {
-    max-height: 145px;
+    max-height: 140px;
   }
 }
