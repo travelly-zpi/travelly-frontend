@@ -14,7 +14,7 @@ Scenario: User edits his/her and wants to remove some values from obligatory fie
 Scenario: User edits his/her profile with appropriate data
   Given I navigate to Travelly web page and log in
   When I click edit my profile
-  When I edit some fields
+  When I edit some fields in my profile
   When I save edited data 
   Then I see that updated data in my profile
 

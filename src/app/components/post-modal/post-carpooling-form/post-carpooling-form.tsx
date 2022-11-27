@@ -100,7 +100,7 @@ const PostCarpoolingForm = ({
       </Form.Item>
       {children}
       <Form.Item>
-        <Button type="primary" htmlType="submit" loading={loading}>
+        <Button type="primary" htmlType="submit" loading={loading} data-testid="submit-create-button">
           {editMode ? t("createPost.editBtn") : t("createPost.createBtn")}
         </Button>
       </Form.Item>
