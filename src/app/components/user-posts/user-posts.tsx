@@ -193,7 +193,7 @@ const UserPosts = ({ user, isMyProfile }: UserPostsProps) => {
           onSuccess={loadPosts}
         />
       )}
-      <Button type="primary" onClick={modalOpen} className="create-post-button">
+      <Button type="primary" onClick={modalOpen} data-testid="create-new-post-button" className="create-post-button">
         {t("userProfile.createPostButtonText")}
       </Button>
       <Tabs items={tabs} onChange={onTabChange} style={{ width: "100%" }} />

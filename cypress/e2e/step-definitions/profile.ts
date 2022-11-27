@@ -21,7 +21,7 @@ When("I click edit my profile", () => {
   myProfilePage.clickEditButton()
 });
 
-When("I edit some fields", () => {
+When("I edit some fields in my profile", () => {
   myProfilePage.clearName()
   myProfilePage.typeName("Ala")
   myProfilePage.clearSurname()
@@ -85,4 +85,8 @@ When("I save new password", () => {
 Then("I can log in with a new password {string}", (password:string) => {
   myProfilePage.clickLogout()
   cy.loginTestUser("iwonaszaszlyk@mai.com", password)
+});
+
+When("I click create new post", () => {
+  myProfilePage.clickCreatePostButton()
 });

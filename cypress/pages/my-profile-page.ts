@@ -1,7 +1,5 @@
 /// <reference types="Cypress" />
 
-import { timeStamp } from "console";
-
 class MyProfilePage {
   elements = {
     navigationMenu: () => cy.get('[data-testid="navigation-menu"]'),
@@ -22,7 +20,8 @@ class MyProfilePage {
     oldPasswordInput: () => cy.get('[data-testid="old-password"]'),
     newPasswordInput1: () => cy.get('[data-testid="new-password-1"]'),
     newPasswordInput2: () => cy.get('[data-testid="new-password-2"]'),
-    logoutBtn: () => cy.get('[data-testid="logout-button"]')
+    logoutBtn: () => cy.get('[data-testid="logout-button"]'),
+    createPostBtn: () => cy.get('[data-testid="create-new-post-button"]')
   };
 
   checkNameInput() {
@@ -107,6 +106,11 @@ class MyProfilePage {
   clickSavePassword() {
     this.elements.savePassword().click()
   }
+  
+  clickCreatePostButton() {
+    this.elements.createPostBtn().click()
+  }
+
 }
 
 module.exports = new MyProfilePage();

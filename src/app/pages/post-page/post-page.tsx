@@ -148,7 +148,7 @@ const PostPage = () => {
                   : t("postPage.postInactive")}
               </Text>
 
-              <Switch checked={post.active} onChange={postChangeStatus} />
+              <Switch checked={post.active} onChange={postChangeStatus} data-testid="switch-status-post-page" />
             </div>
           )}
         </div>
@@ -219,10 +219,10 @@ const PostPage = () => {
 
           {isMyProfile ? (
             <div>
-              <Button style={{ marginRight: "30px" }} onClick={openEditModal}>
+              <Button style={{ marginRight: "30px" }} onClick={openEditModal} data-testid="edit-button-post-page">
                 {t("postPage.edit")}
               </Button>
-              <Button type="primary" onClick={postDelete}>
+              <Button type="primary" onClick={postDelete} data-testid="delete-button-post-page">
                 {t("postPage.delete")}
               </Button>
             </div>
