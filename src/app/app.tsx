@@ -13,6 +13,7 @@ import { Spin } from "antd";
 import * as React from "react";
 import PostPage from "./pages/post-page/post-page";
 import BoardPage from "./pages/board-page/board-page";
+import ChatPage from "./pages/chat-page/chat-page";
 
 const App = () => {
   const [user, setUser] = useState<UserInterface | null>(
@@ -64,6 +65,14 @@ const App = () => {
               element={
                 <AuthGuard>
                   <PostPage />
+                </AuthGuard>
+              }
+            ></Route>
+            <Route
+              path="messages"
+              element={
+                <AuthGuard>
+                  <ChatPage />
                 </AuthGuard>
               }
             ></Route>
