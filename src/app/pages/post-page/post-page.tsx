@@ -148,7 +148,11 @@ const PostPage = () => {
                   : t("postPage.postInactive")}
               </Text>
 
-              <Switch checked={post.active} onChange={postChangeStatus} data-testid="switch-status-post-page" />
+              <Switch
+                checked={post.active}
+                onChange={postChangeStatus}
+                data-testid="switch-status-post-page"
+              />
             </div>
           )}
         </div>
@@ -185,7 +189,9 @@ const PostPage = () => {
                     size={60}
                     src={
                       process.env.REACT_APP_AZURE_CONTAINER_URL +
-                      post.author?.imageUrl
+                      post.author?.imageUrl +
+                      "?date=" +
+                      post.author?.imageCreationDate
                     }
                   ></Avatar>
                 ) : (
@@ -219,10 +225,18 @@ const PostPage = () => {
 
           {isMyProfile ? (
             <div>
-              <Button style={{ marginRight: "30px" }} onClick={openEditModal} data-testid="edit-button-post-page">
+              <Button
+                style={{ marginRight: "30px" }}
+                onClick={openEditModal}
+                data-testid="edit-button-post-page"
+              >
                 {t("postPage.edit")}
               </Button>
-              <Button type="primary" onClick={postDelete} data-testid="delete-button-post-page">
+              <Button
+                type="primary"
+                onClick={postDelete}
+                data-testid="delete-button-post-page"
+              >
                 {t("postPage.delete")}
               </Button>
             </div>
