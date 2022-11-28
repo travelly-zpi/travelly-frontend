@@ -26,6 +26,7 @@ import { useTranslation } from "react-i18next";
 import UserContext from "../../contexts/user-context";
 import moment from "moment/moment";
 import PostModal from "../../components/post-modal/post-modal";
+import { reject } from "lodash";
 
 const { confirm } = Modal;
 const { Title, Text } = Typography;
@@ -130,6 +131,20 @@ const PostPage = () => {
       src={process.env.REACT_APP_AZURE_CONTAINER_URL + url}
     />
   ));
+
+  const contactWithOwner = () => {
+    const params: any = {
+      sender: user?.uuid,
+      recipient: post?.author?.uuid,
+    };
+    axios
+      .get("/chat", { params })
+      .then(({ data }) => {
+        sessionStorage.setItem("chatContact", data);
+        navigate("/messages");
+      })
+      .catch((err) => reject(err));
+  };
 
   if (!post) {
     return null;
@@ -242,7 +257,9 @@ const PostPage = () => {
             </div>
           ) : (
             <div>
-              <Button type="primary">{t("postPage.contact")}</Button>
+              <Button type="primary" onClick={contactWithOwner}>
+                {t("postPage.contact")}
+              </Button>
             </div>
           )}
         </div>
