@@ -20,7 +20,7 @@ interface Notification {
 }
 
 const ChatPage = () => {
-  const { i18n, t } = useTranslation();
+  const { t } = useTranslation();
   const { user: currentUser } = useContext(UserContext);
   const { setLoading } = useContext(LoadingContext);
   const [text, setText] = useState("");
@@ -32,15 +32,17 @@ const ChatPage = () => {
 
   useEffect(() => {
     connect();
-    loadUserChats();
+    //loadUserChats();
 
     return () => {
       sessionStorage.removeItem("activeChat");
     };
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   useEffect(() => {
     loadUserChats();
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [messages]);
 
   useEffect(() => {
@@ -62,6 +64,7 @@ const ChatPage = () => {
       sessionStorage.removeItem("chatContact");
       //sendMessage("Hello i'm from post");
     }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [userChats]);
 
   const connect = () => {
@@ -170,7 +173,7 @@ const ChatPage = () => {
         <Col span={8}>
           <div className="chat-list">
             <div className="chat-header">
-              <h2>Messages</h2>
+              <h2>{t("chatPage.messages")}</h2>
             </div>
             {userChats.map((chat) => (
               <div
@@ -228,7 +231,7 @@ const ChatPage = () => {
                     <Form.Item>
                       <Input.Group className="send-input">
                         <Input
-                          placeholder="Write your message..."
+                          placeholder={t("chatPage.inputText")}
                           value={text}
                           onChange={(event) => setText(event.target.value)}
                           size={"large"}
@@ -239,7 +242,7 @@ const ChatPage = () => {
                           size="large"
                           icon={<SendOutlined />}
                         >
-                          Submit
+                          {t("chatPage.submit")}
                         </Button>
                       </Input.Group>
                     </Form.Item>
@@ -247,9 +250,9 @@ const ChatPage = () => {
                 </div>
               </div>
             ) : isEmpty(userChats) ? (
-              <p className="no-selected">You dont have any private chats yet</p>
+              <p className="no-selected">{t("chatPage.noChats")}</p>
             ) : (
-              <p className="no-selected">Select a chat to start messaging</p>
+              <p className="no-selected">{t("chatPage.selectChat")}</p>
             )}
           </div>
         </Col>
