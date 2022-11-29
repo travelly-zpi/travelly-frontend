@@ -1,17 +1,19 @@
 import "./chat-page.scss";
 
-import { Avatar, Button, Col, Form, Input, message, Row } from "antd";
-
-import UserContext from "app/contexts/user-context";
+import React from "react";
+import {  Avatar, Button, Col, Form, Input, message, Row } from "antd";
 import { useContext, useEffect, useState } from "react";
 import { useTranslation } from "react-i18next";
 import moment from "moment";
 import ScrollToBottom from "react-scroll-to-bottom";
-import LoadingContext from "app/contexts/loading-context";
+import UserContext from "../../contexts/user-context";
+import LoadingContext from "../../contexts/loading-context";
 import axios from "axios";
 import { MessageOutlined, SendOutlined, UserOutlined } from "@ant-design/icons";
-import { ChatDtoInterface } from "app/interfaces/chat-dto.interface";
+import { ChatDtoInterface } from "../../interfaces/chat-dto.interface";
 import { isEmpty, reject } from "lodash";
+
+
 var stompClient: any = null;
 
 interface Notification {
@@ -70,7 +72,7 @@ const ChatPage = () => {
   const connect = () => {
     const Stomp = require("stompjs");
     var SockJS = require("sockjs-client");
-    SockJS = new SockJS("http://localhost:8080/ws");
+    SockJS = new SockJS("https://travelly.azurewebsites.net/ws");
     stompClient = Stomp.over(SockJS);
     stompClient.connect({}, onConnected, onError);
   };
