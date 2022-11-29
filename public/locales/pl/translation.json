@@ -254,5 +254,12 @@
       "success": "Nowy post został utworzony",
       "successEdit": "Twój post został zaktualizowany!"
     }
+  },
+  "chatPage": {
+    "messages": "Wiadomości",
+    "inputText": "Napisz wiadomość…",
+    "noChats": "Nie masz jeszcze żadnych czatów prywatnych",
+    "selectChat": "Wybierz czat, aby wysłać wiadomość",
+    "submit": "Wiślij"
   }
 }

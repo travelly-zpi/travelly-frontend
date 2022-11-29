@@ -254,5 +254,12 @@
       "success": "Your post has been created",
       "successEdit": "Your post has been updated"
     }
+  },
+  "chatPage": {
+    "messages": "Messages",
+    "inputText": "Write your message...",
+    "noChats": "You dont have any private chats yet",
+    "selectChat": "Select a chat to start messaging",
+    "submit": "Submit"
   }
 }
