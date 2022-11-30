@@ -20,13 +20,10 @@ $border: 1px solid #EFEFEF;
     z-index: 1;
 }
 
-.ant-layout-content {
-    padding-top: 0;
-}
-
 .chat-page {
     @include d-flex(column, center, center);
     padding: 0 50px;
+    margin-top: -25px;
 }
 
 .chat-header {

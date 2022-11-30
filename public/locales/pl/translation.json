@@ -260,6 +260,7 @@
     "inputText": "Napisz wiadomość…",
     "noChats": "Nie masz jeszcze żadnych czatów prywatnych",
     "selectChat": "Wybierz czat, aby wysłać wiadomość",
-    "submit": "Wiślij"
+    "submit": "Wiślij",
+    "msgReceived": "Otrzymano nową wiadomość"
   }
 }

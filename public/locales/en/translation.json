@@ -260,6 +260,7 @@
     "inputText": "Write your message...",
     "noChats": "You dont have any private chats yet",
     "selectChat": "Select a chat to start messaging",
-    "submit": "Submit"
+    "submit": "Submit",
+    "msgReceived": "Received a new message"
   }
 }
