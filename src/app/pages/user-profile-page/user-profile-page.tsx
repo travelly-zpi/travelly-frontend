@@ -12,6 +12,7 @@ import moment from "moment";
 import { HomeFilled, UserOutlined } from "@ant-design/icons";
 import UserPosts from "../../components/user-posts/user-posts";
 import { decodeUser } from "../../utils/user-utils";
+import { reject } from "lodash";
 
 const { Text, Title } = Typography;
 const { CheckableTag } = Tag;
@@ -63,6 +64,20 @@ const UserProfilePage = () => {
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [isMyProfile, user]);
+
+  const contactWithOwner = () => {
+    const params: any = {
+      sender: loggedInUser?.uuid,
+      recipient: user?.uuid,
+    };
+    axios
+      .get("/chat", { params })
+      .then(({ data }) => {
+        sessionStorage.setItem("chatContact", data);
+        navigate("/messages");
+      })
+      .catch((err) => reject(err));
+  };
 
   if (!user) {
     return null;
@@ -147,7 +162,7 @@ const UserProfilePage = () => {
                 {t("userProfile.editPostButtonText")}
               </Button>
             ) : (
-              <Button className="button" type="primary" onClick={() => {}}>
+              <Button className="button" type="primary" onClick={contactWithOwner}>
                 {t("userProfile.contactButtonText")}
               </Button>
             )}

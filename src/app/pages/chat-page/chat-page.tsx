@@ -1,7 +1,7 @@
 import "./chat-page.scss";
 
 import React from "react";
-import {  Avatar, Button, Col, Form, Input, message, Row } from "antd";
+import { Avatar, Button, Col, Form, Input, message, Row } from "antd";
 import { useContext, useEffect, useState } from "react";
 import { useTranslation } from "react-i18next";
 import moment from "moment";
@@ -12,7 +12,7 @@ import axios from "axios";
 import { MessageOutlined, SendOutlined, UserOutlined } from "@ant-design/icons";
 import { ChatDtoInterface } from "../../interfaces/chat-dto.interface";
 import { isEmpty, reject } from "lodash";
-
+import { Link } from "react-router-dom";
 
 var stompClient: any = null;
 
@@ -137,24 +137,27 @@ const ChatPage = () => {
         })
         .catch((err) => reject(err));
     } else {
-      message.info("Received a new message from " + notification.senderId);
+      message.info(t("chatPage.msgReceived"));
     }
   };
 
   const sendMessage = (msg: string) => {
-    const recipient =
-      selectedChat?.userUuid === currentUser?.uuid
-        ? selectedChat?.recipientUuid
-        : selectedChat?.userUuid;
-    if (msg.trim() !== "") {
-      const message = {
-        chatId: selectedChat?.uuid,
-        senderId: currentUser?.uuid,
-        recipientId: recipient,
-        content: msg,
-        timestamp: moment().format("YYYY-MM-DD"),
-      };
-      stompClient.send("/app/chat", {}, JSON.stringify(message));
+    if (selectedChat) {
+      const recipient =
+        selectedChat.userUuid === currentUser?.uuid
+          ? selectedChat.recipientUuid
+          : selectedChat.userUuid;
+      if (msg.trim() !== "") {
+        const message = {
+          chatId: selectedChat.uuid,
+          senderId: currentUser?.uuid,
+          recipientId: recipient,
+          content: msg,
+          timestamp: moment().format("YYYY-MM-DD"),
+        };
+        stompClient.send("/app/chat", {}, JSON.stringify(message));
+        onChatOpen(selectedChat);
+      }
     }
   };
 
@@ -189,7 +192,7 @@ const ChatPage = () => {
               >
                 <div>
                   {avatarComponent(chat, 60)}
-                  <p className="recipient-name">{chat.recipientName}</p>
+                  <Link to={"/user/" + chat.recipientUuid}><p className="recipient-name">{chat.recipientName}</p></Link>
                 </div>
                 {chat.newMessages > 0 && (
                   <MessageOutlined className="msg-icon"></MessageOutlined>
@@ -227,7 +230,6 @@ const ChatPage = () => {
                     onFinish={() => {
                       sendMessage(text);
                       setText("");
-                      onChatOpen(selectedChat);
                     }}
                   >
                     <Form.Item>
