@@ -7,10 +7,30 @@
     padding-bottom: 35px;
     border-bottom: 1px solid #d9d9d9;
 
-    .post-title {
+    .post-top-header {
       width: 100%;
       display: flex;
       justify-content: space-between;
+
+      .post-title {
+        display: flex;
+        align-items: center;
+        gap: 10px;
+
+        svg {
+          height: 32px;
+          width: 32px;
+          cursor: pointer;
+        }
+
+        svg:hover {
+          fill: #ff812c;
+        }
+
+        h2 {
+          margin: 0;
+        }
+      }
 
       .switch {
         display: flex;
