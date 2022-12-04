@@ -152,7 +152,7 @@
     "active": "Aktywny",
     "inactive": "Nieaktywny",
     "noPostsMineInactive": "Nie masz jeszcze nieaktywnych postów.",
-    "noPostsMineActive": "Nie masz jeszcze żadnych postów, utwórz jeden!",
+    "noPostsMineActive": "Nie masz jeszcze aktywnych postów, utwórz jeden!",
     "noPosts": " jeszcze nie ma postów",
     "messages": {
       "deletePostConfirm": "Czy na pewno chcesz usunąć ten post?",
