@@ -20,6 +20,7 @@ import { PostInterface } from "../../interfaces/post.interface";
 import {
   CalendarOutlined,
   EnvironmentOutlined,
+  LeftOutlined,
   UserOutlined,
 } from "@ant-design/icons";
 import { useTranslation } from "react-i18next";
@@ -153,8 +154,12 @@ const PostPage = () => {
   return (
     <div className="post-page">
       <div className="post-header">
-        <div className="post-title">
-          <Title level={2}>{post.title}</Title>
+        <div className="post-top-header">
+          <div className="post-title">
+            <LeftOutlined onClick={() => navigate(-1)} />
+            <Title level={2}>{post.title}</Title>
+          </div>
+
           {isMyProfile && (
             <div className="switch">
               <Text>
