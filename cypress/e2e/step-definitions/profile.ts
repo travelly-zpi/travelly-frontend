@@ -5,11 +5,11 @@ import {Given, When, Then} from "@badeball/cypress-cucumber-preprocessor";
 const myProfilePage = require("../../pages/my-profile-page");
 
 Given("I navigate to Travelly web page and log in", () => {
-  cy.loginTestUser("iwonaszaszlyk@mai.com", "szaszlyk123!");
+  cy.loginTestUser("iwonaszaszlyk@gmail.com", "szaszlyk123!");
 });
 
 Given("I navigate to Travelly web page and log in with proper credentials", () => {
-  cy.loginTestUser("katewilinton@gmai.com", "Kate123!");
+  cy.loginTestUser("katewilinton@gmail.com", "Kate123!");
 });
 
 When("I see modal with empty fields", () => {
@@ -84,7 +84,7 @@ When("I save new password", () => {
 
 Then("I can log in with a new password {string}", (password:string) => {
   myProfilePage.clickLogout()
-  cy.loginTestUser("iwonaszaszlyk@mai.com", password)
+  cy.loginTestUser("iwonaszaszlyk@gmai.com", password)
 });
 
 When("I click create new post", () => {

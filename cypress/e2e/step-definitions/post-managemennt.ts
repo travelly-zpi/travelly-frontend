@@ -1,10 +1,9 @@
 /// <reference types="Cypress" />
 
 import {Given, When, Then} from "@badeball/cypress-cucumber-preprocessor";
-import { should } from "chai";
 
 const postForm = require("../../pages/post-form");
-let counter = 0
+const boardPage = require("../../pages/board-page");
 
 When("I fill all necessary fields for type of post - Accomodation", () => {
   postForm.typeTitle("Stay in Wroclaw", 0)
@@ -133,4 +132,51 @@ When("I click edit button on post page", () => {
 When("I see success message and I am on my updated post page", () => {
   postForm.elements.message().should('be.visible')
   cy.url().should('include', '/post/4e2fcf08-f19f-447b-bf32-4bf44175bd90')
+});
+
+When("I move to the board page", () => {
+  cy.contains('Board').click()
+});
+
+When("I provide key word in search and submit", () => {
+  boardPage.typeInSearch("Funny")
+  boardPage.submitSearch()
+});
+
+Then("I get results of searching", () => {
+  boardPage.elements.postsOnBoard().should('have.length', 2)
+});
+
+When("I move to {string} tab", (category) => {
+  cy.intercept('/post?page=1&size=9&active=true&notAuthor=e4e17e33-4a81-42aa-9d53-4418001bec72').as('allPosts')
+  cy.wait('@allPosts')
+  boardPage.moveToNeededCategory(category)
+});
+
+When("I provide location {string}", (location) => {
+  boardPage.selectLocation(location)
+});
+
+When("I provid dates", () => {
+  boardPage.selectDateRange()
+});
+
+When("I provide number of people", () => {
+  boardPage.typeNumberOfPeople(3)
+});
+
+Then("I get result of filtering", () => {
+  boardPage.elements.postsOnBoard().eq(1).should('have.length', 1)
+});
+
+When("I provide location from {string}", (from) => {
+  boardPage.selectLocationFrom(from)
+});
+
+When("I provide location to {string}", (to) => {
+  boardPage.selectLocationTo(to)
+});
+
+When("I select date", () => {
+  boardPage.selectDate()
 });

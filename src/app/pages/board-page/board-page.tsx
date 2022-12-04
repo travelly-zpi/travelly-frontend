@@ -180,6 +180,7 @@ const BoardPage = () => {
             <label>{t("boardPage.from")}</label>
             <Select
               showSearch
+              data-testid="location-from"
               options={locationsFrom}
               onSearch={(val: string) => onLocationSearch(val)}
               placeholder={t("boardPage.fromPrompt")}
@@ -198,6 +199,7 @@ const BoardPage = () => {
             <label>To : </label>
             <Select
               showSearch
+              data-testid="location-to"
               options={locationsTo}
               onSearch={(val: string) => onLocationSearch(val, false)}
               placeholder={t("boardPage.toPrompt")}
@@ -226,11 +228,13 @@ const BoardPage = () => {
           }}
           allowClear
           notFoundContent={t("boardPage.locationNoData")}
+          data-testid="location-select"
         ></Select>
       )}
 
       {filters.type === "accommodation" && (
         <RangePicker
+          data-testid="date-picker"
           name="activeDateRange"
           placeholder={[t("boardPage.startDate"), t("boardPage.endDate")]}
           onChange={(dates: any, dateStrings: Array<string>) => {
@@ -245,6 +249,7 @@ const BoardPage = () => {
       {["carpooling", "trip"].includes(filters.type) && (
         <DatePicker
           name="date"
+          data-testid="date-select"
           placeholder={t("boardPage.datePrompt")}
           onChange={(date: any, dateString: string) => {
             setFilters({ ...filters, date: dateString });
@@ -310,6 +315,7 @@ const BoardPage = () => {
         onSearch={(query: string) => loadPosts(query)}
         className="board-search"
         size="large"
+        data-testid="serch-input"
       />
       <Tabs
         items={tabs}

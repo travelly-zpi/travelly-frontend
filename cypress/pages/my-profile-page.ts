@@ -33,7 +33,7 @@ class MyProfilePage {
   }
 
   checkEmailInput() {
-    this.elements.emailInput().should('have.value', 'iwonaszaszlyk@mai.com')
+    this.elements.emailInput().should('have.value', 'iwonaszaszlyk@gmail.com')
     this.elements.emailInput().should('be.disabled')
   }
 
